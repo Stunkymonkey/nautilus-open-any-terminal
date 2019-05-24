@@ -4,6 +4,13 @@ is an extension for nautilus, which adds an context-entry for opening other edit
 
 ## Installing
 
+### From the AUR (Arch Linux)
+
+```bash
+yay -S nautilus-open-any-terminal
+```
+
+
 ### From PYPI
 
 User install:
