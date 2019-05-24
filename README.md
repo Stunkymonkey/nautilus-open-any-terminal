@@ -9,13 +9,13 @@ is an extension for nautilus, which adds an context-entry for opening other edit
 User install:
 
 ```bash
-pip install --user nautilus_open_any_terminal
+pip install --user nautilus-open-any-terminal
 ```
 
 System-wide install:
 
 ```bash
-sudo pip install nautilus_open_any_terminal
+sudo pip install nautilus-open-any-terminal
 ```
 
 Then kill Nautilus to allow it to load the new extension:

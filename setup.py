@@ -47,7 +47,7 @@ setup(
     name="nautilus_open_any_terminal",
     version=VERSION,
     description="new variable terminal entry in contextmenu",
-    url="https://github.com/Stunkymonkey/nautilus_open_any_terminal",
+    url="https://github.com/Stunkymonkey/nautilus-open-any-terminal",
     license="GPL-3.0",
 
     long_description=long_description,
