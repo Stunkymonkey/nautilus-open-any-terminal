@@ -1,0 +1,4 @@
+include README.md
+include README.rst
+include nautilus_open_any_terminal/schemas/com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml
+include nautilus_open_any_terminal/schemas/gschemas.compiled

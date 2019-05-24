@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="nautilus-open-any-terminal">
+  <schema id="com.github.stunkymonkey.nautilus-open-any-terminal" path="/com/github/stunkymonkey/nautilus-open-any-terminal/">
+    <key name="keybindings" type="s">
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;t'</default>
+      <summary>Keyboard shortcut used in Nautilus for Open Here extension</summary>
+      <description></description>
+    </key>
+    <key name="terminal" type="s">
+      <default>'gnome-terminal'</default>
+      <summary>Terminal used in Nautilus for Open Here extension</summary>
+      <description></description>
+    </key>
+  </schema>
+</schemalist>

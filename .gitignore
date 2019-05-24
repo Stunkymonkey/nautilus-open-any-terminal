@@ -1,0 +1,11 @@
+__env__
+*.bak
+*.pyc
+dist
+build
+*.rst
+*.egg-info
+nautilus_open_any_terminal/schemas/gschemas.compiled
+
+.pybuild
+
