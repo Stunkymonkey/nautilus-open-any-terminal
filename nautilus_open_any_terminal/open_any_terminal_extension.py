@@ -3,7 +3,7 @@
 # Shortcuts Provider was inspired by tilix and captain nemo extension
 
 from gettext import gettext, textdomain
-from subprocess import PIPE, call
+from subprocess import call
 try:
     from urllib import unquote
     from urlparse import urlparse
@@ -18,10 +18,14 @@ from gi.repository import Gio, GObject, Gtk, Nautilus
 VERSION = 1.0
 
 TERM_PARAMS = {"alacritty": "--working-directory ",
+               "cool-retro-term": "--workdir ",
                "gnome-terminal": "",
                "kitty": "--directory ",
                "konsole": "--workdir ",
+               "mlterm": "--working-directory=",
+               "qterminal": "--workdir ",
                "terminator": "--working-directory=",
+               "terminology": "--current-directory ",
                "tilix": "-x ",
                "xfce4-terminal": "--working-directory="}
 
