@@ -9,7 +9,6 @@ from nautilus_open_any_terminal import VERSION
 
 
 class install(_install):
-
     def run(self):
         _install.run(self)
 
