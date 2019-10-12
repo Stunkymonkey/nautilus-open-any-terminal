@@ -21,6 +21,7 @@ TERM_PARAMS = {"alacritty": "--working-directory ",
                "gnome-terminal": "",
                "kitty": "--directory ",
                "konsole": "--workdir ",
+               "terminator": "--working-directory=",
                "tilix": "-x ",
                "xfce4-terminal": "--working-directory="}
 
