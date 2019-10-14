@@ -24,6 +24,7 @@ TERM_PARAMS = {"alacritty": "--working-directory ",
                "konsole": "--workdir ",
                "mlterm": "--working-directory=",
                "qterminal": "--workdir ",
+               "terminator": "--working-directory=",
                "terminology": "--current-directory ",
                "tilix": "-x ",
                "xfce4-terminal": "--working-directory="}
