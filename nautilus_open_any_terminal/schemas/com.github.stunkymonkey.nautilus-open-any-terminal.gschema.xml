@@ -11,5 +11,10 @@
       <summary>Terminal used in Nautilus for Open Here extension</summary>
       <description></description>
     </key>
+    <key name="new-tab" type="b">
+      <default>false</default>
+      <summary>Whether the new terminal should be oppened in a new tab or in a new window</summary>
+      <description></description>
+    </key>
   </schema>
 </schemalist>
