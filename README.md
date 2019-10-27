@@ -7,9 +7,14 @@ is an extension for nautilus, which adds an context-entry for opening other edit
 Right now the plugin is limited to only a few terminal-emulators. If one is missing please open an issue.
 
 - `alacritty`
+- `cool-retro-term`
 - `gnome-terminal`
 - `kitty`
 - `konsole`
+- `mlterm`
+- `qterminal`
+- `terminator`
+- `terminology`
 - `tilix`
 - `xfce4-terminal`
 

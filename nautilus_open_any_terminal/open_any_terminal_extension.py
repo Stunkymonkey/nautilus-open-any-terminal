@@ -1,9 +1,8 @@
 # -*- coding: UTF-8 -*-
-# Example modified for general terminals
-# Shortcuts Provider was inspired by tilix and captain nemo extension
+# based on: https://github.com/gnunn1/tilix/blob/master/data/nautilus/open-tilix.py
 
 from gettext import gettext, textdomain
-from subprocess import PIPE, call
+from subprocess import call
 try:
     from urllib import unquote
     from urlparse import urlparse
@@ -15,20 +14,39 @@ require_version('Gtk', '3.0')
 require_version('Nautilus', '3.0')
 from gi.repository import Gio, GObject, Gtk, Nautilus
 
-VERSION = 1.0
+VERSION = "0.2.1"
 
 TERM_PARAMS = {"alacritty": "--working-directory ",
+               "cool-retro-term": "--workdir ",
                "gnome-terminal": "",
                "kitty": "--directory ",
                "konsole": "--workdir ",
+               "mlterm": "--working-directory=",
+               "qterminal": "--workdir ",
+               "terminator": "--working-directory=",
+               "terminology": "--current-directory ",
                "tilix": "-x ",
                "xfce4-terminal": "--working-directory="}
 
+NEW_TAB_PARAMS = {"alacritty": None,
+                  "cool-retro-term": None,
+                  "gnome-terminal": "--tab",
+                  "kitty": None,
+                  "konsole": "--new-tab",
+                  "mlterm": None,
+                  "qterminal": None,
+                  "terminator": "--new-tab",
+                  "terminology": None,
+                  "tilix": None,
+                  "xfce4-terminal": "--tab"}
+
 global terminal
 terminal = "gnome-terminal"
+new_tab = False
 GSETTINGS_PATH = "com.github.stunkymonkey.nautilus-open-any-terminal"
 GSETTINGS_KEYBINDINGS = "keybindings"
 GSETTINGS_TERMINAL = "terminal"
+GSETTINGS_NEW_TAB = "new-tab"
 REMOTE_URI_SCHEME = ["ftp", "sftp"]
 textdomain("nautilus-open-any-terminal")
 _ = gettext
@@ -41,20 +59,33 @@ def _checkdecode(s):
 
 def open_terminal_in_file(filename):
     if filename:
-        # print('{0} {1} "{2}" &'.format(terminal, TERM_PARAMS[terminal], filename))
-        call('{0} {1}"{2}" &'.format(terminal, TERM_PARAMS[terminal], filename), shell=True)
+        # print('{0} {1} {2} "{3}" &'.format(terminal, NEW_TAB_PARAMS[terminal], TERM_PARAMS[terminal], filename))
+        if new_tab:
+            call('{0} {1} {2}"{3}" &'.format(terminal, NEW_TAB_PARAMS[
+                 terminal], TERM_PARAMS[terminal], filename), shell=True)
+        else:
+            call('{0} {1}"{2}" &'.format(terminal, TERM_PARAMS[terminal], filename), shell=True)
     else:
         call("{0} &".format(terminal), shell=True)
 
 
-def set_terminal(*args):
+def set_terminal_args(*args):
+    global new_tab
     value = _gsettings.get_string(GSETTINGS_TERMINAL)
+    newer_tab = _gsettings.get_boolean(GSETTINGS_NEW_TAB)
     if value in TERM_PARAMS:
         global terminal
         terminal = value
-        print('open-any-terminal: set terminal to "{}"'.format(terminal))
+        if newer_tab and NEW_TAB_PARAMS[terminal] is not None:
+            new_tab = newer_tab
+            new_tab_text = "opening in a new tab"
+        else:
+            new_tab_text = "opening a new window"
+        if newer_tab and NEW_TAB_PARAMS[terminal] is None:
+            new_tab_text += " (terminal does not support tabs)"
+        print('open-any-terminal: terminal is set to "{0}" {1}'.format(terminal, new_tab_text))
     else:
-        print('open-any-terminal: unknown terminal "{}"'.format(value))
+        print('open-any-terminal: unknown terminal "{0}"'.format(value))
 
 
 class OpenAnyTerminalShortcutProvider(GObject.GObject, Nautilus.LocationWidgetProvider):
@@ -165,7 +196,9 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
 source = Gio.SettingsSchemaSource.get_default()
 if source.lookup(GSETTINGS_PATH, True):
     _gsettings = Gio.Settings.new(GSETTINGS_PATH)
-    _gsettings.connect("changed", set_terminal)
+    _gsettings.connect("changed", set_terminal_args)
     value = _gsettings.get_string(GSETTINGS_TERMINAL)
     if value in TERM_PARAMS:
         terminal = value
+    if _gsettings.get_boolean(GSETTINGS_NEW_TAB):
+        new_tab = bool(NEW_TAB_PARAMS[value] is not None)
