@@ -25,7 +25,7 @@ TERM_PARAMS = {"alacritty": "--working-directory ",
                "qterminal": "--workdir ",
                "terminator": "--working-directory=",
                "terminology": "--current-directory ",
-               "tilix": "-x ",
+               "tilix": "-w ",
                "xfce4-terminal": "--working-directory="}
 
 NEW_TAB_PARAMS = {"alacritty": None,
