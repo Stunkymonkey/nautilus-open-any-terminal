@@ -8,6 +8,7 @@ Right now the plugin is limited to only a few terminal-emulators. If one is miss
 
 - `alacritty`
 - `cool-retro-term`
+- `deepin-terminal`
 - `gnome-terminal`
 - `kitty`
 - `konsole`
