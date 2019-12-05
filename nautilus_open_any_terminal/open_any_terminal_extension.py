@@ -27,6 +27,7 @@ TERM_PARAMS = {"alacritty": "--working-directory ",
                "terminator": "--working-directory=",
                "terminology": "--current-directory ",
                "tilix": "-w ",
+               "urxvt": "-cd ",
                "xfce4-terminal": "--working-directory="}
 
 NEW_TAB_PARAMS = {"alacritty": None,
@@ -40,6 +41,7 @@ NEW_TAB_PARAMS = {"alacritty": None,
                   "terminator": "--new-tab",
                   "terminology": None,
                   "tilix": None,
+                  "urxvt": None,
                   "xfce4-terminal": "--tab"}
 
 global terminal

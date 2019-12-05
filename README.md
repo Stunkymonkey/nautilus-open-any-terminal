@@ -17,6 +17,7 @@ Right now the plugin is limited to only a few terminal-emulators. If one is miss
 - `terminator`
 - `terminology`
 - `tilix`
+- `urxvt`
 - `xfce4-terminal`
 
 ## Installing
