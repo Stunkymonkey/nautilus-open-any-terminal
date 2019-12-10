@@ -14,7 +14,7 @@ require_version('Gtk', '3.0')
 require_version('Nautilus', '3.0')
 from gi.repository import Gio, GObject, Gtk, Nautilus
 
-VERSION = "0.2.2"
+VERSION = "0.2.3"
 
 TERM_PARAMS = {"alacritty": "--working-directory ",
                "cool-retro-term": "--workdir ",
