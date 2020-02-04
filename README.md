@@ -16,6 +16,7 @@ Right now the plugin is limited to only a few terminal-emulators. If one is miss
 - `qterminal`
 - `terminator`
 - `terminology`
+- `termite`
 - `tilix`
 - `urxvt`
 - `xfce4-terminal`
