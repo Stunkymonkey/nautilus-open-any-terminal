@@ -1,5 +1,7 @@
 # nautilus-open-any-terminal
 
+[![Downloads](https://pepy.tech/badge/nautilus-open-any-terminal)](https://pepy.tech/project/nautilus-open-any-terminal)
+
 is an extension for nautilus, which adds an context-entry for opening other editor then `gnome-terminal`.
 
 ## Supported Terminal-Emulators
