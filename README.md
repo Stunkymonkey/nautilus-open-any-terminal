@@ -44,6 +44,8 @@ System-wide install:
 sudo pip install nautilus-open-any-terminal
 ```
 
+### restart nautilus
+
 Then kill Nautilus to allow it to load the new extension:
 
 ```bash
@@ -68,5 +70,6 @@ sudo tools/update-extension-system.sh install  # for a system-wide install
 ```bash
 gsettings set com.github.stunkymonkey.nautilus-open-any-terminal terminal alacritty
 gsettings set com.github.stunkymonkey.nautilus-open-any-terminal keybindings '<Ctrl><Alt>t'
+gsettings set com.github.stunkymonkey.nautilus-open-any-terminal new-tab true
 ```
 
