@@ -14,6 +14,7 @@ Right now the plugin is limited to only a few terminal-emulators. If one is miss
 - `gnome-terminal`
 - `kitty`
 - `konsole`
+- `mate-terminal`
 - `mlterm`
 - `qterminal`
 - `terminator`
