@@ -35,6 +35,8 @@ yay -S nautilus-open-any-terminal
 
 ### From PYPI
 
+Dependency to install before: `nautilus-python` (`python-nautilus` package on Debian / Ubuntu)
+
 User install:
 
 ```bash
@@ -44,7 +46,7 @@ pip install --user nautilus-open-any-terminal
 System-wide install:
 
 ```bash
-sudo pip install nautilus-open-any-terminal
+pip install nautilus-open-any-terminal
 ```
 
 ### restart nautilus
