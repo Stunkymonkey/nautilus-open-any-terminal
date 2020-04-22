@@ -30,8 +30,7 @@ class install(_install):
         self.mkpath(dst_dir)
         dst_file = os.path.join(dst_dir, os.path.basename(src_file))
         self.copy_file(src_file, dst_file)
-        print("== Done! Run 'glib-compile-schemas /usr/share/glib-2.0/schemas/' "
-              "for a global installation to compile the schema.")
+        print("== Done! Run 'glib-compile-schemas " + dst_dir + "/' to compile the schema.")
 
 
 long_description = ""
