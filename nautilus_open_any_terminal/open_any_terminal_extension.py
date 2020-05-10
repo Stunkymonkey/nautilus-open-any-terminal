@@ -66,6 +66,8 @@ def _checkdecode(s):
 def open_terminal_in_file(filename):
     if filename:
         # print('{0} {1} {2} "{3}" &'.format(terminal, NEW_TAB_PARAMS[terminal], TERM_PARAMS[terminal], filename))
+        # escape filename quotations
+        filename = filename.replace('"', '\\"')
         if new_tab:
             call('{0} {1} {2}"{3}" &'.format(terminal, NEW_TAB_PARAMS[
                  terminal], TERM_PARAMS[terminal], filename), shell=True)
