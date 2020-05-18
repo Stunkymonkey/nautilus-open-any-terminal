@@ -1,6 +1,6 @@
 # nautilus-open-any-terminal
 
-[![Downloads](https://pepy.tech/badge/nautilus-open-any-terminal)](https://pepy.tech/project/nautilus-open-any-terminal)
+[![Downloads](https://pepy.tech/badge/nautilus-open-any-terminal)](https://pepy.tech/project/nautilus-open-any-terminal)[![Packaging status](https://repology.org/badge/tiny-repos/nautilus-open-any-terminal.svg)](https://repology.org/project/nautilus-open-any-terminal/versions)
 
 is an extension for nautilus, which adds an context-entry for opening other editor then `gnome-terminal`.
 
@@ -26,7 +26,7 @@ Right now the plugin is limited to only a few terminal-emulators. If one is miss
 
 ## Installing
 
-### From the AUR (Arch Linux)
+### From the AUR (Arch Linux) [![AUR  package](https://repology.org/badge/version-for-repo/aur/nautilus-open-any-terminal.svg)](https://repology.org/project/nautilus-open-any-terminal/versions)
 
 ```bash
 yay -S nautilus-open-any-terminal
