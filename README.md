@@ -17,6 +17,7 @@ Right now the plugin is limited to only a few terminal-emulators. If one is miss
 - `mate-terminal`
 - `mlterm`
 - `qterminal`
+- `st` [properly patched](https://st.suckless.org/patches/workingdir/)
 - `terminator`
 - `terminology`
 - `termite`
@@ -31,7 +32,6 @@ Right now the plugin is limited to only a few terminal-emulators. If one is miss
 ```bash
 yay -S nautilus-open-any-terminal
 ```
-
 
 ### From PYPI
 
@@ -77,4 +77,3 @@ gsettings set com.github.stunkymonkey.nautilus-open-any-terminal terminal alacri
 gsettings set com.github.stunkymonkey.nautilus-open-any-terminal keybindings '<Ctrl><Alt>t'
 gsettings set com.github.stunkymonkey.nautilus-open-any-terminal new-tab true
 ```
-
