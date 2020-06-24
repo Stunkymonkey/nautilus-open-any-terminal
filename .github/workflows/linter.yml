@@ -1,0 +1,13 @@
+name: Build
+on: [push, pull_request]
+jobs:
+  build:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Lint Code Base
+      uses: docker://github/super-linter:v2.2.0
+      env:
+        VALIDATE_ALL_CODEBASE: false
