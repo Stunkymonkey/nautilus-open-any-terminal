@@ -6,12 +6,13 @@ is an extension for nautilus, which adds an context-entry for opening other edit
 
 ## Supported Terminal-Emulators
 
-Right now the plugin is limited to only a few terminal-emulators. If one is missing please open an issue.
+Right now the plugin is limited to these terminal-emulators. If one is missing please open an issue.
 
 - `alacritty`
 - `cool-retro-term`
 - `deepin-terminal`
 - `gnome-terminal`
+- `hyper`
 - `kitty`
 - `konsole`
 - `mate-terminal`
