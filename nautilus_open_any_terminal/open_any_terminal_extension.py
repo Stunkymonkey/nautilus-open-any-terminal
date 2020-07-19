@@ -30,7 +30,8 @@ TERM_PARAMS = {"alacritty": "--working-directory ",
                "termite": "-d ",
                "tilix": "-w ",
                "urxvt": "-cd ",
-               "xfce4-terminal": "--working-directory="}
+               "xfce4-terminal": "--working-directory=",
+               "guake": "guake --show --new-tab="}
 
 NEW_TAB_PARAMS = {"alacritty": None,
                   "cool-retro-term": None,
@@ -48,7 +49,8 @@ NEW_TAB_PARAMS = {"alacritty": None,
                   "termite": None,
                   "tilix": None,
                   "urxvt": None,
-                  "xfce4-terminal": "--tab"}
+                  "xfce4-terminal": "--tab",
+                  "guake": None}
 
 global terminal
 terminal = "gnome-terminal"
