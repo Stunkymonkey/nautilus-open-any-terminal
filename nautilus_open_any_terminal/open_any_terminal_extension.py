@@ -18,6 +18,7 @@ TERM_PARAMS = {"alacritty": "--working-directory ",
                "cool-retro-term": "--workdir ",
                "deepin-terminal": "--work-directory ",
                "gnome-terminal": "",
+               "guake": "guake --show --new-tab=",
                "hyper": "",
                "kitty": "--directory ",
                "konsole": "--workdir ",
@@ -30,12 +31,12 @@ TERM_PARAMS = {"alacritty": "--working-directory ",
                "termite": "-d ",
                "tilix": "-w ",
                "urxvt": "-cd ",
-               "xfce4-terminal": "--working-directory=",
-               "guake": "guake --show --new-tab="}
+               "xfce4-terminal": "--working-directory="}
 
 NEW_TAB_PARAMS = {"alacritty": None,
                   "cool-retro-term": None,
                   "gnome-terminal": "--tab",
+                  "guake": None,
                   "hyper": None,
                   "deepin-terminal": None,
                   "kitty": None,
@@ -49,8 +50,7 @@ NEW_TAB_PARAMS = {"alacritty": None,
                   "termite": None,
                   "tilix": None,
                   "urxvt": None,
-                  "xfce4-terminal": "--tab",
-                  "guake": None}
+                  "xfce4-terminal": "--tab"}
 
 global terminal
 terminal = "gnome-terminal"

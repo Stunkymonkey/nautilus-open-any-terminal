@@ -12,6 +12,7 @@ Right now the plugin is limited to these terminal-emulators. If one is missing p
 - `cool-retro-term`
 - `deepin-terminal`
 - `gnome-terminal`
+- `guake`
 - `hyper`
 - `kitty`
 - `konsole`
