@@ -1,4 +1,4 @@
-name: Lint
+name: Lint other files
 on: [push, pull_request]
 jobs:
   build:
@@ -9,3 +9,5 @@ jobs:
       uses: actions/checkout@v2
     - name: Lint Code Base
       uses: docker://github/super-linter:v3
+      env:
+        VALIDATE_PYTHON: false
