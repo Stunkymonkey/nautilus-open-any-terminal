@@ -14,11 +14,12 @@ TARGDIR=/usr/share/nautilus-python/extensions
 SCHEMASDIR=/usr/local/share/glib-2.0/schemas
 SCHEMAFILE=com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml
 
-bn=`basename "$SRC"`
+bn=$(basename "$SRC")
 
 case "$1" in
     install)
-        mkdir -v -p -m 0755 "$TARGDIR"
+        mkdir -v -p 0755 "$TARGDIR"
+        chmod 0755 "$TARGDIR"
         cp -v "$SRC" "$TARGDIR/$bn"
         chmod -c 0644 "$TARGDIR/$bn"
         glib-compile-schemas $SCHEMASDIR

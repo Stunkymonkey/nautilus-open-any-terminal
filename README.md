@@ -70,7 +70,7 @@ sudo tools/update-extension-system.sh install  # for a system-wide install
 
 ### via dconf-editor
 
-![](dconf.png)
+![dconf-editor](dconf.png)
 
 ### via commandline
 
