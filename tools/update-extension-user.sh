@@ -9,7 +9,7 @@ SCHEMASDIR=~/.local/share/glib-2.0/schemas/
 SCHEMAFILE=com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml
 
 
-bn=`basename "$SRC"`
+bn=$(basename "$SRC")
 
 case "$1" in
     install)
