@@ -11,7 +11,7 @@
 SRC=nautilus_open_any_terminal/open_any_terminal_extension.py
 TARGDIR=/usr/share/nautilus-python/extensions
 
-SCHEMASDIR=/usr/local/share/glib-2.0/schemas
+SCHEMASDIR=/usr/share/glib-2.0/schemas
 SCHEMAFILE=com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml
 
 bn=$(basename "$SRC")
