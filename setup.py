@@ -9,7 +9,6 @@ from nautilus_open_any_terminal import VERSION
 
 
 class install(_install):
-
     def run(self):
         _install.run(self)
 
@@ -30,17 +29,21 @@ class install(_install):
         self.mkpath(dst_dir)
         dst_file = os.path.join(dst_dir, os.path.basename(src_file))
         self.copy_file(src_file, dst_file)
-        print("== Done! Run 'glib-compile-schemas " + dst_dir + "/' to compile the schema.")
+        print(
+            "== Done! Run 'glib-compile-schemas "
+            + dst_dir
+            + "/' to compile the schema."
+        )
 
 
 long_description = ""
-long_description_content_type = 'text/x-rst'
+long_description_content_type = "text/x-rst"
 if os.path.isfile("README.rst"):
     long_description = open("README.rst", "r").read()
-    long_description_content_type = 'text/x-rst'
+    long_description_content_type = "text/x-rst"
 elif os.path.isfile("README.md"):
     long_description = open("README.md", "r").read()
-    long_description_content_type = 'text/markdown'
+    long_description_content_type = "text/markdown"
 
 
 setup(
@@ -49,17 +52,12 @@ setup(
     description="new variable terminal entry in contextmenu",
     url="https://github.com/Stunkymonkey/nautilus-open-any-terminal",
     license="GPL-3.0",
-
     long_description=long_description,
     long_description_content_type=long_description_content_type,
-
     author="Felix Bühler",
-
     keywords="nautilus extension terminal gnome",
     platforms=["Linux", "BSD"],
-
     packages=find_packages(),
     include_package_data=True,
-
-    cmdclass={"install": install}
+    cmdclass={"install": install},
 )
