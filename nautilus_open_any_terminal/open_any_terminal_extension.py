@@ -10,11 +10,12 @@ try:
 except ImportError:
     from urllib.parse import unquote, urlparse
 
+
 from gi import require_version
+require_version('Gtk', '3.0')
+require_version('Nautilus', '3.0')
 from gi.repository import Gio, GObject, Gtk, Nautilus
 
-require_version("Gtk", "3.0")
-require_version("Nautilus", "3.0")
 
 TERM_PARAMS = {
     "alacritty": "--working-directory ",
@@ -230,7 +231,7 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
 
 
 source = Gio.SettingsSchemaSource.get_default()
-if source.lookup(GSETTINGS_PATH, True):
+if source is not None and source.lookup(GSETTINGS_PATH, True):
     _gsettings = Gio.Settings.new(GSETTINGS_PATH)
     _gsettings.connect("changed", set_terminal_args)
     value = _gsettings.get_string(GSETTINGS_TERMINAL)
