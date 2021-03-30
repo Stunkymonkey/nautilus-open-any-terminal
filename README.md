@@ -37,7 +37,7 @@ yay -S nautilus-open-any-terminal
 
 ### From PYPI
 
-Dependency to install before: `nautilus-python` (`python-nautilus` package on Debian / Ubuntu)
+Dependency to install before: `nautilus-python` (`python-nautilus`/`python3-nautilus`(newer) package on Debian / Ubuntu or )
 
 User install:
 
