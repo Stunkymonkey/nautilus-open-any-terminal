@@ -6,16 +6,16 @@ from subprocess import call
 
 try:
     from urllib import unquote
+
     from urlparse import urlparse
 except ImportError:
     from urllib.parse import unquote, urlparse
 
-
 from gi import require_version
-require_version('Gtk', '3.0')
-require_version('Nautilus', '3.0')
-from gi.repository import Gio, GObject, Gtk, Nautilus
 
+require_version("Gtk", "3.0")
+require_version("Nautilus", "3.0")
+from gi.repository import Gio, GObject, Gtk, Nautilus  # noqa: E402
 
 TERM_PARAMS = {
     "alacritty": "--working-directory ",

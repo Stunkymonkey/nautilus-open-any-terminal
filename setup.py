@@ -2,10 +2,10 @@
 # encoding: UTF-8
 
 import os
-from setuptools import find_packages, setup
-from setuptools.command.install import install as _install
 
 from nautilus_open_any_terminal import VERSION
+from setuptools import find_packages, setup
+from setuptools.command.install import install as _install
 
 
 class install(_install):
