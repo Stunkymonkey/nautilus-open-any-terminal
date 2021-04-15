@@ -2,7 +2,7 @@
 
 [![Downloads](https://pepy.tech/badge/nautilus-open-any-terminal)](https://pepy.tech/project/nautilus-open-any-terminal)[![Packaging status](https://repology.org/badge/tiny-repos/nautilus-open-any-terminal.svg)](https://repology.org/project/nautilus-open-any-terminal/versions)
 
-is an extension for nautilus, which adds an context-entry for opening other editor then `gnome-terminal`.
+is an extension for nautilus, which adds an context-entry for opening other terminal-emulators then `gnome-terminal`.
 
 ## Supported Terminal-Emulators
 
@@ -38,7 +38,7 @@ yay -S nautilus-open-any-terminal
 
 ### From PYPI
 
-Dependency to install before: `nautilus-python` (`python-nautilus` package on Debian / Ubuntu)
+Dependency to install before: `nautilus-python` (`python-nautilus`/`python3-nautilus`(newer) package on Debian / Ubuntu or )
 
 User install:
 
