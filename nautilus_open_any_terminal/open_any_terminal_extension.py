@@ -5,7 +5,7 @@ from gettext import gettext, textdomain
 from subprocess import call
 
 try:
-    from urllib import unquote
+    from urllib import unquote  # type: ignore
 
     from urlparse import urlparse
 except ImportError:
