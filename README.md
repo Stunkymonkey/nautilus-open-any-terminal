@@ -20,6 +20,7 @@ Right now the plugin is limited to these terminal-emulators. If one is missing p
 - `mate-terminal`
 - `mlterm`
 - `qterminal`
+- `sakura`
 - `st` [properly patched](https://st.suckless.org/patches/workingdir/)
 - `terminator`
 - `terminology`

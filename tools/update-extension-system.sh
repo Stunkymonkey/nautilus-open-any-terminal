@@ -12,16 +12,18 @@ SRC=nautilus_open_any_terminal/open_any_terminal_extension.py
 TARGDIR=/usr/share/nautilus-python/extensions
 
 SCHEMASDIR=/usr/share/glib-2.0/schemas
+SCHEMASSRC=nautilus_open_any_terminal/schemas
 SCHEMAFILE=com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml
 
 bn=$(basename "$SRC")
 
 case "$1" in
     install)
-        mkdir -v -p 0755 "$TARGDIR"
+        mkdir -v -p "$TARGDIR"
         chmod 0755 "$TARGDIR"
         cp -v "$SRC" "$TARGDIR/$bn"
         chmod -c 0644 "$TARGDIR/$bn"
+        cp -v "$SCHEMASSRC/$SCHEMAFILE" "$SCHEMASDIR"
         glib-compile-schemas $SCHEMASDIR
         ;;
     uninstall)
