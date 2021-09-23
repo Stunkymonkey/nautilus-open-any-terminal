@@ -25,7 +25,7 @@ TERM_PARAMS = {
     "gnome-terminal": "",
     "guake": "guake --show --new-tab=",
     "hyper": "",
-    "kermit": "-e cd ",
+    "kermit": "-w ",
     "kitty": "--directory ",
     "konsole": "--workdir ",
     "mate-terminal": "--working-directory=",
