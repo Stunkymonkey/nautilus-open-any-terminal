@@ -11,6 +11,7 @@ Right now the plugin is limited to these terminal-emulators. If one is missing p
 - `alacritty`
 - `cool-retro-term`
 - `deepin-terminal`
+- `foot`
 - `gnome-terminal`
 - `guake`
 - `hyper`
