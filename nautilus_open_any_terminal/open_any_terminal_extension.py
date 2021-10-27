@@ -38,6 +38,7 @@ TERM_PARAMS = {
     "termite": "-d ",
     "tilix": "-w ",
     "urxvt": "-cd ",
+    "urxvtc": "-cd ",
     "wezterm": "start --cwd ",
     "xfce4-terminal": "--working-directory=",
 }
@@ -63,6 +64,7 @@ NEW_TAB_PARAMS = {
     "termite": None,
     "tilix": None,
     "urxvt": None,
+    "urxvtc": None,
     "wezterm": None,
     "xfce4-terminal": "--tab",
 }

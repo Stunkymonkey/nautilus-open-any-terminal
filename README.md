@@ -28,6 +28,7 @@ Right now the plugin is limited to these terminal emulators. If one is missing p
 - `termite`
 - `tilix`
 - `urxvt`
+- `urxvtc`
 - `wezterm`
 - `xfce4-terminal`
 
