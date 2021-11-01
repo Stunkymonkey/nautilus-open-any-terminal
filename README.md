@@ -73,7 +73,13 @@ sudo tools/update-extension-system.sh install  # for a system-wide install
 
 ## Settings
 
-To configure the plugin’s behaviour you first need to run:
+To configure the plugin’s behaviour make sure to run (system-wide):
+
+```bash
+glib-compile-schemas /usr/share/glib-2.0/schemas
+```
+
+or for (user-wide) installation:
 
 ```bash
 glib-compile-schemas ~/.local/share/glib-2.0/schemas/
