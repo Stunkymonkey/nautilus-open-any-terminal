@@ -96,3 +96,12 @@ gsettings set com.github.stunkymonkey.nautilus-open-any-terminal terminal alacri
 gsettings set com.github.stunkymonkey.nautilus-open-any-terminal keybindings '<Ctrl><Alt>t'
 gsettings set com.github.stunkymonkey.nautilus-open-any-terminal new-tab true
 ```
+
+## Uninstall
+
+since `setup.py` does not provide a natively uninstall method the scripts have an uninstall option.
+
+```bash
+sudo tools/update-extension-user.sh uninstall    # for a user uninstall
+sudo tools/update-extension-system.sh uninstall  # for a system-wide uninstall
+```
