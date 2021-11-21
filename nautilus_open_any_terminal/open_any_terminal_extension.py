@@ -22,7 +22,7 @@ TERM_PARAMS = {
     "cool-retro-term": "--workdir ",
     "deepin-terminal": "--work-directory ",
     "foot": "--working-directory=",
-    "gnome-terminal": "",
+    "gnome-terminal": "--working-directory=",
     "guake": "guake --show --new-tab=",
     "hyper": "",
     "kermit": "-w ",
