@@ -247,5 +247,11 @@ if source is not None and source.lookup(GSETTINGS_PATH, True):
     value = _gsettings.get_string(GSETTINGS_TERMINAL)
     if value in TERM_PARAMS:
         terminal = value
+    else:
+        try:
+            terminal,TERM_PARAMS[terminal],NEW_TAB_PARAMS[terminal] = value.split(",")
+        except ValueError():
+            print('open-any-terminal: unknown terminal `{0}`'.format(value))
+
     if _gsettings.get_boolean(GSETTINGS_NEW_TAB):
         new_tab = bool(NEW_TAB_PARAMS[value] is not None)
