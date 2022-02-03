@@ -16,6 +16,7 @@ Right now the plugin is limited to these terminal emulators. If one is missing p
 - `guake`
 - `hyper`
 - `kermit`
+- `kgx` (GNOME Console)
 - `kitty`
 - `konsole`
 - `mate-terminal`
