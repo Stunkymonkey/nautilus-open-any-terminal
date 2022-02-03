@@ -89,7 +89,7 @@ glib-compile-schemas ~/.local/share/glib-2.0/schemas/
 
 ![dconf-editor](dconf.png)
 
-### via commandline
+### via command-line
 
 ```bash
 gsettings set com.github.stunkymonkey.nautilus-open-any-terminal terminal alacritty
