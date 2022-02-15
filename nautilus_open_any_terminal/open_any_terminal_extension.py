@@ -206,8 +206,8 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
                 uri = _checkdecode(file_.get_uri())
                 item = Nautilus.MenuItem(
                     name="NautilusPython::open_remote_item",
-                    label=_(u"Open Remote {}").format(terminal.title()),
-                    tip=_(u"Open Remote {} In {}").format(terminal.title(), uri),
+                    label=_("Open Remote {}").format(terminal.title()),
+                    tip=_("Open Remote {} In {}").format(terminal.title(), uri),
                 )
                 item.connect("activate", self._menu_activate_cb, file_)
                 items.append(item)
@@ -215,8 +215,8 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
             filename = _checkdecode(file_.get_name())
             item = Nautilus.MenuItem(
                 name="NautilusPython::open_file_item",
-                label=_(u"Open In {}").format(terminal.title()),
-                tip=_(u"Open {} In {}").format(terminal.title(), filename),
+                label=_("Open In {}").format(terminal.title()),
+                tip=_("Open {} In {}").format(terminal.title(), filename),
             )
             item.connect("activate", self._menu_activate_cb, file_)
             items.append(item)
@@ -228,16 +228,16 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
         if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
             item = Nautilus.MenuItem(
                 name="NautilusPython::open_bg_remote_item",
-                label=_(u"Open Remote {} Here").format(terminal.title()),
-                tip=_(u"Open Remote {} In This Directory").format(terminal.title()),
+                label=_("Open Remote {} Here").format(terminal.title()),
+                tip=_("Open Remote {} In This Directory").format(terminal.title()),
             )
             item.connect("activate", self._menu_activate_cb, file_)
             items.append(item)
 
         item = Nautilus.MenuItem(
             name="NautilusPython::open_bg_file_item",
-            label=_(u"Open {} Here").format(terminal.title()),
-            tip=_(u"Open {} In This Directory").format(terminal.title()),
+            label=_("Open {} Here").format(terminal.title()),
+            tip=_("Open {} In This Directory").format(terminal.title()),
         )
         item.connect("activate", self._menu_background_activate_cb, file_)
         items.append(item)
