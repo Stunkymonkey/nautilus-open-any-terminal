@@ -40,7 +40,13 @@ Right now the plugin is limited to these terminal emulators. If one is missing p
 yay -S nautilus-open-any-terminal
 ```
 
-### From PYPI
+### Nixpkgs (NixOS) [![nixpkgs unstable package](https://repology.org/badge/version-for-repo/nix_unstable/nautilus-open-any-terminal.svg)](https://repology.org/project/nautilus-open-any-terminal/versions)
+
+```bash
+nix-env -iA nixos.nautilus-open-any-terminal
+```
+
+### From PYPI [![PyPI package](https://repology.org/badge/version-for-repo/pypi/nautilus-open-any-terminal.svg)](https://repology.org/project/nautilus-open-any-terminal/versions)
 
 Dependency to install before: `nautilus-python` (`python-nautilus`/`python3-nautilus`(newer) package on Debian / Ubuntu)
 
