@@ -1,3 +1,4 @@
+# python
 __env__
 *.bak
 *.pyc
@@ -9,3 +10,5 @@ nautilus_open_any_terminal/schemas/gschemas.compiled
 
 .pybuild
 
+# compiled language files
+*.mo
