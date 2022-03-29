@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: nautilus-open-any-terminal\n"
+"POT-Creation-Date: 2022-03-08 16:30+0100\n"
+"PO-Revision-Date: 2022-03-08 16:58+0100\n"
+"Last-Translator: \n"
+"Language-Team: Felix Bühler\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: open_any_terminal_extension.py\n"
+
+#: open_any_terminal_extension.py:209
+msgid "Open Remote {}"
+msgstr "Öffne Remote-{}"
+
+#: open_any_terminal_extension.py:210
+msgid "Open Remote {} In {}"
+msgstr "Öffne Remote-{} in {}"
+
+#: open_any_terminal_extension.py:218
+msgid "Open In {}"
+msgstr "Öffne in {}"
+
+#: open_any_terminal_extension.py:219
+msgid "Open {} In {}"
+msgstr "Öffne {} in {}"
+
+#: open_any_terminal_extension.py:231
+msgid "Open Remote {} Here"
+msgstr "Öffne Remote-{} hier"
+
+#: open_any_terminal_extension.py:232
+msgid "Open Remote {} In This Directory"
+msgstr "Öffne Remote-{} in diesem Ordner"
+
+#: open_any_terminal_extension.py:239
+msgid "Open {} Here"
+msgstr "Öffne {} hier"
+
+#: open_any_terminal_extension.py:240
+msgid "Open {} In This Directory"
+msgstr "Öffne {} in diesem Ordner"
