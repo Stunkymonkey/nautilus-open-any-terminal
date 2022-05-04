@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nautilus-open-any-terminal\n"
 "POT-Creation-Date: 2022-05-03 23:43-0500\n"
-"PO-Revision-Date: 2022-05-03 23:52-0500\n"
+"PO-Revision-Date: 2022-05-04 15:42-0500\n"
 "Last-Translator: \n"
 "Language-Team: Christopher Straub\n"
 "Language: es\n"
@@ -17,11 +17,11 @@ msgstr ""
 
 #: open_any_terminal_extension.py:209
 msgid "Open Remote {}"
-msgstr "Abrir Remoto {}"
+msgstr "Abrir {} remoto"
 
 #: open_any_terminal_extension.py:210
 msgid "Open Remote {} In {}"
-msgstr "Abrir Remoto {} en {}"
+msgstr "Abrir {} remoto en {}"
 
 #: open_any_terminal_extension.py:218
 msgid "Open In {}"
@@ -33,11 +33,11 @@ msgstr "Abrir {} en {}"
 
 #: open_any_terminal_extension.py:231
 msgid "Open Remote {} Here"
-msgstr "Abrir Remoto {} aquí"
+msgstr "Abrir {} remoto aquí"
 
 #: open_any_terminal_extension.py:232
 msgid "Open Remote {} In This Directory"
-msgstr "Abrir Remoto {} en este directorio"
+msgstr "Abrir {} remoto en este directorio"
 
 #: open_any_terminal_extension.py:239
 msgid "Open {} Here"
