@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: nautilus-open-any-terminal\n"
+"POT-Creation-Date: 2022-05-20 10:44+0300\n"
+"PO-Revision-Date: 2022-05-20 11:24+0300\n"
+"Last-Translator: Osman Karagöz <osmank3@gmail.com>\n"
+"Language-Team: \n"
+"Language: tr_TR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: open_any_terminal_extension.py:209
+msgid "Open Remote {}"
+msgstr "Uzağı {} ile Aç"
+
+#: open_any_terminal_extension.py:210
+msgid "Open Remote {} In {}"
+msgstr "Uzaktaki {} {} ile Aç"
+
+#: open_any_terminal_extension.py:218
+msgid "Open In {}"
+msgstr "{} İçinde Aç"
+
+#: open_any_terminal_extension.py:219
+msgid "Open {} In {}"
+msgstr "{} {} İçinde Aç"
+
+#: open_any_terminal_extension.py:231
+msgid "Open Remote {} Here"
+msgstr "Uzaktaki Burayı {} ile Aç"
+
+#: open_any_terminal_extension.py:232
+msgid "Open Remote {} In This Directory"
+msgstr "Uzaktaki Bu Dizini {} ile Aç"
+
+#: open_any_terminal_extension.py:239
+msgid "Open {} Here"
+msgstr "{} ile Aç"
+
+#: open_any_terminal_extension.py:240
+msgid "Open {} In This Directory"
+msgstr "Bu Dizini {} ile Aç"
