@@ -34,6 +34,9 @@ Right now the plugin is limited to these terminal emulators. If one is missing p
 - `wezterm`
 - `xfce4-terminal`
 
+## Requirements
+- python3-nautilus
+
 ## Installing
 
 ### From the AUR (Arch Linux) [![AUR  package](https://repology.org/badge/version-for-repo/aur/nautilus-open-any-terminal.svg)](https://repology.org/project/nautilus-open-any-terminal/versions)
