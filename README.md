@@ -24,6 +24,7 @@ Right now the plugin is limited to these terminal emulators. If one is missing p
 - `qterminal`
 - `sakura`
 - `st` [properly patched](https://st.suckless.org/patches/workingdir/)
+- `tabby`
 - `terminator`
 - `terminology`
 - `termite`
