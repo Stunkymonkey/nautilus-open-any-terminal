@@ -19,6 +19,7 @@ from gi.repository import Gio, GObject, Gtk, Nautilus  # noqa: E402
 
 TERM_PARAMS = {
     "alacritty": "--working-directory ",
+    "blackbox": "--working-directory ",
     "cool-retro-term": "--workdir ",
     "deepin-terminal": "--work-directory ",
     "foot": "--working-directory=",
@@ -47,6 +48,7 @@ TERM_PARAMS = {
 
 NEW_TAB_PARAMS = {
     "alacritty": None,
+    "blackbox": None,
     "cool-retro-term": None,
     "deepin-terminal": None,
     "foot": None,

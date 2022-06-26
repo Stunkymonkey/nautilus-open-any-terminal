@@ -9,6 +9,7 @@ is an extension for nautilus, which adds an context-entry for opening other term
 Right now the plugin is limited to these terminal emulators. If one is missing please open an issue.
 
 - `alacritty`
+- `blackbox`
 - `cool-retro-term`
 - `deepin-terminal`
 - `foot`/`footclient`
