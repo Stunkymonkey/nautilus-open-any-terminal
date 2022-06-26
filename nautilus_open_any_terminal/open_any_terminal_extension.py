@@ -44,6 +44,7 @@ TERM_PARAMS = {
     "urxvtc": "-cd ",
     "wezterm": "start --cwd ",
     "xfce4-terminal": "--working-directory=",
+    "tabby": "open ",
 }
 
 NEW_TAB_PARAMS = {
@@ -73,6 +74,7 @@ NEW_TAB_PARAMS = {
     "urxvtc": None,
     "wezterm": None,
     "xfce4-terminal": "--tab",
+    "tabby": None,
 }
 
 global terminal
