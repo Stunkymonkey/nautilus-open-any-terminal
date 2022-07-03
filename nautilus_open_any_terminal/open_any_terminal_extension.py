@@ -77,17 +77,19 @@ NEW_TAB_PARAMS = {
     "tabby": None,
 }
 
-CMD_OVERRIDES = {
-    "blackbox": "flatpak run com.raggesilver.BlackBox"
+FLATPAK_NAMES = {
+    "blackbox": "com.raggesilver.BlackBox"
 }
 
 global terminal
 terminal = "gnome-terminal"
 new_tab = False
+use_flatpak = False
 GSETTINGS_PATH = "com.github.stunkymonkey.nautilus-open-any-terminal"
 GSETTINGS_KEYBINDINGS = "keybindings"
 GSETTINGS_TERMINAL = "terminal"
 GSETTINGS_NEW_TAB = "new-tab"
+GSETTINGS_USE_FLATPAK = "use-flatpak"
 REMOTE_URI_SCHEME = ["ftp", "sftp"]
 textdomain("nautilus-open-any-terminal")
 _ = gettext
@@ -103,8 +105,13 @@ def open_terminal_in_file(filename):
     if filename:
         # escape filename quotations
         filename = filename.replace('"', '\\"')
-        terminal_cmd = CMD_OVERRIDES[terminal] if terminal in CMD_OVERRIDES else terminal
-        print('{0} {1} {2} "{3}" &'.format(terminal_cmd, NEW_TAB_PARAMS[terminal], TERM_PARAMS[terminal], filename))
+
+        if use_flatpak:
+            terminal_cmd = "flatpak run {0}".format(FLATPAK_NAMES[terminal])
+        else:
+            terminal_cmd = terminal
+
+        # print('{0} {1} {2} "{3}" &'.format(terminal_cmd, NEW_TAB_PARAMS[terminal], TERM_PARAMS[terminal], filename))
 
 
         if new_tab:
@@ -264,3 +271,5 @@ if source is not None and source.lookup(GSETTINGS_PATH, True):
         terminal = value
     if _gsettings.get_boolean(GSETTINGS_NEW_TAB):
         new_tab = bool(NEW_TAB_PARAMS[value] is not None)
+    if _gsettings.get_boolean(GSETTINGS_USE_FLATPAK):
+        use_flatpak = bool(FLATPAK_NAMES[value] is not None)

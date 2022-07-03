@@ -104,7 +104,10 @@ glib-compile-schemas ~/.local/share/glib-2.0/schemas/
 gsettings set com.github.stunkymonkey.nautilus-open-any-terminal terminal alacritty
 gsettings set com.github.stunkymonkey.nautilus-open-any-terminal keybindings '<Ctrl><Alt>t'
 gsettings set com.github.stunkymonkey.nautilus-open-any-terminal new-tab true
+gsettings set com.github.stunkymonkey.nautilus-open-any-terminal use-flatpak true
 ```
+
+_Note: As of writing, Black Box is distributed officially only as a Flatpak. As such, Black Box users must set `use-flatpak` to true._
 
 ## Uninstall
 
