@@ -77,6 +77,10 @@ NEW_TAB_PARAMS = {
     "tabby": None,
 }
 
+CMD_OVERRIDES = {
+    "blackbox": "flatpak run com.raggesilver.BlackBox"
+}
+
 global terminal
 terminal = "gnome-terminal"
 new_tab = False
@@ -99,21 +103,23 @@ def open_terminal_in_file(filename):
     if filename:
         # print('{0} {1} {2} "{3}" &'.format(terminal, NEW_TAB_PARAMS[terminal], TERM_PARAMS[terminal], filename))
         # escape filename quotations
-        filename = filename.replace('"', '\\"')
+        filename = filename.replace
+        terminal_cmd = CMD_OVERRIDES[terminal] if terminal in CMD_OVERRIDES else terminal
+
         if new_tab:
             call(
                 '{0} {1} {2}"{3}" &'.format(
-                    terminal, NEW_TAB_PARAMS[terminal], TERM_PARAMS[terminal], filename
+                    terminal_cmd, NEW_TAB_PARAMS[terminal], TERM_PARAMS[terminal], filename
                 ),
                 shell=True,
             )
         else:
             call(
-                '{0} {1}"{2}" &'.format(terminal, TERM_PARAMS[terminal], filename),
+                '{0} {1}"{2}" &'.format(terminal_cmd, TERM_PARAMS[terminal], filename),
                 shell=True,
             )
     else:
-        call("{0} &".format(terminal), shell=True)
+        call("{0} &".format(terminal_cmd), shell=True)
 
 
 def set_terminal_args(*args):
@@ -122,10 +128,7 @@ def set_terminal_args(*args):
     newer_tab = _gsettings.get_boolean(GSETTINGS_NEW_TAB)
     if value in TERM_PARAMS:
         global terminal
-        if terminal == "blackbox":
-            terminal = "flatpak run com.raggesilver.BlackBox"
-        else:
-            terminal = value
+        terminal = value
         if newer_tab and NEW_TAB_PARAMS[terminal] is not None:
             new_tab = newer_tab
             new_tab_text = "opening in a new tab"
