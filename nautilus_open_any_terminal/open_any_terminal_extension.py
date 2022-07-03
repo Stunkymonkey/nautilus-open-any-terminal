@@ -106,7 +106,7 @@ def open_terminal_in_file(filename):
         # escape filename quotations
         filename = filename.replace('"', '\\"')
 
-        if use_flatpak:
+        if use_flatpa and FLATPAK_NAMES[terminal] is not None:
             terminal_cmd = "flatpak run {0}".format(FLATPAK_NAMES[terminal])
         else:
             terminal_cmd = terminal
