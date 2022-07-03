@@ -101,10 +101,11 @@ def _checkdecode(s):
 def open_terminal_in_file(filename):
     """open the new terminal with correct path"""
     if filename:
-        # print('{0} {1} {2} "{3}" &'.format(terminal, NEW_TAB_PARAMS[terminal], TERM_PARAMS[terminal], filename))
         # escape filename quotations
-        filename = filename.replace
+        filename = filename.replace('"', '\\"')
         terminal_cmd = CMD_OVERRIDES[terminal] if terminal in CMD_OVERRIDES else terminal
+        print('{0} {1} {2} "{3}" &'.format(terminal_cmd, NEW_TAB_PARAMS[terminal], TERM_PARAMS[terminal], filename))
+
 
         if new_tab:
             call(
