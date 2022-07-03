@@ -78,7 +78,8 @@ NEW_TAB_PARAMS = {
 }
 
 FLATPAK_NAMES = {
-    "blackbox": "com.raggesilver.BlackBox"
+    "blackbox": "com.raggesilver.BlackBox",
+    "tilix": "com.gexperts.Tilix"
 }
 
 global terminal
