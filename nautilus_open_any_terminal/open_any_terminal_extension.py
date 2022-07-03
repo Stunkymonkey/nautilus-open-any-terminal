@@ -122,7 +122,7 @@ def set_terminal_args(*args):
     newer_tab = _gsettings.get_boolean(GSETTINGS_NEW_TAB)
     if value in TERM_PARAMS:
         global terminal
-        if terminal = "blackbox":
+        if terminal == "blackbox":
             terminal = "flatpak run com.raggesilver.BlackBox"
         else:
             terminal = value
