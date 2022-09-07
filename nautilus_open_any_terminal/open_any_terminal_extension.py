@@ -13,8 +13,13 @@ except ImportError:
 
 from gi import require_version
 
-require_version("Gtk", "3.0")
-require_version("Nautilus", "3.0")
+try:
+    require_version("Gtk", "4.0")
+    require_version("Nautilus", "4.0")
+except ValueError:
+    require_version("Gtk", "3.0")
+    require_version("Nautilus", "3.0")
+
 from gi.repository import Gio, GObject, Gtk, Nautilus  # noqa: E402
 
 TERM_PARAMS = {
@@ -138,40 +143,40 @@ def set_terminal_args(*args):
     else:
         print('open-any-terminal: unknown terminal "{0}"'.format(value))
 
+if Nautilus._version == "3.0" :
+    class OpenAnyTerminalShortcutProvider(GObject.GObject, Nautilus.LocationWidgetProvider):
+        def __init__(self):
+            source = Gio.SettingsSchemaSource.get_default()
+            if source.lookup(GSETTINGS_PATH, True):
+                self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
+                self._gsettings.connect("changed", self._bind_shortcut)
+                self._create_accel_group()
+            self._window = None
+            self._uri = None
 
-class OpenAnyTerminalShortcutProvider(GObject.GObject, Nautilus.LocationWidgetProvider):
-    def __init__(self):
-        source = Gio.SettingsSchemaSource.get_default()
-        if source.lookup(GSETTINGS_PATH, True):
-            self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
-            self._gsettings.connect("changed", self._bind_shortcut)
-            self._create_accel_group()
-        self._window = None
-        self._uri = None
+        def _create_accel_group(self):
+            self._accel_group = Gtk.AccelGroup()
+            shortcut = self._gsettings.get_string(GSETTINGS_KEYBINDINGS)
+            key, mod = Gtk.accelerator_parse(shortcut)
+            self._accel_group.connect(key, mod, Gtk.AccelFlags.VISIBLE, self._open_terminal)
 
-    def _create_accel_group(self):
-        self._accel_group = Gtk.AccelGroup()
-        shortcut = self._gsettings.get_string(GSETTINGS_KEYBINDINGS)
-        key, mod = Gtk.accelerator_parse(shortcut)
-        self._accel_group.connect(key, mod, Gtk.AccelFlags.VISIBLE, self._open_terminal)
+        def _bind_shortcut(self, gsettings, key):
+            if key == GSETTINGS_KEYBINDINGS:
+                self._accel_group.disconnect(self._open_terminal)
+                self._create_accel_group()
 
-    def _bind_shortcut(self, gsettings, key):
-        if key == GSETTINGS_KEYBINDINGS:
-            self._accel_group.disconnect(self._open_terminal)
-            self._create_accel_group()
+        def _open_terminal(self, *args):
+            filename = unquote(self._uri[7:])
+            open_terminal_in_file(filename)
 
-    def _open_terminal(self, *args):
-        filename = unquote(self._uri[7:])
-        open_terminal_in_file(filename)
-
-    def get_widget(self, uri, window):
-        self._uri = uri
-        if self._window:
-            self._window.remove_accel_group(self._accel_group)
-        if self._gsettings:
-            window.add_accel_group(self._accel_group)
-        self._window = window
-        return None
+        def get_widget(self, uri, window):
+            self._uri = uri
+            if self._window:
+                self._window.remove_accel_group(self._accel_group)
+            if self._gsettings:
+                window.add_accel_group(self._accel_group)
+            self._window = window
+            return None
 
 
 class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
@@ -198,7 +203,12 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
     def _menu_background_activate_cb(self, menu, file_):
         self._open_terminal(file_)
 
-    def get_file_items(self, window, files):
+    def get_file_items(self, *args):
+        # `args` will be `[files: List[Nautilus.FileInfo]]` in Nautilus 4.0 API,
+        # and `[window: Gtk.Widget, files: List[Nautilus.FileInfo]]` in Nautilus 3.0 API.
+
+        files = args[-1]
+
         if len(files) != 1:
             return
         items = []
@@ -227,7 +237,12 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
 
         return items
 
-    def get_background_items(self, window, file_):
+    def get_background_items(self, *args):
+        # `args` will be `[folder: Nautilus.FileInfo]` in Nautilus 4.0 API,
+        # and `[window: Gtk.Widget, file: Nautilus.FileInfo]` in Nautilus 3.0 API.
+        
+        file_ = args[-1]
+
         items = []
         if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
             item = Nautilus.MenuItem(
