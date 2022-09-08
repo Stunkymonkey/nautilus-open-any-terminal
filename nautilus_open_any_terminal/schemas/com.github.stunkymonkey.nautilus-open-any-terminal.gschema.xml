@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="nautilus-open-any-terminal">
+  <enum id="com.github.stunkymonkey.nautilus-open-any-terminal.flatpak">
+    <value nick="off" value="0"/>
+    <value nick="system" value="1"/>
+    <value nick="user" value="2"/>
+  </enum>
   <schema id="com.github.stunkymonkey.nautilus-open-any-terminal" path="/com/github/stunkymonkey/nautilus-open-any-terminal/">
     <key name="keybindings" type="s">
       <default>'&lt;Ctrl&gt;&lt;Alt&gt;t'</default>
@@ -15,6 +20,17 @@
       <default>false</default>
       <summary>Whether the new terminal should be oppened in a new tab or in a new window</summary>
       <description></description>
+    </key>
+    <key name="flatpak" enum="com.github.stunkymonkey.nautilus-open-any-terminal.flatpak">
+      <default>"off"</default>
+      <summary>Whether the command used should be a flatpak version of the selected terminal</summary>
+      <description>
+        'off': disables flatpak.
+
+        'system': runs flatpak command with --system flag (default flatpak behavior).
+
+        'user': runs flatpak command with --user flag.
+      </description>
     </key>
   </schema>
 </schemalist>

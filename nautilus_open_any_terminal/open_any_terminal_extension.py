@@ -82,13 +82,22 @@ NEW_TAB_PARAMS = {
     "tabby": None,
 }
 
+FLATPAK_PARMS = ["off", "system", "user"]
+
+FLATPAK_NAMES = {
+    "blackbox": "com.raggesilver.BlackBox",
+    "tilix": "com.gexperts.Tilix"
+}
+
 global terminal
 terminal = "gnome-terminal"
 new_tab = False
+flatpak = FLATPAK_PARMS[0]
 GSETTINGS_PATH = "com.github.stunkymonkey.nautilus-open-any-terminal"
 GSETTINGS_KEYBINDINGS = "keybindings"
 GSETTINGS_TERMINAL = "terminal"
 GSETTINGS_NEW_TAB = "new-tab"
+GSETTINGS_FLATPAK = "flatpak"
 REMOTE_URI_SCHEME = ["ftp", "sftp"]
 textdomain("nautilus-open-any-terminal")
 _ = gettext
@@ -105,26 +114,32 @@ def open_terminal_in_file(filename):
         # print('{0} {1} {2} "{3}" &'.format(terminal, NEW_TAB_PARAMS[terminal], TERM_PARAMS[terminal], filename))
         # escape filename quotations
         filename = filename.replace('"', '\\"')
+        if flatpak != FLATPAK_PARMS[0] and terminal in FLATPAK_NAMES:
+            terminal_cmd = 'flatpak run --{0} {1}'.format(flatpak, FLATPAK_NAMES[terminal])
+        else:
+            terminal_cmd = terminal
         if new_tab:
             call(
                 '{0} {1} {2}"{3}" &'.format(
-                    terminal, NEW_TAB_PARAMS[terminal], TERM_PARAMS[terminal], filename
+                    terminal_cmd, NEW_TAB_PARAMS[terminal], TERM_PARAMS[terminal], filename
                 ),
                 shell=True,
             )
         else:
             call(
-                '{0} {1}"{2}" &'.format(terminal, TERM_PARAMS[terminal], filename),
+                '{0} {1}"{2}" &'.format(terminal_cmd, TERM_PARAMS[terminal], filename),
                 shell=True,
             )
     else:
-        call("{0} &".format(terminal), shell=True)
+        call("{0} &".format(terminal_cmd), shell=True)
 
 
 def set_terminal_args(*args):
     global new_tab
+    global flatpak
     value = _gsettings.get_string(GSETTINGS_TERMINAL)
     newer_tab = _gsettings.get_boolean(GSETTINGS_NEW_TAB)
+    flatpak = FLATPAK_PARMS[_gsettings.get_enum(GSETTINGS_FLATPAK)]
     if value in TERM_PARAMS:
         global terminal
         terminal = value
@@ -135,9 +150,14 @@ def set_terminal_args(*args):
             new_tab_text = "opening a new window"
         if newer_tab and NEW_TAB_PARAMS[terminal] is None:
             new_tab_text += " (terminal does not support tabs)"
+        if flatpak != FLATPAK_PARMS[0] and value in FLATPAK_NAMES:
+            flatpak_text = "with flatpak as {0}".format(flatpak)
+        else:
+            flatpak = FLATPAK_PARMS[0]
+            flatpak_text = ""
         print(
-            'open-any-terminal: terminal is set to "{0}" {1}'.format(
-                terminal, new_tab_text
+            'open-any-terminal: terminal is set to "{0}" {1} {2}'.format(
+                terminal, new_tab_text, flatpak_text
             )
         )
     else:
@@ -272,3 +292,8 @@ if source is not None and source.lookup(GSETTINGS_PATH, True):
         terminal = value
     if _gsettings.get_boolean(GSETTINGS_NEW_TAB):
         new_tab = bool(NEW_TAB_PARAMS[value] is not None)
+
+    flatpak = FLATPAK_PARMS[_gsettings.get_enum(GSETTINGS_FLATPAK)]
+
+    if flatpak != FLATPAK_PARMS[0] and value not in FLATPAK_NAMES:
+        flatpak = FLATPAK_PARMS[0]
