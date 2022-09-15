@@ -163,8 +163,12 @@ def set_terminal_args(*args):
     else:
         print('open-any-terminal: unknown terminal "{0}"'.format(value))
 
-if Nautilus._version == "3.0" :
-    class OpenAnyTerminalShortcutProvider(GObject.GObject, Nautilus.LocationWidgetProvider):
+
+if Nautilus._version == "3.0":
+
+    class OpenAnyTerminalShortcutProvider(
+        GObject.GObject, Nautilus.LocationWidgetProvider
+    ):
         def __init__(self):
             source = Gio.SettingsSchemaSource.get_default()
             if source.lookup(GSETTINGS_PATH, True):
@@ -178,7 +182,9 @@ if Nautilus._version == "3.0" :
             self._accel_group = Gtk.AccelGroup()
             shortcut = self._gsettings.get_string(GSETTINGS_KEYBINDINGS)
             key, mod = Gtk.accelerator_parse(shortcut)
-            self._accel_group.connect(key, mod, Gtk.AccelFlags.VISIBLE, self._open_terminal)
+            self._accel_group.connect(
+                key, mod, Gtk.AccelFlags.VISIBLE, self._open_terminal
+            )
 
         def _bind_shortcut(self, gsettings, key):
             if key == GSETTINGS_KEYBINDINGS:
@@ -260,7 +266,7 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
     def get_background_items(self, *args):
         # `args` will be `[folder: Nautilus.FileInfo]` in Nautilus 4.0 API,
         # and `[window: Gtk.Widget, file: Nautilus.FileInfo]` in Nautilus 3.0 API.
-        
+
         file_ = args[-1]
 
         items = []
