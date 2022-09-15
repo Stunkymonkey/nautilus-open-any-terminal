@@ -86,7 +86,7 @@ FLATPAK_PARMS = ["off", "system", "user"]
 
 FLATPAK_NAMES = {
     "blackbox": "com.raggesilver.BlackBox",
-    "tilix": "com.gexperts.Tilix"
+    "tilix": "com.gexperts.Tilix",
 }
 
 global terminal
@@ -115,13 +115,18 @@ def open_terminal_in_file(filename):
         # escape filename quotations
         filename = filename.replace('"', '\\"')
         if flatpak != FLATPAK_PARMS[0] and terminal in FLATPAK_NAMES:
-            terminal_cmd = 'flatpak run --{0} {1}'.format(flatpak, FLATPAK_NAMES[terminal])
+            terminal_cmd = "flatpak run --{0} {1}".format(
+                flatpak, FLATPAK_NAMES[terminal]
+            )
         else:
             terminal_cmd = terminal
         if new_tab:
             call(
                 '{0} {1} {2}"{3}" &'.format(
-                    terminal_cmd, NEW_TAB_PARAMS[terminal], TERM_PARAMS[terminal], filename
+                    terminal_cmd,
+                    NEW_TAB_PARAMS[terminal],
+                    TERM_PARAMS[terminal],
+                    filename,
                 ),
                 shell=True,
             )
