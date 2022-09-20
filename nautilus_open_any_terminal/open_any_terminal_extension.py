@@ -22,7 +22,7 @@ except ValueError:
 
 from gi.repository import Gio, GObject, Gtk, Nautilus  # noqa: E402
 
-TERM_PARAMS = {
+TERM_WORKDIR_PARAMS = {
     "alacritty": "--working-directory ",
     "blackbox": "--working-directory ",
     "cool-retro-term": "--workdir ",
@@ -82,6 +82,36 @@ NEW_TAB_PARAMS = {
     "tabby": None,
 }
 
+TERM_CMD_PARAMS = {
+    "alacritty": "-e",
+    "blackbox": "-c",
+    "cool-retro-term": "-e",
+    "deepin-terminal": "-e",
+    "foot": "-e",
+    "footclient": "-e",
+    "gnome-terminal": "-e",
+    "guake": "-e",
+    "hyper": "-e",
+    "kermit": "-e",
+    "kgx": "-e",
+    "kitty": "-e",
+    "konsole": "-e",
+    "mate-terminal": "-e",
+    "mlterm": "-e",
+    "qterminal": "-e",
+    "sakura": "-e",
+    "st": "-e",
+    "terminator": "-e",
+    "terminology": "-e",
+    "termite": "-e",
+    "tilix": "-e",
+    "urxvt": "-e",
+    "urxvtc": "-e",
+    "wezterm": "-e",
+    "xfce4-terminal": "-e",
+    "tabby": "-e",
+}
+
 FLATPAK_PARMS = ["off", "system", "user"]
 
 FLATPAK_NAMES = {
@@ -112,7 +142,7 @@ def _checkdecode(s):
 def open_terminal_in_file(filename):
     """open the new terminal with correct path"""
     if filename:
-        # print('{0} {1} {2} "{3}" &'.format(terminal, NEW_TAB_PARAMS[terminal], TERM_PARAMS[terminal], filename))
+        # print('{0} {1} {2} "{3}" &'.format(terminal, NEW_TAB_PARAMS[terminal], TERM_WORKDIR_PARAMS[terminal], filename))
         # escape filename quotations
         filename = filename.replace('"', '\\"')
         if new_tab:
@@ -120,14 +150,14 @@ def open_terminal_in_file(filename):
                 '{0} {1} {2}"{3}" &'.format(
                     terminal_cmd,
                     NEW_TAB_PARAMS[terminal],
-                    TERM_PARAMS[terminal],
+                    TERM_WORKDIR_PARAMS[terminal],
                     filename,
                 ),
                 shell=True,
             )
         else:
             call(
-                '{0} {1}"{2}" &'.format(terminal_cmd, TERM_PARAMS[terminal], filename),
+                '{0} {1}"{2}" &'.format(terminal_cmd, TERM_WORKDIR_PARAMS[terminal], filename),
                 shell=True,
             )
     else:
@@ -141,7 +171,7 @@ def set_terminal_args(*args):
     value = _gsettings.get_string(GSETTINGS_TERMINAL)
     newer_tab = _gsettings.get_boolean(GSETTINGS_NEW_TAB)
     flatpak = FLATPAK_PARMS[_gsettings.get_enum(GSETTINGS_FLATPAK)]
-    if value in TERM_PARAMS:
+    if value in TERM_WORKDIR_PARAMS:
         global terminal
         terminal = value
         if newer_tab and NEW_TAB_PARAMS[terminal] is not None:
@@ -223,7 +253,7 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
             if file_.is_directory():
                 value = '{0} cd "{1}" ; $SHELL'.format(value, result.path)
 
-            call('{0} -e "{1}" &'.format(terminal_cmd, value), shell=True)
+            call('{0} {1} "{2}" &'.format(terminal_cmd, TERM_CMD_PARAMS[terminal], value), shell=True)
         else:
             filename = Gio.File.new_for_uri(file_.get_uri()).get_path()
             open_terminal_in_file(filename)
