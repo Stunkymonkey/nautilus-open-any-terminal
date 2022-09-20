@@ -157,7 +157,9 @@ def open_terminal_in_file(filename):
             )
         else:
             call(
-                '{0} {1}"{2}" &'.format(terminal_cmd, TERM_WORKDIR_PARAMS[terminal], filename),
+                '{0} {1}"{2}" &'.format(
+                    terminal_cmd, TERM_WORKDIR_PARAMS[terminal], filename
+                ),
                 shell=True,
             )
     else:
@@ -251,9 +253,14 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
             if result.port:
                 value = "{0} -p {1}".format(value, result.port)
             if file_.is_directory():
-                value = '{0} cd "{1}" \; $SHELL'.format(value, result.path)
+                value = '{0} cd "{1}" \\; $SHELL'.format(value, result.path)
 
-            call('{0} {1} "{2}" &'.format(terminal_cmd, TERM_CMD_PARAMS[terminal], value), shell=True)
+            call(
+                '{0} {1} "{2}" &'.format(
+                    terminal_cmd, TERM_CMD_PARAMS[terminal], value
+                ),
+                shell=True,
+            )
         else:
             filename = Gio.File.new_for_uri(file_.get_uri()).get_path()
             open_terminal_in_file(filename)
