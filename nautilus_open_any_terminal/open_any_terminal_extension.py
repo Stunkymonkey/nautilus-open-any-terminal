@@ -142,7 +142,6 @@ def _checkdecode(s):
 def open_terminal_in_file(filename):
     """open the new terminal with correct path"""
     if filename:
-        # print('{0} {1} {2} "{3}" &'.format(terminal, NEW_TAB_PARAMS[terminal], TERM_WORKDIR_PARAMS[terminal], filename))
         # escape filename quotations
         filename = filename.replace('"', '\\"')
         if new_tab:
