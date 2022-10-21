@@ -112,6 +112,36 @@ TERM_CMD_PARAMS = {
     "tabby": "-e",
 }
 
+TERM_NAME = {
+    "alacritty": "Alacritty",
+    "blackbox": "BlackBox",
+    "cool-retro-term": "cool-retro-term",
+    "deepin-terminal": "Deepin Terminal",
+    "foot": "Foot",
+    "footclient": "FOOTCLIENT",
+    "gnome-terminal": "Terminal",
+    "guake": "Guake",
+    "hyper": "Hyper",
+    "kermit": "Kermit",
+    "kgx": "Console",
+    "kitty": "kitty",
+    "konsole": "Konsole",
+    "mate-terminal": "Mate Terminal",
+    "mlterm": "Mlterm",
+    "qterminal": "QTerminal",
+    "sakura": "Sakura",
+    "st": "Simple Terminal",
+    "terminator": "Terminator",
+    "terminology": "Terminology",
+    "termite": "Termite",
+    "tilix": "Tilix",
+    "urxvt": "rxvt-unicode",
+    "urxvtc": "urxvtc",
+    "wezterm": "Wez's Terminal Emulator",
+    "xfce4-terminal": "Xfce Terminal",
+    "tabby": "Tabby",
+}
+
 FLATPAK_PARMS = ["off", "system", "user"]
 
 FLATPAK_NAMES = {
@@ -287,8 +317,8 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
                 uri = _checkdecode(file_.get_uri())
                 item = Nautilus.MenuItem(
                     name="NautilusPython::open_remote_item",
-                    label=_("Open Remote {}").format(terminal.title()),
-                    tip=_("Open Remote {} In {}").format(terminal.title(), uri),
+                    label=_("Open Remote {}").format(TERM_NAME[terminal]),
+                    tip=_("Open Remote {} In {}").format(TERM_NAME[terminal], uri),
                 )
                 item.connect("activate", self._menu_activate_cb, file_)
                 items.append(item)
@@ -296,8 +326,8 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
             filename = _checkdecode(file_.get_name())
             item = Nautilus.MenuItem(
                 name="NautilusPython::open_file_item",
-                label=_("Open In {}").format(terminal.title()),
-                tip=_("Open {} In {}").format(terminal.title(), filename),
+                label=_("Open In {}").format(TERM_NAME[terminal]),
+                tip=_("Open {} In {}").format(TERM_NAME[terminal], filename),
             )
             item.connect("activate", self._menu_activate_cb, file_)
             items.append(item)
@@ -314,16 +344,16 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
         if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
             item = Nautilus.MenuItem(
                 name="NautilusPython::open_bg_remote_item",
-                label=_("Open Remote {} Here").format(terminal.title()),
-                tip=_("Open Remote {} In This Directory").format(terminal.title()),
+                label=_("Open Remote {} Here").format(TERM_NAME[terminal]),
+                tip=_("Open Remote {} In This Directory").format(TERM_NAME[terminal]),
             )
             item.connect("activate", self._menu_activate_cb, file_)
             items.append(item)
 
         item = Nautilus.MenuItem(
             name="NautilusPython::open_bg_file_item",
-            label=_("Open {} Here").format(terminal.title()),
-            tip=_("Open {} In This Directory").format(terminal.title()),
+            label=_("Open {} Here").format(TERM_NAME[terminal]),
+            tip=_("Open {} In This Directory").format(TERM_NAME[terminal]),
         )
         item.connect("activate", self._menu_background_activate_cb, file_)
         items.append(item)
