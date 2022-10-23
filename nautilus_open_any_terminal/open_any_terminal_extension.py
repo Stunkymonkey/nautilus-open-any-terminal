@@ -118,7 +118,7 @@ TERM_NAME = {
     "cool-retro-term": "cool-retro-term",
     "deepin-terminal": "Deepin Terminal",
     "foot": "Foot",
-    "footclient": "FOOTCLIENT",
+    "footclient": "FootClient",
     "gnome-terminal": "Terminal",
     "guake": "Guake",
     "hyper": "Hyper",
