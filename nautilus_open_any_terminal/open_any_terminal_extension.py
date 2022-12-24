@@ -114,7 +114,7 @@ TERM_CMD_PARAMS = {
 
 TERM_NAME = {
     "alacritty": "Alacritty",
-    "blackbox": "BlackBox",
+    "blackbox": "Black Box",
     "cool-retro-term": "cool-retro-term",
     "deepin-terminal": "Deepin Terminal",
     "foot": "Foot",
