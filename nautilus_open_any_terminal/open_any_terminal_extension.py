@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 # based on: https://github.com/gnunn1/tilix/blob/master/data/nautilus/open-tilix.py
 
 from gettext import gettext, textdomain
