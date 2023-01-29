@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: nautilus-open-any-terminal\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-16 09:53+0800\n"
+"PO-Revision-Date: 2023-01-16 09:53+0800\n"
+"Last-Translator: Ben Song <bensongsyz@gmail.com>\n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: open_any_terminal_extension.py:329
+msgid "Open Remote {}"
+msgstr "打开远程 {}"
+
+#: open_any_terminal_extension.py:330
+msgid "Open Remote {} In {}"
+msgstr "在 {1} 打开远程 {0}"
+
+#: open_any_terminal_extension.py:338
+msgid "Open In {}"
+msgstr "在 {} 打开"
+
+#: open_any_terminal_extension.py:339
+msgid "Open {} In {}"
+msgstr "在 {1} 打开 {0}"
+
+#: open_any_terminal_extension.py:356
+msgid "Open Remote {} Here"
+msgstr "在此打开远程 {} "
+
+#: open_any_terminal_extension.py:357
+msgid "Open Remote {} In This Directory"
+msgstr "在此目录打开远程 {}"
+
+#: open_any_terminal_extension.py:364
+msgid "Open {} Here"
+msgstr "在此打开 {} "
+
+#: open_any_terminal_extension.py:365
+msgid "Open {} In This Directory"
+msgstr "在这此目录打开 {}"
