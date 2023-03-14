@@ -294,7 +294,7 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
                 path = unquote(result.path)
                 path = path.replace(" ", "\\ ")
                 path = path.replace("'", "\\'", -1)
-                path = path.replace("\"", r"\\\\\\\"", -1)
+                path = path.replace('"', r"\\\\\\\"", -1)
                 value = '{0} \\"cd {1} \\" \\; \\$SHELL'.format(value, path)
 
             call(
