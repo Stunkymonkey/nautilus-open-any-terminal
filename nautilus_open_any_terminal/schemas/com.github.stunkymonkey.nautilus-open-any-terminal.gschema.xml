@@ -21,6 +21,11 @@
       <summary>Whether the new terminal should be oppened in a new tab or in a new window</summary>
       <description></description>
     </key>
+    <key name="remote-connect" type="b">
+      <default>true</default>
+      <summary>Whether to show the "open remote terminal" option</summary>
+      <description></description>
+    </key>
     <key name="flatpak" enum="com.github.stunkymonkey.nautilus-open-any-terminal.flatpak">
       <default>"off"</default>
       <summary>Whether the command used should be a flatpak version of the selected terminal</summary>
