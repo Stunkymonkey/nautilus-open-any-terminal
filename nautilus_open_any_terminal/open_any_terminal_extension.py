@@ -148,6 +148,7 @@ FLATPAK_PARMS = ["off", "system", "user"]
 FLATPAK_NAMES = {
     "blackbox": "com.raggesilver.BlackBox",
     "tilix": "com.gexperts.Tilix",
+    "wezterm": "org.wezfurlong.wezterm",
 }
 
 global terminal
