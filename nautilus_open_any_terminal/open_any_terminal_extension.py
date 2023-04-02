@@ -160,6 +160,7 @@ GSETTINGS_KEYBINDINGS = "keybindings"
 GSETTINGS_TERMINAL = "terminal"
 GSETTINGS_NEW_TAB = "new-tab"
 GSETTINGS_FLATPAK = "flatpak"
+GSETTINGS_REMOTE_CONNECT = "remote-connect"
 REMOTE_URI_SCHEME = ["ftp", "sftp"]
 
 _ = gettext
@@ -208,8 +209,10 @@ def set_terminal_args(*args):
     global new_tab
     global flatpak
     global terminal_cmd
+    global remote_connect
     value = _gsettings.get_string(GSETTINGS_TERMINAL)
     newer_tab = _gsettings.get_boolean(GSETTINGS_NEW_TAB)
+    remote_connect = _gsettings.get_boolean(GSETTINGS_REMOTE_CONNECT)
     flatpak = FLATPAK_PARMS[_gsettings.get_enum(GSETTINGS_FLATPAK)]
     if value in TERM_WORKDIR_PARAMS:
         global terminal
@@ -281,8 +284,8 @@ if Nautilus._version == "3.0":
 
 
 class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
-    def _open_terminal(self, file_):
-        if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
+    def _open_terminal(self, file_, connection_type):
+        if file_.get_uri_scheme() in REMOTE_URI_SCHEME and connection_type == "remote":
             result = urlparse(file_.get_uri())
             if result.username:
                 value = "ssh -t {0}@{1}".format(result.username, result.hostname)
@@ -307,11 +310,11 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
             filename = Gio.File.new_for_uri(file_.get_uri()).get_path()
             open_terminal_in_file(filename)
 
-    def _menu_activate_cb(self, menu, file_):
-        self._open_terminal(file_)
+    def _menu_activate_cb(self, menu, file_, connection_type):
+        self._open_terminal(file_, connection_type)
 
-    def _menu_background_activate_cb(self, menu, file_):
-        self._open_terminal(file_)
+    def _menu_background_activate_cb(self, menu, file_, connection_type):
+        self._open_terminal(file_, connection_type)
 
     def get_file_items(self, *args):
         # `args` will be `[files: List[Nautilus.FileInfo]]` in Nautilus 4.0 API,
@@ -326,14 +329,14 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
 
         if file_.is_directory():
 
-            if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
+            if file_.get_uri_scheme() in REMOTE_URI_SCHEME and remote_connect:
                 uri = _checkdecode(file_.get_uri())
                 item = Nautilus.MenuItem(
                     name="NautilusPython::open_remote_item",
                     label=_("Open Remote {}").format(TERM_NAME[terminal]),
                     tip=_("Open Remote {} In {}").format(TERM_NAME[terminal], uri),
                 )
-                item.connect("activate", self._menu_activate_cb, file_)
+                item.connect("activate", self._menu_activate_cb, file_, "remote")
                 items.append(item)
 
             filename = _checkdecode(file_.get_name())
@@ -342,7 +345,7 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
                 label=_("Open In {}").format(TERM_NAME[terminal]),
                 tip=_("Open {} In {}").format(TERM_NAME[terminal], filename),
             )
-            item.connect("activate", self._menu_activate_cb, file_)
+            item.connect("activate", self._menu_activate_cb, file_, "local")
             items.append(item)
 
         return items
@@ -354,13 +357,13 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
         file_ = args[-1]
 
         items = []
-        if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
+        if file_.get_uri_scheme() in REMOTE_URI_SCHEME and remote_connect:
             item = Nautilus.MenuItem(
                 name="NautilusPython::open_bg_remote_item",
                 label=_("Open Remote {} Here").format(TERM_NAME[terminal]),
                 tip=_("Open Remote {} In This Directory").format(TERM_NAME[terminal]),
             )
-            item.connect("activate", self._menu_activate_cb, file_)
+            item.connect("activate", self._menu_activate_cb, file_, "remote")
             items.append(item)
 
         item = Nautilus.MenuItem(
@@ -368,7 +371,7 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
             label=_("Open {} Here").format(TERM_NAME[terminal]),
             tip=_("Open {} In This Directory").format(TERM_NAME[terminal]),
         )
-        item.connect("activate", self._menu_background_activate_cb, file_)
+        item.connect("activate", self._menu_background_activate_cb, file_, "local")
         items.append(item)
         return items
 
