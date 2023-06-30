@@ -4,6 +4,8 @@
 
 is an extension for nautilus, which adds an context-entry for opening other terminal emulators than `gnome-terminal`.
 
+![screenshot](./screenshot.png)
+
 ## Supported Terminal Emulators
 
 Right now the plugin is limited to these terminal emulators. If one is missing please open an issue.
