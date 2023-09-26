@@ -1,7 +1,8 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 # based on: https://github.com/gnunn1/tilix/blob/master/data/nautilus/open-tilix.py
 
-from gettext import gettext, textdomain
+from gettext import gettext, translation
+from os import environ
 from subprocess import call
 
 try:
@@ -149,6 +150,7 @@ FLATPAK_PARMS = ["off", "system", "user"]
 FLATPAK_NAMES = {
     "blackbox": "com.raggesilver.BlackBox",
     "tilix": "com.gexperts.Tilix",
+    "wezterm": "org.wezfurlong.wezterm",
 }
 
 global terminal
@@ -162,8 +164,16 @@ GSETTINGS_TERMINAL = "terminal"
 GSETTINGS_NEW_TAB = "new-tab"
 GSETTINGS_FLATPAK = "flatpak"
 REMOTE_URI_SCHEME = ["ftp", "sftp"]
-textdomain("nautilus-open-any-terminal")
+
 _ = gettext
+for localedir in ["/usr/share/locale", environ["HOME"] + "/.local/share/locale"]:
+    try:
+        trans = translation("nautilus-open-any-terminal", localedir)
+        trans.install()
+        _ = trans.gettext
+        break
+    except FileNotFoundError:
+        continue
 
 
 def _checkdecode(s):

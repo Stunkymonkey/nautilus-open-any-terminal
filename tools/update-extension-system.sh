@@ -30,6 +30,10 @@ case "$1" in
         chmod -c 0644 "$TARGDIR/$bn"
         # copy language files
         cd "$LANGUAGESRC" || exit
+        find . -name '*.po' | while read -r po_file;do
+            mo_file=$(echo "$po_file" | sed 's/\(.*\)\.po$/\1.mo/')
+            msgfmt -o "$mo_file" "$po_file"
+        done
         find . -name '*.mo' -exec cp -v --parents '{}' "$LANGUAGEDIR" \;
         cd ../..
         find . -name '*.mo' -exec chmod -c 0644 '{}' \;
