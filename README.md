@@ -32,6 +32,7 @@ Right now the plugin is limited to these terminal emulators. If one is missing p
 - `terminator`
 - `terminology`
 - `termite`
+- `terminus`
 - `tilix`
 - `urxvt`
 - `urxvtc`
