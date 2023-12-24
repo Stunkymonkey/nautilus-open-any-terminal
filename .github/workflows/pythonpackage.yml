@@ -1,14 +1,13 @@
 name: Python package
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.7', '3.8', '3.9', '3.10', '3.x']
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.x']
 
     steps:
     - uses: actions/checkout@v2
@@ -18,7 +17,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: install dependencies
       run: |
-        sudo apt install gettext
+        sudo apt-get install gettext -y
     - name: Lint with flake8
       run: |
         pip install flake8
