@@ -42,6 +42,7 @@ TERM_WORKDIR_PARAMS = {
     "konsole": None,
     "mate-terminal": None,
     "mlterm": None,
+    "prompt": None,
     "qterminal": None,
     "rio": None,
     "sakura": None,
@@ -60,6 +61,39 @@ TERM_WORKDIR_PARAMS = {
     "tabby": ["open"],
 }
 
+NEW_WINDOW_PARAMS = {
+    "alacritty": None,
+    "blackbox": None,
+    "cool-retro-term": None,
+    "deepin-terminal": None,
+    "foot": None,
+    "footclient": None,
+    "gnome-terminal": None,
+    "guake": None,
+    "hyper": None,
+    "kermit": None,
+    "kgx": None,
+    "kitty": None,
+    "konsole": None,
+    "mate-terminal": None,
+    "mlterm": None,
+    "prompt": "--new-window",
+    "qterminal": None,
+    "rio": None,
+    "sakura": None,
+    "st": None,
+    "terminator": None,
+    "terminology": None,
+    "termite": None,
+    "tilix": None,
+    "urxvt": None,
+    "urxvtc": None,
+    "wezterm": None,
+    "xfce4-terminal": None,
+    "xterm": None,
+    "tabby": None,
+}
+
 NEW_TAB_PARAMS = {
     "alacritty": None,
     "blackbox": None,
@@ -76,6 +110,7 @@ NEW_TAB_PARAMS = {
     "konsole": "--new-tab",
     "mate-terminal": "--tab",
     "mlterm": None,
+    "prompt": "--tab",
     "qterminal": None,
     "rio": None,
     "sakura": None,
@@ -110,6 +145,7 @@ TERM_CMD_PARAMS = {
     "konsole": "-e",
     "mate-terminal": "-e",
     "mlterm": "-e",
+    "prompt": "-x",
     "qterminal": "-e",
     "sakura": "-e",
     "st": "-e",
@@ -143,6 +179,7 @@ TERM_NAME = {
     "konsole": "Konsole",
     "mate-terminal": "Mate Terminal",
     "mlterm": "Mlterm",
+    "prompt": "Prompt",
     "qterminal": "QTerminal",
     "sakura": "Sakura",
     "st": "Simple Terminal",
@@ -164,6 +201,7 @@ FLATPAK_PARMS = ["off", "system", "user"]
 
 FLATPAK_NAMES = {
     "blackbox": "com.raggesilver.BlackBox",
+    "prompt": "org.gnome.Prompt",
     "tilix": "com.gexperts.Tilix",
     "wezterm": "org.wezfurlong.wezterm",
 }
@@ -209,6 +247,8 @@ def open_terminal_in_file(filename):
     cmd = terminal_cmd.copy()
     if new_tab:
         cmd.append(NEW_TAB_PARAMS[terminal])
+    else:
+        cmd.append(NEW_WINDOW_PARAMS[terminal])
 
     cwd_params = TERM_WORKDIR_PARAMS.get(terminal)
     if cwd_params and filename:
