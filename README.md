@@ -27,7 +27,7 @@ Right now the plugin is limited to these terminal emulators. If one is missing p
 - `qterminal`
 - `rio`
 - `sakura`
-- `st` [properly patched](https://st.suckless.org/patches/workingdir/)
+- `st`
 - `tabby`
 - `terminator`
 - `terminology`
@@ -37,6 +37,7 @@ Right now the plugin is limited to these terminal emulators. If one is missing p
 - `urxvtc`
 - `wezterm`
 - `xfce4-terminal`
+- `xterm`/`uxterm`
 
 ## Installing
 

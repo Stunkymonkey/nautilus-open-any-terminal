@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # based on: https://github.com/gnunn1/tilix/blob/master/data/nautilus/open-tilix.py
 
+import shlex
 from gettext import gettext, translation
 from os import environ
-from subprocess import call
+from subprocess import Popen
 
 try:
     from urllib import unquote  # type: ignore
@@ -24,34 +25,36 @@ except ValueError:
 from gi.repository import Gio, GObject, Gtk, Nautilus  # noqa: E402
 
 TERM_WORKDIR_PARAMS = {
-    "alacritty": "--working-directory ",
-    "blackbox": "--working-directory ",
-    "cool-retro-term": "--workdir ",
-    "deepin-terminal": "--work-directory ",
-    "foot": "--working-directory=",
-    "footclient": "--working-directory=",
-    "gnome-terminal": "--working-directory=",
-    "guake": "guake --show --new-tab=",
-    "hyper": "",
-    "kermit": "-w ",
-    "kgx": "--working-directory=",
-    "kitty": "--directory ",
-    "konsole": "--workdir ",
-    "mate-terminal": "--working-directory=",
-    "mlterm": "--working-directory=",
-    "qterminal": "--workdir ",
-    "rio": "--working-dir=",
-    "sakura": "-d ",
-    "st": "-d ",
-    "terminator": "--working-directory=",
-    "terminology": "--current-directory ",
-    "termite": "-d ",
-    "tilix": "-w ",
-    "urxvt": "-cd ",
-    "urxvtc": "-cd ",
-    "wezterm": "start --cwd ",
-    "xfce4-terminal": "--working-directory=",
-    "tabby": "open ",
+    "alacritty": None,
+    "blackbox": ["--working-directory"],
+    "cool-retro-term": ["--workdir", "."],
+    "deepin-terminal": None,
+    "foot": None,
+    "footclient": None,
+    "gnome-terminal": None,
+    "guake": ["--show", "--new-tab=."],
+    "hyper": None,
+    "kermit": None,
+    "kgx": None,
+    "kitty": None,
+    "konsole": None,
+    "mate-terminal": None,
+    "mlterm": None,
+    "qterminal": None,
+    "rio": None,
+    "sakura": None,
+    "st": None,
+    "terminator": None,
+    "terminology": None,
+    "termite": None,
+    "tilix": None,
+    "urxvt": None,
+    "urxvtc": None,
+    "uxterm": None,
+    "wezterm": ["start", "--cwd", "."],
+    "xfce4-terminal": None,
+    "xterm": None,
+    "tabby": ["open"],
 }
 
 NEW_TAB_PARAMS = {
@@ -80,8 +83,10 @@ NEW_TAB_PARAMS = {
     "tilix": None,
     "urxvt": None,
     "urxvtc": None,
+    "uxterm": None,
     "wezterm": None,
     "xfce4-terminal": "--tab",
+    "xterm": None,
     "tabby": None,
 }
 
@@ -110,8 +115,10 @@ TERM_CMD_PARAMS = {
     "tilix": "-e",
     "urxvt": "-e",
     "urxvtc": "-e",
+    "uxterm": "-e",
     "wezterm": "-e",
     "xfce4-terminal": "-e",
+    "xterm": "-e",
     "tabby": "-e",
 }
 
@@ -140,8 +147,10 @@ TERM_NAME = {
     "tilix": "Tilix",
     "urxvt": "rxvt-unicode",
     "urxvtc": "urxvtc",
+    "uxterm": "UXTerm",
     "wezterm": "Wez's Terminal Emulator",
     "xfce4-terminal": "Xfce Terminal",
+    "xterm": "XTerm",
     "tabby": "Tabby",
 }
 
@@ -183,28 +192,18 @@ def _checkdecode(s):
 
 def open_terminal_in_file(filename):
     """open the new terminal with correct path"""
-    if filename:
-        # escape filename quotations
-        filename = filename.replace('"', '\\"')
-        if new_tab:
-            call(
-                '{0} {1} {2}"{3}" &'.format(
-                    terminal_cmd,
-                    NEW_TAB_PARAMS[terminal],
-                    TERM_WORKDIR_PARAMS[terminal],
-                    filename,
-                ),
-                shell=True,
-            )
-        else:
-            call(
-                '{0} {1}"{2}" &'.format(
-                    terminal_cmd, TERM_WORKDIR_PARAMS[terminal], filename
-                ),
-                shell=True,
-            )
-    else:
-        call("{0} &".format(terminal_cmd), shell=True)
+    cmd = terminal_cmd.copy()
+    if new_tab:
+        cmd.append(NEW_TAB_PARAMS[terminal])
+
+    cwd_params = TERM_WORKDIR_PARAMS.get(terminal)
+    if cwd_params and filename:
+        cmd.extend(cwd_params)
+        if terminal == "blackbox":
+            # This is required
+            cmd.append(filename)
+
+    Popen(cmd, cwd=filename)
 
 
 def set_terminal_args(*args):
@@ -225,12 +224,10 @@ def set_terminal_args(*args):
         if newer_tab and NEW_TAB_PARAMS[terminal] is None:
             new_tab_text += " (terminal does not support tabs)"
         if flatpak != FLATPAK_PARMS[0] and value in FLATPAK_NAMES:
-            terminal_cmd = "flatpak run --{0} {1}".format(
-                flatpak, FLATPAK_NAMES[terminal]
-            )
+            terminal_cmd = ["flatpak", "run", "--" + flatpak, FLATPAK_NAMES[terminal]]
             flatpak_text = "with flatpak as {0}".format(flatpak)
         else:
-            terminal_cmd = terminal
+            terminal_cmd = [terminal]
             flatpak = FLATPAK_PARMS[0]
             flatpak_text = ""
         print(
@@ -287,21 +284,24 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
     def _open_terminal(self, file_):
         if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
             result = urlparse(file_.get_uri())
-            if result.username:
-                value = "ssh -t {0}@{1}".format(result.username, result.hostname)
-            else:
-                value = "ssh -t {0}".format(result.hostname)
-            if result.port:
-                value = "{0} -p {1}".format(value, result.port)
-            if file_.is_directory():
-                value = '{0} cd "{1}" \\; $SHELL'.format(value, result.path)
 
-            call(
-                '{0} {1} "{2}" &'.format(
-                    terminal_cmd, TERM_CMD_PARAMS[terminal], value
-                ),
-                shell=True,
-            )
+            cmd = terminal_cmd.copy()
+            cmd.extend([TERM_CMD_PARAMS[terminal], "ssh", "-t"])
+            if result.username:
+                cmd.append("{0}@{1}".format(result.username, result.hostname))
+            else:
+                cmd.append(result.hostname)
+
+            if result.port:
+                cmd.append("-p")
+                cmd.append(str(result.port))
+
+            if file_.is_directory():
+                cmd.extend(
+                    ["cd", shlex.quote(unquote(result.path)), ";", "exec", "$SHELL"]
+                )
+
+            Popen(cmd)
         else:
             filename = Gio.File.new_for_uri(file_.get_uri()).get_path()
             open_terminal_in_file(filename)
@@ -324,7 +324,6 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
         file_ = files[0]
 
         if file_.is_directory():
-
             if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
                 uri = _checkdecode(file_.get_uri())
                 item = Nautilus.MenuItem(
