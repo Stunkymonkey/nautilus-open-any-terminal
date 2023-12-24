@@ -3,6 +3,7 @@
 
 import platform
 import shlex
+from dataclasses import dataclass, field
 from functools import cache
 from gettext import gettext, translation
 from os import environ
@@ -26,189 +27,74 @@ except ValueError:
 
 from gi.repository import Gio, GObject, Gtk, Nautilus  # noqa: E402
 
-TERM_WORKDIR_PARAMS = {
-    "alacritty": None,
-    "blackbox": ["--working-directory"],
-    "cool-retro-term": ["--workdir", "."],
-    "deepin-terminal": None,
-    "foot": None,
-    "footclient": None,
-    "gnome-terminal": None,
-    "guake": ["--show", "--new-tab=."],
-    "hyper": None,
-    "kermit": None,
-    "kgx": None,
-    "kitty": None,
-    "konsole": None,
-    "mate-terminal": None,
-    "mlterm": None,
-    "prompt": None,
-    "qterminal": None,
-    "rio": None,
-    "sakura": None,
-    "st": None,
-    "terminator": None,
-    "terminology": None,
-    "terminus": None,
-    "termite": None,
-    "tilix": None,
-    "urxvt": None,
-    "urxvtc": None,
-    "uxterm": None,
-    "wezterm": ["start", "--cwd", "."],
-    "xfce4-terminal": None,
-    "xterm": None,
-    "tabby": ["open"],
-}
 
-NEW_WINDOW_PARAMS = {
-    "alacritty": None,
-    "blackbox": None,
-    "cool-retro-term": None,
-    "deepin-terminal": None,
-    "foot": None,
-    "footclient": None,
-    "gnome-terminal": None,
-    "guake": None,
-    "hyper": None,
-    "kermit": None,
-    "kgx": None,
-    "kitty": None,
-    "konsole": None,
-    "mate-terminal": None,
-    "mlterm": None,
-    "prompt": "--new-window",
-    "qterminal": None,
-    "rio": None,
-    "sakura": None,
-    "st": None,
-    "terminator": None,
-    "terminology": None,
-    "termite": None,
-    "tilix": None,
-    "urxvt": None,
-    "urxvtc": None,
-    "wezterm": None,
-    "xfce4-terminal": None,
-    "xterm": None,
-    "tabby": None,
-}
+@dataclass(frozen=True)
+class Terminal:
+    name: str
+    workdir_arguments: list[str] | None = None
+    new_tab_arguments: list[str] | None = None
+    new_window_arguments: list[str] | None = None
+    command_arguments: list[str] = field(default_factory=lambda: ["-e"])
+    flatpak_package: str | None = None
 
-NEW_TAB_PARAMS = {
-    "alacritty": None,
-    "blackbox": None,
-    "cool-retro-term": None,
-    "deepin-terminal": None,
-    "foot": None,
-    "footclient": None,
-    "gnome-terminal": "--tab",
-    "guake": None,
-    "hyper": None,
-    "kermit": None,
-    "kgx": "--tab",
-    "kitty": None,
-    "konsole": "--new-tab",
-    "mate-terminal": "--tab",
-    "mlterm": None,
-    "prompt": "--tab",
-    "qterminal": None,
-    "rio": None,
-    "sakura": None,
-    "st": None,
-    "terminator": "--new-tab",
-    "terminology": None,
-    "terminus": None,
-    "termite": None,
-    "tilix": None,
-    "urxvt": None,
-    "urxvtc": None,
-    "uxterm": None,
-    "wezterm": None,
-    "xfce4-terminal": "--tab",
-    "xterm": None,
-    "tabby": None,
-}
 
-TERM_CMD_PARAMS = {
-    "alacritty": "-e",
-    "blackbox": "-c",
-    "cool-retro-term": "-e",
-    "deepin-terminal": "-e",
-    "foot": "-e",
-    "footclient": "-e",
-    "gnome-terminal": "-e",
-    "guake": "-e",
-    "hyper": "-e",
-    "kermit": "-e",
-    "kgx": "-e",
-    "kitty": "-e",
-    "konsole": "-e",
-    "mate-terminal": "-e",
-    "mlterm": "-e",
-    "prompt": "-x",
-    "qterminal": "-e",
-    "sakura": "-e",
-    "st": "-e",
-    "terminator": "-e",
-    "terminology": "-e",
-    "terminus": "-e",
-    "termite": "-e",
-    "tilix": "-e",
-    "urxvt": "-e",
-    "urxvtc": "-e",
-    "uxterm": "-e",
-    "wezterm": "-e",
-    "xfce4-terminal": "-e",
-    "xterm": "-e",
-    "tabby": "-e",
-}
-
-TERM_NAME = {
-    "alacritty": "Alacritty",
-    "blackbox": "Black Box",
-    "cool-retro-term": "cool-retro-term",
-    "deepin-terminal": "Deepin Terminal",
-    "foot": "Foot",
-    "footclient": "FootClient",
-    "gnome-terminal": "Terminal",
-    "guake": "Guake",
-    "hyper": "Hyper",
-    "kermit": "Kermit",
-    "kgx": "Console",
-    "kitty": "kitty",
-    "konsole": "Konsole",
-    "mate-terminal": "Mate Terminal",
-    "mlterm": "Mlterm",
-    "prompt": "Prompt",
-    "qterminal": "QTerminal",
-    "sakura": "Sakura",
-    "st": "Simple Terminal",
-    "terminator": "Terminator",
-    "terminology": "Terminology",
-    "terminus": "Terminus",
-    "termite": "Termite",
-    "tilix": "Tilix",
-    "urxvt": "rxvt-unicode",
-    "urxvtc": "urxvtc",
-    "uxterm": "UXTerm",
-    "wezterm": "Wez's Terminal Emulator",
-    "xfce4-terminal": "Xfce Terminal",
-    "xterm": "XTerm",
-    "tabby": "Tabby",
+TERMINALS = {
+    "alacritty": Terminal("Alacritty"),
+    "blackbox": Terminal(
+        "Black Box",
+        workdir_arguments=["--working-directory"],
+        command_arguments=["-c"],
+        flatpak_package="com.raggesilver.BlackBox",
+    ),
+    "cool-retro-term": Terminal(
+        "cool-retro-term", workdir_arguments=["--workdir", "."]
+    ),
+    "deepin-terminal": Terminal("Deepin Terminal"),
+    "foot": Terminal("Foot"),
+    "footclient": Terminal("FootClient"),
+    "gnome-terminal": Terminal("Terminal", new_tab_arguments=["--tab"]),
+    "guake": Terminal("Guake", workdir_arguments=["--show", "--new-tab=."]),
+    "hyper": Terminal("Hyper"),
+    "kermit": Terminal("Kermit"),
+    "kgx": Terminal("Console", new_tab_arguments=["--tab"]),
+    "kitty": Terminal("kitty"),
+    "konsole": Terminal("Konsole", new_tab_arguments=["--new-tab"]),
+    "mate-terminal": Terminal("Mate Terminal", new_tab_arguments=["--tab"]),
+    "mlterm": Terminal("Mlterm"),
+    "prompt": Terminal(
+        "Prompt",
+        command_arguments=["-x"],
+        new_tab_arguments=["--tab"],
+        new_window_arguments=["--new-window"],
+        flatpak_package="org.gnome.Prompt",
+    ),
+    "qterminal": Terminal("QTerminal"),
+    "sakura": Terminal("Sakura"),
+    "st": Terminal("Simple Terminal"),
+    "terminator": Terminal("Terminator", new_tab_arguments=["--new-tab"]),
+    "terminology": Terminal("Terminology"),
+    "terminus": Terminal("Terminus"),
+    "termite": Terminal("Termite"),
+    "tilix": Terminal("Tilix", flatpak_package="com.gexperts.Tilix"),
+    "urxvt": Terminal("rxvt-unicode"),
+    "urxvtc": Terminal("urxvtc"),
+    "uxterm": Terminal("UXTerm"),
+    "wezterm": Terminal(
+        "Wez's Terminal Emulator",
+        workdir_arguments=["start", "--cwd", "."],
+        flatpak_package="org.wezfurlong.wezterm",
+    ),
+    "xfce4-terminal": Terminal("Xfce Terminal", new_tab_arguments=["--tab"]),
+    "xterm": Terminal("XTerm"),
+    "tabby": Terminal("Tabby", command_arguments=["run"], workdir_arguments=["open"]),
 }
 
 FLATPAK_PARMS = ["off", "system", "user"]
 
-FLATPAK_NAMES = {
-    "blackbox": "com.raggesilver.BlackBox",
-    "prompt": "org.gnome.Prompt",
-    "tilix": "com.gexperts.Tilix",
-    "wezterm": "org.wezfurlong.wezterm",
-}
-
 global terminal
 terminal = "gnome-terminal"
-terminal_cmd = None
+terminal_cmd: list[str] = None  # type: ignore
+terminal_data: Terminal = TERMINALS["gnome-terminal"]
 new_tab = False
 flatpak = FLATPAK_PARMS[0]
 GSETTINGS_PATH = "com.github.stunkymonkey.nautilus-open-any-terminal"
@@ -245,14 +131,13 @@ def distro_id():
 def open_terminal_in_file(filename):
     """open the new terminal with correct path"""
     cmd = terminal_cmd.copy()
-    if new_tab:
-        cmd.append(NEW_TAB_PARAMS[terminal])
-    else:
-        cmd.append(NEW_WINDOW_PARAMS[terminal])
+    if new_tab and terminal_data.new_tab_arguments:
+        cmd.extend(terminal_data.new_tab_arguments)
+    elif terminal_data.new_window_arguments:
+        cmd.extend(terminal_data.new_window_arguments)
 
-    cwd_params = TERM_WORKDIR_PARAMS.get(terminal)
-    if cwd_params and filename:
-        cmd.extend(cwd_params)
+    if filename and terminal_data.workdir_arguments:
+        cmd.extend(terminal_data.workdir_arguments)
         if terminal == "blackbox":
             # This is required
             cmd.append(filename)
@@ -264,36 +149,40 @@ def set_terminal_args(*args):
     global new_tab
     global flatpak
     global terminal_cmd
+    global terminal_data
     value = _gsettings.get_string(GSETTINGS_TERMINAL)
     newer_tab = _gsettings.get_boolean(GSETTINGS_NEW_TAB)
     flatpak = FLATPAK_PARMS[_gsettings.get_enum(GSETTINGS_FLATPAK)]
-    if value in TERM_WORKDIR_PARAMS:
-        global terminal
-        terminal = value
-        if newer_tab and NEW_TAB_PARAMS[terminal] is not None:
-            new_tab = newer_tab
-            new_tab_text = "opening in a new tab"
-        else:
-            new_tab_text = "opening a new window"
-        if newer_tab and NEW_TAB_PARAMS[terminal] is None:
-            new_tab_text += " (terminal does not support tabs)"
-        if flatpak != FLATPAK_PARMS[0] and value in FLATPAK_NAMES:
-            terminal_cmd = ["flatpak", "run", "--" + flatpak, FLATPAK_NAMES[terminal]]
-            flatpak_text = "with flatpak as {0}".format(flatpak)
-        else:
-            terminal_cmd = [terminal]
-            if terminal == "blackbox" and distro_id() == "fedora":
-                # It's called like this on fedora
-                terminal_cmd[0] = "blackbox-terminal"
-            flatpak = FLATPAK_PARMS[0]
-            flatpak_text = ""
-        print(
-            'open-any-terminal: terminal is set to "{0}" {1} {2}'.format(
-                terminal, new_tab_text, flatpak_text
-            )
-        )
-    else:
+    new_terminal_data = TERMINALS.get(value)
+    if not new_terminal_data:
         print('open-any-terminal: unknown terminal "{0}"'.format(value))
+        return
+
+    global terminal
+    terminal = value
+    terminal_data = new_terminal_data
+    if newer_tab and terminal_data.new_tab_arguments:
+        new_tab = newer_tab
+        new_tab_text = "opening in a new tab"
+    else:
+        new_tab_text = "opening a new window"
+    if newer_tab and not terminal_data.new_tab_arguments:
+        new_tab_text += " (terminal does not support tabs)"
+    if flatpak != FLATPAK_PARMS[0] and terminal_data.flatpak_package is not None:
+        terminal_cmd = ["flatpak", "run", "--" + flatpak, terminal_data.flatpak_package]
+        flatpak_text = "with flatpak as {0}".format(flatpak)
+    else:
+        terminal_cmd = [terminal]
+        if terminal == "blackbox" and distro_id() == "fedora":
+            # It's called like this on fedora
+            terminal_cmd[0] = "blackbox-terminal"
+        flatpak = FLATPAK_PARMS[0]
+        flatpak_text = ""
+    print(
+        'open-any-terminal: terminal is set to "{0}" {1} {2}'.format(
+            terminal, new_tab_text, flatpak_text
+        )
+    )
 
 
 if Nautilus._version == "3.0":
@@ -343,7 +232,8 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
             result = urlparse(file_.get_uri())
 
             cmd = terminal_cmd.copy()
-            cmd.extend([TERM_CMD_PARAMS[terminal], "ssh", "-t"])
+            cmd.extend(terminal_data.command_arguments)
+            cmd.extend(["ssh", "-t"])
             if result.username:
                 cmd.append("{0}@{1}".format(result.username, result.hostname))
             else:
@@ -385,8 +275,8 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
                 uri = _checkdecode(file_.get_uri())
                 item = Nautilus.MenuItem(
                     name="NautilusPython::open_remote_item",
-                    label=_("Open Remote {}").format(TERM_NAME[terminal]),
-                    tip=_("Open Remote {} In {}").format(TERM_NAME[terminal], uri),
+                    label=_("Open Remote {}").format(terminal_data.name),
+                    tip=_("Open Remote {} In {}").format(terminal_data.name, uri),
                 )
                 item.connect("activate", self._menu_activate_cb, file_)
                 items.append(item)
@@ -394,8 +284,8 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
             filename = _checkdecode(file_.get_name())
             item = Nautilus.MenuItem(
                 name="NautilusPython::open_file_item",
-                label=_("Open In {}").format(TERM_NAME[terminal]),
-                tip=_("Open {} In {}").format(TERM_NAME[terminal], filename),
+                label=_("Open In {}").format(terminal_data.name),
+                tip=_("Open {} In {}").format(terminal_data.name, filename),
             )
             item.connect("activate", self._menu_activate_cb, file_)
             items.append(item)
@@ -412,16 +302,16 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
         if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
             item = Nautilus.MenuItem(
                 name="NautilusPython::open_bg_remote_item",
-                label=_("Open Remote {} Here").format(TERM_NAME[terminal]),
-                tip=_("Open Remote {} In This Directory").format(TERM_NAME[terminal]),
+                label=_("Open Remote {} Here").format(terminal_data.name),
+                tip=_("Open Remote {} In This Directory").format(terminal_data.name),
             )
             item.connect("activate", self._menu_activate_cb, file_)
             items.append(item)
 
         item = Nautilus.MenuItem(
             name="NautilusPython::open_bg_file_item",
-            label=_("Open {} Here").format(TERM_NAME[terminal]),
-            tip=_("Open {} In This Directory").format(TERM_NAME[terminal]),
+            label=_("Open {} Here").format(terminal_data.name),
+            tip=_("Open {} In This Directory").format(terminal_data.name),
         )
         item.connect("activate", self._menu_background_activate_cb, file_)
         items.append(item)
