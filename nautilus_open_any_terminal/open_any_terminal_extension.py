@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 # based on: https://github.com/gnunn1/tilix/blob/master/data/nautilus/open-tilix.py
 
+import platform
 import shlex
+from functools import cache
 from gettext import gettext, translation
 from os import environ
 from subprocess import Popen
@@ -190,6 +192,14 @@ def _checkdecode(s):
     return s.decode("utf-8") if isinstance(s, bytes) else s
 
 
+@cache
+def distro_id():
+    try:
+        return platform.freedesktop_os_release()["ID"]
+    except (OSError, AttributeError):
+        return "unknown"
+
+
 def open_terminal_in_file(filename):
     """open the new terminal with correct path"""
     cmd = terminal_cmd.copy()
@@ -228,6 +238,9 @@ def set_terminal_args(*args):
             flatpak_text = "with flatpak as {0}".format(flatpak)
         else:
             terminal_cmd = [terminal]
+            if terminal == "blackbox" and distro_id() == "fedora":
+                # It's called like this on fedora
+                terminal_cmd[0] = "blackbox-terminal"
             flatpak = FLATPAK_PARMS[0]
             flatpak_text = ""
         print(
