@@ -8,15 +8,15 @@
 #
 # This script also compiles GSettings schemas
 
-SRC=nautilus_open_any_terminal/open_any_terminal_extension.py
+SRC=src/nautilus_open_any_terminal.py
 TARGDIR=/usr/share/nautilus-python/extensions
 
 SCHEMASDIR=/usr/share/glib-2.0/schemas
-SCHEMASSRC=nautilus_open_any_terminal/schemas
+SCHEMASSRC=src/schemas
 SCHEMAFILE=com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml
 
 LANGUAGEDIR=/usr/share/locale
-LANGUAGESRC=nautilus_open_any_terminal/locale
+LANGUAGESRC=src/locale
 LANGUAGEFILE=nautilus-open-any-terminal.mo
 
 case "$1" in

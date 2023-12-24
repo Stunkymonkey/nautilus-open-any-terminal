@@ -48,9 +48,7 @@ TERMINALS = {
         command_arguments=["-c"],
         flatpak_package="com.raggesilver.BlackBox",
     ),
-    "cool-retro-term": Terminal(
-        "cool-retro-term", workdir_arguments=["--workdir", "."]
-    ),
+    "cool-retro-term": Terminal("cool-retro-term", workdir_arguments=["--workdir", "."]),
     "deepin-terminal": Terminal("Deepin Terminal"),
     "foot": Terminal("Foot"),
     "footclient": Terminal("FootClient"),
@@ -217,18 +215,12 @@ def set_terminal_args(*args):
             terminal_cmd[0] = "blackbox-terminal"
         flatpak = FLATPAK_PARMS[0]
         flatpak_text = ""
-    print(
-        'open-any-terminal: terminal is set to "{0}" {1} {2}'.format(
-            terminal, new_tab_text, flatpak_text
-        )
-    )
+    print('open-any-terminal: terminal is set to "{0}" {1} {2}'.format(terminal, new_tab_text, flatpak_text))
 
 
 if API_VERSION == "3.0":
 
-    class OpenAnyTerminalShortcutProvider(
-        GObject.GObject, Nautilus.LocationWidgetProvider
-    ):
+    class OpenAnyTerminalShortcutProvider(GObject.GObject, Nautilus.LocationWidgetProvider):
         def __init__(self):
             source = Gio.SettingsSchemaSource.get_default()
             if source.lookup(GSETTINGS_PATH, True):
@@ -242,9 +234,7 @@ if API_VERSION == "3.0":
             self._accel_group = Gtk.AccelGroup()
             shortcut = self._gsettings.get_string(GSETTINGS_KEYBINDINGS)
             key, mod = Gtk.accelerator_parse(shortcut)
-            self._accel_group.connect(
-                key, mod, Gtk.AccelFlags.VISIBLE, self._open_terminal
-            )
+            self._accel_group.connect(key, mod, Gtk.AccelFlags.VISIBLE, self._open_terminal)
 
         def _bind_shortcut(self, gsettings, key):
             if key == GSETTINGS_KEYBINDINGS:

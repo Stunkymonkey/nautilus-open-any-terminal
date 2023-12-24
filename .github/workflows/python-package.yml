@@ -17,25 +17,20 @@ jobs:
         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.x']
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
           sudo apt-get install gettext -y
-          python -m pip install --upgrade pip
-          pip install setuptools wheel
-      - name: Lint with flake8
-        run: |
-          pip install flake8
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Test installation
-        run: ./setup.py install
-      - name: Pack package
-        run: python setup.py sdist bdist_wheel
+        run: |
+          pip install build
+      - name: Test build
+        run: |
+          python -m build
       - name: Upload package
         uses: actions/upload-artifact@v4
         with:
