@@ -20,14 +20,20 @@ except ImportError:
 
 from gi import get_required_version, require_version
 
-API_VERSION = get_required_version("Nautilus")
-
-if API_VERSION == "4.0":
-    require_version("Gtk", "4.0")
-else:
+API_VERSION: str
+if (API_VERSION := get_required_version("Nautilus")) is not None:
+    try:
+        require_version("Gtk", "4.0")
+    except ValueError:
+        require_version("Gtk", "3.0")
+    from gi.repository import Nautilus as FileManager
+elif (API_VERSION := get_required_version("Caja")) is not None:
     require_version("Gtk", "3.0")
+    from gi.repository import Caja as FileManager
+else:
+    raise RuntimeError("This module can only be executed as a Nautilus/Caja extension")
 
-from gi.repository import Gio, GObject, Gtk, Nautilus  # noqa: E402 # pylint: disable=wrong-import-position
+from gi.repository import Gio, GObject, Gtk  # noqa: E402 pylint: disable=wrong-import-position
 
 
 @dataclass(frozen=True)
@@ -238,13 +244,11 @@ def set_terminal_args(*_args):
     print(f'open-any-terminal: terminal is set to "{terminal}" {new_tab_text} {flatpak_text}')
 
 
-if API_VERSION == "3.0":
+if API_VERSION in ("3.0", "2.0"):
 
     class OpenAnyTerminalShortcutProvider(
-        GObject.GObject, Nautilus.LocationWidgetProvider
+        GObject.GObject, FileManager.LocationWidgetProvider
     ):  # pylint: disable=too-few-public-methods
-        """Provide keyboard shortcuts for opening terminals in Nautilus."""
-
         def __init__(self):
             gsettings_source = Gio.SettingsSchemaSource.get_default()
             if gsettings_source.lookup(GSETTINGS_PATH, True):
@@ -278,9 +282,7 @@ if API_VERSION == "3.0":
             self._window = window
 
 
-class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
-    """Provide context menu items for opening terminals in Nautilus."""
-
+class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
     def _menu_activate_cb(self, menu, file_):
         open_terminal_in_uri(file_.get_uri())
 
@@ -299,7 +301,7 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
         if file_.is_directory():
             if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
                 uri = file_.get_uri()
-                item = Nautilus.MenuItem(
+                item = FileManager.MenuItem(
                     name="OpenTerminal::open_remote_item",
                     label=_("Open Remote {}").format(terminal_data.name),
                     tip=_("Open Remote {} In {}").format(terminal_data.name, uri),
@@ -310,7 +312,7 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
                     return []
 
                 filename = file_.get_name()
-                item = Nautilus.MenuItem(
+                item = FileManager.MenuItem(
                     name="OpenTerminal::open_file_item",
                     label=_("Open In {}").format(terminal_data.name),
                     tip=_("Open {} In {}").format(terminal_data.name, filename),
@@ -329,7 +331,7 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
 
         items = []
         if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
-            item = Nautilus.MenuItem(
+            item = FileManager.MenuItem(
                 name="OpenTerminal::open_bg_remote_item",
                 label=_("Open Remote {} Here").format(terminal_data.name),
                 tip=_("Open Remote {} In This Directory").format(terminal_data.name),
@@ -339,7 +341,7 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
             if terminal == "wezterm" and flatpak == "off":
                 return []
 
-            item = Nautilus.MenuItem(
+            item = FileManager.MenuItem(
                 name="OpenTerminal::open_bg_file_item",
                 label=_("Open {} Here").format(terminal_data.name),
                 tip=_("Open {} In This Directory").format(terminal_data.name),
