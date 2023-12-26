@@ -71,6 +71,7 @@ TERMINALS = {
     "qterminal": Terminal("QTerminal"),
     "sakura": Terminal("Sakura"),
     "st": Terminal("Simple Terminal"),
+    "tabby": Terminal("Tabby", command_arguments=["run"], workdir_arguments=["open"]),
     "terminator": Terminal("Terminator", new_tab_arguments=["--new-tab"]),
     "terminology": Terminal("Terminology"),
     "terminus": Terminal("Terminus"),
@@ -86,7 +87,6 @@ TERMINALS = {
     ),
     "xfce4-terminal": Terminal("Xfce Terminal", new_tab_arguments=["--tab"]),
     "xterm": Terminal("XTerm"),
-    "tabby": Terminal("Tabby", command_arguments=["run"], workdir_arguments=["open"]),
 }
 
 FLATPAK_PARMS = ["off", "system", "user"]

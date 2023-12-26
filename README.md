@@ -32,8 +32,8 @@ Right now the plugin is limited to these terminal emulators. If one is missing p
 - `tabby`
 - `terminator`
 - `terminology`
-- `termite`
 - `terminus`
+- `termite`
 - `tilix`
 - `urxvt`
 - `urxvtc`
