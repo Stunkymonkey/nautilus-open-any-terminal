@@ -69,6 +69,7 @@ TERMINALS = {
         flatpak_package="org.gnome.Prompt",
     ),
     "qterminal": Terminal("QTerminal"),
+    "rio": Terminal("Rio"),
     "sakura": Terminal("Sakura"),
     "st": Terminal("Simple Terminal"),
     "tabby": Terminal("Tabby", command_arguments=["run"], workdir_arguments=["open"]),
