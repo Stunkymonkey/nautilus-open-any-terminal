@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 # based on: https://github.com/gnunn1/tilix/blob/master/data/nautilus/open-tilix.py
 
-import platform
+import ast
+import re
 import shlex
 from dataclasses import dataclass, field
 from functools import cache
 from gettext import gettext, translation
 from os import environ
 from subprocess import Popen
+from typing import Optional
 
 try:
     from urllib import unquote  # type: ignore
@@ -31,11 +33,11 @@ from gi.repository import Gio, GObject, Gtk, Nautilus  # noqa: E402
 @dataclass(frozen=True)
 class Terminal:
     name: str
-    workdir_arguments: list[str] | None = None
-    new_tab_arguments: list[str] | None = None
-    new_window_arguments: list[str] | None = None
+    workdir_arguments: Optional[list[str]] = None
+    new_tab_arguments: Optional[list[str]] = None
+    new_window_arguments: Optional[list[str]] = None
     command_arguments: list[str] = field(default_factory=lambda: ["-e"])
-    flatpak_package: str | None = None
+    flatpak_package: Optional[str] = None
 
 
 TERMINALS = {
@@ -121,11 +123,35 @@ def _checkdecode(s):
     return s.decode("utf-8") if isinstance(s, bytes) else s
 
 
+# Adapted from https://www.freedesktop.org/software/systemd/man/latest/os-release.html
+def read_os_release():
+    try:
+        filename = "/etc/os-release"
+        f = open(filename)
+    except FileNotFoundError:
+        filename = "/usr/lib/os-release"
+        f = open(filename)
+
+    with f:
+        for line_number, line in enumerate(f, start=1):
+            line = line.rstrip()
+            if not line or line.startswith("#"):
+                continue
+            m = re.match(r"([A-Z][A-Z_0-9]+)=(.*)", line)
+            if m:
+                name, val = m.groups()
+                if val and val[0] in "\"'":
+                    val = ast.literal_eval(val)
+                yield name, val
+            else:
+                raise OSError(f"{filename}:{line_number}: bad line {line!r}")
+
+
 @cache
 def distro_id():
     try:
-        return platform.freedesktop_os_release()["ID"]
-    except (OSError, AttributeError):
+        return dict(read_os_release())["ID"]
+    except OSError:
         return "unknown"
 
 
