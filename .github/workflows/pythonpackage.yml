@@ -19,7 +19,7 @@ jobs:
       run: |
         sudo apt-get install gettext -y
         python -m pip install --upgrade pip
-        pip install setuptools
+        pip install setuptools wheel
     - name: Lint with flake8
       run: |
         pip install flake8
