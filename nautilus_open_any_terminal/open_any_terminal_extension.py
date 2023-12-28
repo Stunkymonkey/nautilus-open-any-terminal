@@ -7,7 +7,7 @@ import shlex
 from dataclasses import dataclass, field
 from functools import cache
 from gettext import gettext, translation
-from os import environ
+from os.path import expanduser
 from subprocess import Popen
 from typing import Optional
 
@@ -18,14 +18,14 @@ try:
 except ImportError:
     from urllib.parse import unquote, urlparse
 
-from gi import require_version
+from gi import get_required_version, require_version
 
-try:
+API_VERSION = get_required_version("Nautilus")
+
+if API_VERSION == "4.0":
     require_version("Gtk", "4.0")
-    require_version("Nautilus", "4.0")
-except ValueError:
+else:
     require_version("Gtk", "3.0")
-    require_version("Nautilus", "3.0")
 
 from gi.repository import Gio, GObject, Gtk, Nautilus  # noqa: E402
 
@@ -108,7 +108,7 @@ GSETTINGS_FLATPAK = "flatpak"
 REMOTE_URI_SCHEME = ["ftp", "sftp"]
 
 _ = gettext
-for localedir in ["/usr/share/locale", environ["HOME"] + "/.local/share/locale"]:
+for localedir in [expanduser("~/.local/share/locale"), "/usr/share/locale"]:
     try:
         trans = translation("nautilus-open-any-terminal", localedir)
         trans.install()
@@ -116,11 +116,6 @@ for localedir in ["/usr/share/locale", environ["HOME"] + "/.local/share/locale"]
         break
     except FileNotFoundError:
         continue
-
-
-def _checkdecode(s):
-    """Decode string assuming utf encoding if it's bytes, else return unmodified"""
-    return s.decode("utf-8") if isinstance(s, bytes) else s
 
 
 # Adapted from https://www.freedesktop.org/software/systemd/man/latest/os-release.html
@@ -155,21 +150,38 @@ def distro_id():
         return "unknown"
 
 
-def open_terminal_in_file(filename):
-    """open the new terminal with correct path"""
+def open_terminal_in_uri(uri: str):
+    result = urlparse(uri)
     cmd = terminal_cmd.copy()
-    if new_tab and terminal_data.new_tab_arguments:
-        cmd.extend(terminal_data.new_tab_arguments)
-    elif terminal_data.new_window_arguments:
-        cmd.extend(terminal_data.new_window_arguments)
+    if result.scheme in REMOTE_URI_SCHEME:
+        cmd.extend(terminal_data.command_arguments)
+        cmd.extend(["ssh", "-t"])
+        if result.username:
+            cmd.append("{0}@{1}".format(result.username, result.hostname))
+        else:
+            cmd.append(result.hostname)
 
-    if filename and terminal_data.workdir_arguments:
-        cmd.extend(terminal_data.workdir_arguments)
-        if terminal == "blackbox":
-            # This is required
-            cmd.append(filename)
+        if result.port:
+            cmd.append("-p")
+            cmd.append(str(result.port))
 
-    Popen(cmd, cwd=filename)
+        cmd.extend(["cd", shlex.quote(unquote(result.path)), ";", "exec", "$SHELL"])
+
+        Popen(cmd)
+    else:
+        filename = unquote(result.path)
+        if new_tab and terminal_data.new_tab_arguments:
+            cmd.extend(terminal_data.new_tab_arguments)
+        elif terminal_data.new_window_arguments:
+            cmd.extend(terminal_data.new_window_arguments)
+
+        if filename and terminal_data.workdir_arguments:
+            cmd.extend(terminal_data.workdir_arguments)
+            if terminal == "blackbox":
+                # This is required
+                cmd.append(filename)
+
+        Popen(cmd, cwd=filename)
 
 
 def set_terminal_args(*args):
@@ -212,7 +224,7 @@ def set_terminal_args(*args):
     )
 
 
-if Nautilus._version == "3.0":
+if API_VERSION == "3.0":
 
     class OpenAnyTerminalShortcutProvider(
         GObject.GObject, Nautilus.LocationWidgetProvider
@@ -240,8 +252,7 @@ if Nautilus._version == "3.0":
                 self._create_accel_group()
 
         def _open_terminal(self, *args):
-            filename = unquote(self._uri[7:])
-            open_terminal_in_file(filename)
+            open_terminal_in_uri(self._uri)
 
         def get_widget(self, uri, window):
             self._uri = uri
@@ -254,37 +265,8 @@ if Nautilus._version == "3.0":
 
 
 class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
-    def _open_terminal(self, file_):
-        if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
-            result = urlparse(file_.get_uri())
-
-            cmd = terminal_cmd.copy()
-            cmd.extend(terminal_data.command_arguments)
-            cmd.extend(["ssh", "-t"])
-            if result.username:
-                cmd.append("{0}@{1}".format(result.username, result.hostname))
-            else:
-                cmd.append(result.hostname)
-
-            if result.port:
-                cmd.append("-p")
-                cmd.append(str(result.port))
-
-            if file_.is_directory():
-                cmd.extend(
-                    ["cd", shlex.quote(unquote(result.path)), ";", "exec", "$SHELL"]
-                )
-
-            Popen(cmd)
-        else:
-            filename = Gio.File.new_for_uri(file_.get_uri()).get_path()
-            open_terminal_in_file(filename)
-
     def _menu_activate_cb(self, menu, file_):
-        self._open_terminal(file_)
-
-    def _menu_background_activate_cb(self, menu, file_):
-        self._open_terminal(file_)
+        open_terminal_in_uri(file_.get_uri())
 
     def get_file_items(self, *args):
         # `args` will be `[files: List[Nautilus.FileInfo]]` in Nautilus 4.0 API,
@@ -299,21 +281,19 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
 
         if file_.is_directory():
             if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
-                uri = _checkdecode(file_.get_uri())
+                uri = file_.get_uri()
                 item = Nautilus.MenuItem(
-                    name="NautilusPython::open_remote_item",
+                    name="OpenTerminal::open_remote_item",
                     label=_("Open Remote {}").format(terminal_data.name),
                     tip=_("Open Remote {} In {}").format(terminal_data.name, uri),
                 )
-                item.connect("activate", self._menu_activate_cb, file_)
-                items.append(item)
-
-            filename = _checkdecode(file_.get_name())
-            item = Nautilus.MenuItem(
-                name="NautilusPython::open_file_item",
-                label=_("Open In {}").format(terminal_data.name),
-                tip=_("Open {} In {}").format(terminal_data.name, filename),
-            )
+            else:
+                filename = file_.get_name()
+                item = Nautilus.MenuItem(
+                    name="OpenTerminal::open_file_item",
+                    label=_("Open In {}").format(terminal_data.name),
+                    tip=_("Open {} In {}").format(terminal_data.name, filename),
+                )
             item.connect("activate", self._menu_activate_cb, file_)
             items.append(item)
 
@@ -328,19 +308,17 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
         items = []
         if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
             item = Nautilus.MenuItem(
-                name="NautilusPython::open_bg_remote_item",
+                name="OpenTerminal::open_bg_remote_item",
                 label=_("Open Remote {} Here").format(terminal_data.name),
                 tip=_("Open Remote {} In This Directory").format(terminal_data.name),
             )
-            item.connect("activate", self._menu_activate_cb, file_)
-            items.append(item)
-
-        item = Nautilus.MenuItem(
-            name="NautilusPython::open_bg_file_item",
-            label=_("Open {} Here").format(terminal_data.name),
-            tip=_("Open {} In This Directory").format(terminal_data.name),
-        )
-        item.connect("activate", self._menu_background_activate_cb, file_)
+        else:
+            item = Nautilus.MenuItem(
+                name="OpenTerminal::open_bg_file_item",
+                label=_("Open {} Here").format(terminal_data.name),
+                tip=_("Open {} In This Directory").format(terminal_data.name),
+            )
+        item.connect("activate", self._menu_activate_cb, file_)
         items.append(item)
         return items
 
