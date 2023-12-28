@@ -20,7 +20,7 @@ jobs:
         python-version: '3.x'
     - name: Install dependencies
       run: |
-        sudo apt install gettext
+        sudo apt-get install gettext -y
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
     - name: Build and publish
