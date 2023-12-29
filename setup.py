@@ -5,7 +5,7 @@ import subprocess
 from pathlib import Path
 
 from setuptools import setup
-from setuptools.command.install import install as _install
+from setuptools.command.install import install
 
 PO_FILES = "locale/*/LC_MESSAGES/nautilus-open-any-terminal.po"
 
@@ -23,9 +23,10 @@ def create_mo_files():
     return mo_files
 
 
-class InstallCommand(_install):
+class InstallCommand(install):
     def run(self):
-        _install.run(self)
+        """execute the install"""
+        super().run()
 
         # Install Nautilus Python extension
         print("== Installing Nautilus Python extension")
@@ -59,4 +60,6 @@ class InstallCommand(_install):
 
 setup(
     package_data={"nautilus-open-any-terminal": create_mo_files()},
+    include_package_data=True,
+    cmdclass={"install": InstallCommand},
 )
