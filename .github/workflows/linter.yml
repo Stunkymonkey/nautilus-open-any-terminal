@@ -26,5 +26,3 @@ jobs:
           PYTHON_ISORT_CONFIG_FILE: pyproject.toml
           PYTHON_MYPY_CONFIG_FILE: pyproject.toml
           PYTHON_PYLINT_CONFIG_FILE: pyproject.toml
-          # TODO remove
-          VALIDATE_PYTHON_PYLINT: false

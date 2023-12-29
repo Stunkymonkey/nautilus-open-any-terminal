@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+"""nautilus extension: nautilus_open_any_terminal"""
 # based on: https://github.com/gnunn1/tilix/blob/master/data/nautilus/open-tilix.py
 
 import ast
@@ -27,11 +27,13 @@ if API_VERSION == "4.0":
 else:
     require_version("Gtk", "3.0")
 
-from gi.repository import Gio, GObject, Gtk, Nautilus  # noqa: E402
+from gi.repository import Gio, GObject, Gtk, Nautilus  # noqa: E402 # pylint: disable=wrong-import-position
 
 
 @dataclass(frozen=True)
 class Terminal:
+    """Data class representing a terminal configuration."""
+
     name: str
     workdir_arguments: Optional[list[str]] = None
     new_tab_arguments: Optional[list[str]] = None
@@ -92,12 +94,12 @@ TERMINALS = {
 
 FLATPAK_PARMS = ["off", "system", "user"]
 
-global terminal
 terminal = "gnome-terminal"
 terminal_cmd: list[str] = None  # type: ignore
 terminal_data: Terminal = TERMINALS["gnome-terminal"]
 new_tab = False
 flatpak = FLATPAK_PARMS[0]
+
 GSETTINGS_PATH = "com.github.stunkymonkey.nautilus-open-any-terminal"
 GSETTINGS_KEYBINDINGS = "keybindings"
 GSETTINGS_TERMINAL = "terminal"
@@ -118,30 +120,30 @@ for localedir in [expanduser("~/.local/share/locale"), "/usr/share/locale"]:
 
 # Adapted from https://www.freedesktop.org/software/systemd/man/latest/os-release.html
 def read_os_release():
-    try:
-        filename = "/etc/os-release"
-        f = open(filename)
-    except FileNotFoundError:
-        filename = "/usr/lib/os-release"
-        f = open(filename)
-
-    with f:
-        for line_number, line in enumerate(f, start=1):
-            line = line.rstrip()
-            if not line or line.startswith("#"):
-                continue
-            m = re.match(r"([A-Z][A-Z_0-9]+)=(.*)", line)
-            if m:
-                name, val = m.groups()
-                if val and val[0] in "\"'":
-                    val = ast.literal_eval(val)
-                yield name, val
-            else:
-                raise OSError(f"{filename}:{line_number}: bad line {line!r}")
+    """Read and parse the OS release information."""
+    possible_os_release_paths = ["/etc/os-release", "/usr/lib/os-release"]
+    for file_path in possible_os_release_paths:
+        try:
+            with open(file_path, mode="r", encoding="utf-8") as os_release:
+                for line_number, line in enumerate(os_release, start=1):
+                    line = line.rstrip()
+                    if not line or line.startswith("#"):
+                        continue
+                    result = re.match(r"([A-Z][A-Z_0-9]+)=(.*)", line)
+                    if result:
+                        name, val = result.groups()
+                        if val and val[0] in "\"'":
+                            val = ast.literal_eval(val)
+                        yield name, val
+                    else:
+                        raise OSError(f"{file_path}:{line_number}: bad line {line!r}")
+        except FileNotFoundError:
+            continue
 
 
 @cache
 def distro_id():
+    """get the name of your linux distribution"""
     try:
         return dict(read_os_release())["ID"]
     except OSError:
@@ -149,13 +151,14 @@ def distro_id():
 
 
 def open_terminal_in_uri(uri: str):
+    """open the new terminal with correct path"""
     result = urlparse(uri)
     cmd = terminal_cmd.copy()
     if result.scheme in REMOTE_URI_SCHEME:
         cmd.extend(terminal_data.command_arguments)
         cmd.extend(["ssh", "-t"])
         if result.username:
-            cmd.append("{0}@{1}".format(result.username, result.hostname))
+            cmd.append(f"{result.username}@{result.hostname}")
         else:
             cmd.append(result.hostname)
 
@@ -165,7 +168,7 @@ def open_terminal_in_uri(uri: str):
 
         cmd.extend(["cd", shlex.quote(unquote(result.path)), ";", "exec", "$SHELL"])
 
-        Popen(cmd)
+        Popen(cmd)  # pylint: disable=consider-using-with
     else:
         filename = unquote(result.path)
         if new_tab and terminal_data.new_tab_arguments:
@@ -179,10 +182,11 @@ def open_terminal_in_uri(uri: str):
                 # This is required
                 cmd.append(filename)
 
-        Popen(cmd, cwd=filename)
+        Popen(cmd, cwd=filename)  # pylint: disable=consider-using-with
 
 
-def set_terminal_args(*args):
+def set_terminal_args(*_args):
+    """set the terminal_cmd to the correct values"""
     global new_tab
     global flatpak
     global terminal_cmd
@@ -192,7 +196,7 @@ def set_terminal_args(*args):
     flatpak = FLATPAK_PARMS[_gsettings.get_enum(GSETTINGS_FLATPAK)]
     new_terminal_data = TERMINALS.get(value)
     if not new_terminal_data:
-        print('open-any-terminal: unknown terminal "{0}"'.format(value))
+        print(f'open-any-terminal: unknown terminal "{value}"')
         return
 
     global terminal
@@ -207,7 +211,7 @@ def set_terminal_args(*args):
         new_tab_text += " (terminal does not support tabs)"
     if flatpak != FLATPAK_PARMS[0] and terminal_data.flatpak_package is not None:
         terminal_cmd = ["flatpak", "run", "--" + flatpak, terminal_data.flatpak_package]
-        flatpak_text = "with flatpak as {0}".format(flatpak)
+        flatpak_text = f"with flatpak as {flatpak}"
     else:
         terminal_cmd = [terminal]
         if terminal == "blackbox" and distro_id() == "fedora":
@@ -215,15 +219,19 @@ def set_terminal_args(*args):
             terminal_cmd[0] = "blackbox-terminal"
         flatpak = FLATPAK_PARMS[0]
         flatpak_text = ""
-    print('open-any-terminal: terminal is set to "{0}" {1} {2}'.format(terminal, new_tab_text, flatpak_text))
+    print(f'open-any-terminal: terminal is set to "{terminal}" {new_tab_text} {flatpak_text}')
 
 
 if API_VERSION == "3.0":
 
-    class OpenAnyTerminalShortcutProvider(GObject.GObject, Nautilus.LocationWidgetProvider):
+    class OpenAnyTerminalShortcutProvider(
+        GObject.GObject, Nautilus.LocationWidgetProvider
+    ):  # pylint: disable=too-few-public-methods
+        """Provide keyboard shortcuts for opening terminals in Nautilus."""
+
         def __init__(self):
-            source = Gio.SettingsSchemaSource.get_default()
-            if source.lookup(GSETTINGS_PATH, True):
+            gsettings_source = Gio.SettingsSchemaSource.get_default()
+            if gsettings_source.lookup(GSETTINGS_PATH, True):
                 self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
                 self._gsettings.connect("changed", self._bind_shortcut)
                 self._create_accel_group()
@@ -236,36 +244,39 @@ if API_VERSION == "3.0":
             key, mod = Gtk.accelerator_parse(shortcut)
             self._accel_group.connect(key, mod, Gtk.AccelFlags.VISIBLE, self._open_terminal)
 
-        def _bind_shortcut(self, gsettings, key):
+        def _bind_shortcut(self, _gsettings, key):
             if key == GSETTINGS_KEYBINDINGS:
                 self._accel_group.disconnect(self._open_terminal)
                 self._create_accel_group()
 
-        def _open_terminal(self, *args):
+        def _open_terminal(self, *_args):
             open_terminal_in_uri(self._uri)
 
         def get_widget(self, uri, window):
+            """follows uri and sets the correct window"""
             self._uri = uri
             if self._window:
                 self._window.remove_accel_group(self._accel_group)
             if self._gsettings:
                 window.add_accel_group(self._accel_group)
             self._window = window
-            return None
 
 
 class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
+    """Provide context menu items for opening terminals in Nautilus."""
+
     def _menu_activate_cb(self, menu, file_):
         open_terminal_in_uri(file_.get_uri())
 
     def get_file_items(self, *args):
+        """Generates a list of menu items for a file or folder in the Nautilus file manager."""
         # `args` will be `[files: List[Nautilus.FileInfo]]` in Nautilus 4.0 API,
         # and `[window: Gtk.Widget, files: List[Nautilus.FileInfo]]` in Nautilus 3.0 API.
 
         files = args[-1]
 
         if len(files) != 1:
-            return
+            return []
         items = []
         file_ = files[0]
 
@@ -290,6 +301,7 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
         return items
 
     def get_background_items(self, *args):
+        """Generates a list of background menu items for a file or folder in the Nautilus file manager."""
         # `args` will be `[folder: Nautilus.FileInfo]` in Nautilus 4.0 API,
         # and `[window: Gtk.Widget, file: Nautilus.FileInfo]` in Nautilus 3.0 API.
 
