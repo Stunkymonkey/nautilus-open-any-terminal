@@ -1,0 +1,36 @@
+[project]
+name = "nautilus-open-any-terminal"
+version = "0.4.0"
+description = "an extension for nautilus, which adds an context-entry for opening other terminal emulators than gnome-terminal."
+authors = [
+    {name = "Felix Buehler", email = "account@buehler.rocks"},
+]
+dependencies = []
+requires-python = ">=3.9"
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = [ "nautilus", "extension", "terminal", "gnome"]
+
+[build-system]
+requires = [
+    "setuptools>=69.0.3",
+    "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages]
+find = {namespaces = false}
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+line_length = 120
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.pylint]
+max-line-length = 120
+ignored-modules = "gi"

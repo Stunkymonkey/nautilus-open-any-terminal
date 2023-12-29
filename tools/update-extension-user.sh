@@ -2,7 +2,7 @@
 
 # Make the extension available to the current user.
 
-SRC=nautilus_open_any_terminal/open_any_terminal_extension.py
+SRC=nautilus_open_any_terminal/nautilus_open_any_terminal.py
 TARGDIR=~/.local/share/nautilus-python/extensions
 
 SCHEMASDIR=~/.local/share/glib-2.0/schemas

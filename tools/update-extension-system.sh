@@ -8,7 +8,7 @@
 #
 # This script also compiles GSettings schemas
 
-SRC=nautilus_open_any_terminal/open_any_terminal_extension.py
+SRC=nautilus_open_any_terminal/nautilus_open_any_terminal.py
 TARGDIR=/usr/share/nautilus-python/extensions
 
 SCHEMASDIR=/usr/share/glib-2.0/schemas
