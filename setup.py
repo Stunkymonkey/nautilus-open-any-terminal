@@ -3,6 +3,7 @@
 
 import subprocess
 from pathlib import Path
+
 from setuptools import setup
 from setuptools.command.install import install as _install
 
