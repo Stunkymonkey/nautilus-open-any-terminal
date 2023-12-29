@@ -17,7 +17,7 @@ def create_mo_files():
     for po_path in Path(prefix).glob(PO_FILES):
         mo = po_path.with_suffix(".mo")
 
-        subprocess.run(["msgfmt", "-o", str(mo), str(po_path)], check=True)
+        subprocess.run(["msgfmt", "-o", mo, po_path], check=True)
         mo_files.append(str(mo.relative_to(prefix)))
 
     return mo_files
