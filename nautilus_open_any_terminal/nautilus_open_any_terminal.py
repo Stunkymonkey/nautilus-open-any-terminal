@@ -155,7 +155,7 @@ def open_terminal_in_uri(uri: str):
         cmd.extend(terminal_data.command_arguments)
         cmd.extend(["ssh", "-t"])
         if result.username:
-            cmd.append("{0}@{1}".format(result.username, result.hostname))
+            cmd.append(f"{result.username}@{result.hostname}")
         else:
             cmd.append(result.hostname)
 
@@ -192,7 +192,7 @@ def set_terminal_args(*args):
     flatpak = FLATPAK_PARMS[_gsettings.get_enum(GSETTINGS_FLATPAK)]
     new_terminal_data = TERMINALS.get(value)
     if not new_terminal_data:
-        print('open-any-terminal: unknown terminal "{0}"'.format(value))
+        print(f'open-any-terminal: unknown terminal "{value}"')
         return
 
     global terminal
@@ -207,7 +207,7 @@ def set_terminal_args(*args):
         new_tab_text += " (terminal does not support tabs)"
     if flatpak != FLATPAK_PARMS[0] and terminal_data.flatpak_package is not None:
         terminal_cmd = ["flatpak", "run", "--" + flatpak, terminal_data.flatpak_package]
-        flatpak_text = "with flatpak as {0}".format(flatpak)
+        flatpak_text = f"with flatpak as {flatpak}"
     else:
         terminal_cmd = [terminal]
         if terminal == "blackbox" and distro_id() == "fedora":
@@ -215,7 +215,7 @@ def set_terminal_args(*args):
             terminal_cmd[0] = "blackbox-terminal"
         flatpak = FLATPAK_PARMS[0]
         flatpak_text = ""
-    print('open-any-terminal: terminal is set to "{0}" {1} {2}'.format(terminal, new_tab_text, flatpak_text))
+    print(f'open-any-terminal: terminal is set to "{terminal}" {new_tab_text} {flatpak_text}')
 
 
 if API_VERSION == "3.0":
