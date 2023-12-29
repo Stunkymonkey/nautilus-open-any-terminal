@@ -50,7 +50,9 @@ class InstallCommand(install):
 
         # Install GSettings Schema
         print("== Installing GSettings Schema")
-        src_file = Path("./nautilus_open_any_terminal/schemas/com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml")
+        src_file = Path(
+            "./nautilus_open_any_terminal/schemas/com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml"
+        )
         dst_dir = Path(self.install_data) / "share/glib-2.0/schemas"
         dst_dir.mkdir(parents=True, exist_ok=True)
         dst_file = dst_dir / src_file.name
