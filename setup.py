@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+"""setup nautilus_open_any_terminal extension"""
 
 import subprocess
 from pathlib import Path
@@ -11,19 +10,22 @@ PO_FILES = "locale/*/LC_MESSAGES/nautilus-open-any-terminal.po"
 
 
 def create_mo_files():
+    """generate mo files via msgfmt"""
     mo_files = []
     prefix = Path("nautilus_open_any_terminal")
 
     for po_path in Path(prefix).glob(PO_FILES):
-        mo = po_path.with_suffix(".mo")
+        mo_file = po_path.with_suffix(".mo")
 
-        subprocess.run(["msgfmt", "-o", mo, po_path], check=True)
-        mo_files.append(str(mo.relative_to(prefix)))
+        subprocess.run(["msgfmt", "-o", mo_file, po_path], check=True)
+        mo_files.append(str(mo_file.relative_to(prefix)))
 
     return mo_files
 
 
 class InstallCommand(install):
+    """define what is run when installing"""
+
     def run(self):
         """execute the install"""
         super().run()
