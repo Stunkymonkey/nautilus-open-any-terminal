@@ -12,7 +12,7 @@ PO_FILES = "locale/*/LC_MESSAGES/nautilus-open-any-terminal.po"
 
 def create_mo_files():
     mo_files = []
-    prefix = Path("src")
+    prefix = Path("nautilus_open_any_terminal")
 
     for po_path in Path(prefix).glob(PO_FILES):
         mo = po_path.with_suffix(".mo")
@@ -30,7 +30,7 @@ class InstallCommand(install):
 
         # Install Nautilus Python extension
         print("== Installing Nautilus Python extension")
-        src_file = Path("src/nautilus_open_any_terminal.py")
+        src_file = Path("nautilus_open_any_terminal/nautilus_open_any_terminal.py")
         dst_dir = Path(self.install_data) / "share/nautilus-python/extensions"
         dst_dir.mkdir(parents=True, exist_ok=True)
         dst_file = dst_dir / src_file.name
@@ -50,7 +50,7 @@ class InstallCommand(install):
 
         # Install GSettings Schema
         print("== Installing GSettings Schema")
-        src_file = Path("./src/schemas/com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml")
+        src_file = Path("./nautilus_open_any_terminal/schemas/com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml")
         dst_dir = Path(self.install_data) / "share/glib-2.0/schemas"
         dst_dir.mkdir(parents=True, exist_ok=True)
         dst_file = dst_dir / src_file.name

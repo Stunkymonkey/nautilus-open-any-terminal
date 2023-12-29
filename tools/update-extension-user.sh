@@ -2,15 +2,15 @@
 
 # Make the extension available to the current user.
 
-SRC=src/nautilus_open_any_terminal.py
+SRC=nautilus_open_any_terminal/nautilus_open_any_terminal.py
 TARGDIR=~/.local/share/nautilus-python/extensions
 
 SCHEMASDIR=~/.local/share/glib-2.0/schemas
-SCHEMASSRC=src/schemas
+SCHEMASSRC=nautilus_open_any_terminal/schemas
 SCHEMAFILE=com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml
 
 LANGUAGEDIR=~/.local/share/locale
-LANGUAGESRC=src/locale
+LANGUAGESRC=nautilus_open_any_terminal/locale
 LANGUAGEFILE=nautilus-open-any-terminal.mo
 
 case "$1" in
