@@ -1,33 +1,36 @@
-"""setup nautilus_open_any_terminal extension"""
-
 import subprocess
 from pathlib import Path
 
 from setuptools import setup
+from setuptools.command.build_py import build_py
 from setuptools.command.install import install
+from setuptools.command.sdist import sdist
 
-PO_FILES = "locale/*/LC_MESSAGES/nautilus-open-any-terminal.po"
+TRANSLATIONS_STEM = "locale/*/LC_MESSAGES/nautilus-open-any-terminal"
+PO_FILES = TRANSLATIONS_STEM + ".po"
+MO_FILES = TRANSLATIONS_STEM + ".mo"
 
 
-def create_mo_files():
-    """generate mo files via msgfmt"""
-    mo_files = []
-    prefix = Path("nautilus_open_any_terminal")
+def build_mo():
+    for po_path in Path("nautilus_open_any_terminal").glob(PO_FILES):
+        mo = po_path.with_suffix(".mo")
+        subprocess.run(["msgfmt", "-o", mo, po_path], check=True)
 
-    for po_path in Path(prefix).glob(PO_FILES):
-        mo_file = po_path.with_suffix(".mo")
 
-        subprocess.run(["msgfmt", "-o", mo_file, po_path], check=True)
-        mo_files.append(str(mo_file.relative_to(prefix)))
+class SdistCommand(sdist):
+    def run(self):
+        build_mo()
+        super().run()
 
-    return mo_files
+
+class BuildCommand(build_py):
+    def run(self):
+        build_mo()
+        super().run()
 
 
 class InstallCommand(install):
-    """define what is run when installing"""
-
     def run(self):
-        """execute the install"""
         super().run()
 
         # Install Nautilus Python extension
@@ -41,8 +44,7 @@ class InstallCommand(install):
 
         # Install language files
         print("== Installing language files")
-        for po_path in Path("nautilus_open_any_terminal").glob(PO_FILES):
-            src_file = po_path.with_suffix(".mo")
+        for src_file in Path("nautilus_open_any_terminal").glob(MO_FILES):
             original_folder = src_file.relative_to("nautilus_open_any_terminal").parent
             dst_dir = Path(self.install_data) / "share" / original_folder
             dst_dir.mkdir(parents=True, exist_ok=True)
@@ -63,7 +65,11 @@ class InstallCommand(install):
 
 
 setup(
-    package_data={"nautilus-open-any-terminal": create_mo_files()},
+    package_data={"nautilus-open-any-terminal": [MO_FILES]},
     include_package_data=True,
-    cmdclass={"install": InstallCommand},
+    cmdclass={
+        "install": InstallCommand,
+        "sdist": SdistCommand,
+        "build_py": BuildCommand,
+    },
 )
