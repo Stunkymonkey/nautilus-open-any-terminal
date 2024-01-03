@@ -85,7 +85,7 @@ TERMINALS = {
     "uxterm": Terminal("UXTerm"),
     "wezterm": Terminal(
         "Wez's Terminal Emulator",
-        workdir_arguments=["start", "--cwd", "."],
+        workdir_arguments=["start", "--cwd"],
         flatpak_package="org.wezfurlong.wezterm",
     ),
     "xfce4-terminal": Terminal("Xfce Terminal", new_tab_arguments=["--tab"]),
@@ -178,7 +178,7 @@ def open_terminal_in_uri(uri: str):
 
         if filename and terminal_data.workdir_arguments:
             cmd.extend(terminal_data.workdir_arguments)
-            if terminal == "blackbox":
+            if terminal == "blackbox" or terminal == "wezterm":
                 # This is required
                 cmd.append(filename)
 
