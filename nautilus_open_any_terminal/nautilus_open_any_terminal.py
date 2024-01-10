@@ -53,7 +53,7 @@ TERMINALS = {
     "foot": Terminal("Foot"),
     "footclient": Terminal("FootClient"),
     "gnome-terminal": Terminal("Terminal", new_tab_arguments=["--tab"]),
-    "guake": Terminal("Guake", workdir_arguments=["--show", "--new-tab=."]),
+    "guake": Terminal("Guake", workdir_arguments=["--show", "--new-tab"]),
     "hyper": Terminal("Hyper"),
     "kermit": Terminal("Kermit"),
     "kgx": Terminal("Console", new_tab_arguments=["--tab"]),
@@ -175,7 +175,7 @@ def open_terminal_in_uri(uri: str):
 
         if filename and terminal_data.workdir_arguments:
             cmd.extend(terminal_data.workdir_arguments)
-            if terminal == "blackbox":
+            if terminal in {"blackbox", "guake"}:
                 # This is required
                 cmd.append(filename)
 
