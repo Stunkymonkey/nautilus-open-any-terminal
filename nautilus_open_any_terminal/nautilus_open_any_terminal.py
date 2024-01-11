@@ -50,12 +50,12 @@ TERMINALS = {
         command_arguments=["-c"],
         flatpak_package="com.raggesilver.BlackBox",
     ),
-    "cool-retro-term": Terminal("cool-retro-term", workdir_arguments=["--workdir", "."]),
+    "cool-retro-term": Terminal("cool-retro-term", workdir_arguments=["--workdir"]),
     "deepin-terminal": Terminal("Deepin Terminal"),
     "foot": Terminal("Foot"),
     "footclient": Terminal("FootClient"),
     "gnome-terminal": Terminal("Terminal", new_tab_arguments=["--tab"]),
-    "guake": Terminal("Guake", workdir_arguments=["--show", "--new-tab=."]),
+    "guake": Terminal("Guake", workdir_arguments=["--show", "--new-tab"]),
     "hyper": Terminal("Hyper"),
     "kermit": Terminal("Kermit"),
     "kgx": Terminal("Console", new_tab_arguments=["--tab"]),
@@ -85,7 +85,7 @@ TERMINALS = {
     "uxterm": Terminal("UXTerm"),
     "wezterm": Terminal(
         "Wez's Terminal Emulator",
-        workdir_arguments=["start", "--cwd", "."],
+        workdir_arguments=["start", "--cwd"],
         flatpak_package="org.wezfurlong.wezterm",
     ),
     "xfce4-terminal": Terminal("Xfce Terminal", new_tab_arguments=["--tab"]),
@@ -178,9 +178,7 @@ def open_terminal_in_uri(uri: str):
 
         if filename and terminal_data.workdir_arguments:
             cmd.extend(terminal_data.workdir_arguments)
-            if terminal == "blackbox":
-                # This is required
-                cmd.append(filename)
+            cmd.append(filename)
 
         Popen(cmd, cwd=filename)  # pylint: disable=consider-using-with
 
