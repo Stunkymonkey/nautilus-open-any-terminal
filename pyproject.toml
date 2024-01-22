@@ -13,7 +13,7 @@ keywords = [ "nautilus", "extension", "terminal", "gnome"]
 
 [build-system]
 requires = [
-    "setuptools>=69.0.3",
+    "setuptools",
     "wheel",
 ]
 build-backend = "setuptools.build_meta"
