@@ -16,7 +16,7 @@ jobs:
           python-version: '3.x'
       - name: Install dependencies
         run: |
-          sudo apt install gettext
+          sudo apt-get install gettext -y && pip install build
       - name: Build package
         run: python -m build
       - name: Install upload dependency
