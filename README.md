@@ -82,8 +82,8 @@ nautilus -q
 If it does not work, try using the following command (from this repository):
 
 ```bash
-./tools/update-extension-user.sh install    # for a user install
-sudo tools/update-extension-system.sh install  # for a system-wide install
+./tools/update-extension.sh install    # for a user install
+sudo tools/update-extension.sh install  # for a system-wide install
 ```
 
 ## Settings
@@ -118,6 +118,6 @@ gsettings set com.github.stunkymonkey.nautilus-open-any-terminal flatpak system
 since `setup.py` does not provide a natively uninstall method the scripts have an uninstall option.
 
 ```bash
-./tools/update-extension-user.sh uninstall    # for a user uninstall
-sudo tools/update-extension-system.sh uninstall  # for a system-wide uninstall
+./tools/update-extension.sh uninstall    # for a user uninstall
+sudo tools/update-extension.sh uninstall  # for a system-wide uninstall
 ```
