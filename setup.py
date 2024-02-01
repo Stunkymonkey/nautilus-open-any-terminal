@@ -6,6 +6,8 @@ from setuptools.command.build_py import build_py
 from setuptools.command.install import install
 from setuptools.command.sdist import sdist
 
+FILE_MANAGERS = ["nautilus", "caja"]
+
 
 def build_mo():
     for po_path in Path("nautilus_open_any_terminal/locale").glob("*.po"):
@@ -32,10 +34,11 @@ class InstallCommand(install):
         # Install Nautilus Python extension
         print("== Installing Nautilus Python extension")
         src_file = Path("nautilus_open_any_terminal/nautilus_open_any_terminal.py")
-        dst_dir = Path(self.install_data) / "share/nautilus-python/extensions"
-        dst_dir.mkdir(parents=True, exist_ok=True)
-        dst_file = dst_dir / src_file.name
-        self.copy_file(src_file, dst_file)
+        for fm in FILE_MANAGERS:
+            dst_dir = Path(self.install_data) / f"share/{fm}-python/extensions"
+            dst_dir.mkdir(parents=True, exist_ok=True)
+            dst_file = dst_dir / src_file.name
+            self.copy_file(src_file, dst_file)
         print("== Done!")
 
         # Install language files
