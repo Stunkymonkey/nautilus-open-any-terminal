@@ -73,19 +73,22 @@ System-wide install:
 pip install nautilus-open-any-terminal
 ```
 
+### From source
+```sh
+git clone https://github.com/Stunkymonkey/nautilus-open-any-terminal.git
+cd nautilus-open-any-terminal
+make
+
+make install schema      # User install
+sudo make install schema # System install
+```
+
 ### restart nautilus
 
 Then kill Nautilus to allow it to load the new extension:
 
 ```bash
 nautilus -q
-```
-
-If it does not work, try using the following command (from this repository):
-
-```bash
-./tools/update-extension.sh install    # for a user install
-sudo tools/update-extension.sh install  # for a system-wide install
 ```
 
 ## Settings
@@ -116,10 +119,9 @@ gsettings set com.github.stunkymonkey.nautilus-open-any-terminal flatpak system
 ```
 
 ## Uninstall
+Since `setup.py` does not provide a natively uninstall method the makefile has an uninstall option.
 
-since `setup.py` does not provide a natively uninstall method the scripts have an uninstall option.
-
-```bash
-./tools/update-extension.sh uninstall    # for a user uninstall
-sudo tools/update-extension.sh uninstall  # for a system-wide uninstall
+```sh
+make uninstall scheme      # user uninstall
+sudo make uninstall scheme # system uninstall
 ```
