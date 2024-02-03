@@ -57,7 +57,9 @@ nix-env -iA nixos.nautilus-open-any-terminal
 
 ### From PYPI [![PyPI package](https://repology.org/badge/version-for-repo/pypi/nautilus-open-any-terminal.svg)](https://repology.org/project/nautilus-open-any-terminal/versions)
 
-Dependency to install before: `nautilus-python` (`python-nautilus`/`python3-nautilus`(newer) package on Debian / Ubuntu)
+Dependencies to install before:
+- `nautilus-python` (`python-nautilus`/`python3-nautilus`(newer) package on Debian / Ubuntu)
+- `gir1.2-gtk-4.0` (Debian / Ubuntu)
 
 User install:
 
