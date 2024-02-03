@@ -6,13 +6,9 @@ from setuptools.command.build_py import build_py
 from setuptools.command.install import install
 from setuptools.command.sdist import sdist
 
-TRANSLATIONS_STEM = "locale/*/LC_MESSAGES/nautilus-open-any-terminal"
-PO_FILES = TRANSLATIONS_STEM + ".po"
-MO_FILES = TRANSLATIONS_STEM + ".mo"
-
 
 def build_mo():
-    for po_path in Path("nautilus_open_any_terminal").glob(PO_FILES):
+    for po_path in Path("nautilus_open_any_terminal/locale").glob("*.po"):
         mo = po_path.with_suffix(".mo")
         subprocess.run(["msgfmt", "-o", mo, po_path], check=True)
 
@@ -44,11 +40,10 @@ class InstallCommand(install):
 
         # Install language files
         print("== Installing language files")
-        for src_file in Path("nautilus_open_any_terminal").glob(MO_FILES):
-            original_folder = src_file.relative_to("nautilus_open_any_terminal").parent
-            dst_dir = Path(self.install_data) / "share" / original_folder
+        for src_file in Path("nautilus_open_any_terminal/locale").glob("*.mo"):
+            dst_dir = Path(self.install_data) / "share/locale" / src_file.stem / "LC_MESSAGES"
             dst_dir.mkdir(parents=True, exist_ok=True)
-            dst_file = dst_dir / src_file.name
+            dst_file = dst_dir / "nautilus-open-any-terminal.mo"
             self.copy_file(src_file, dst_file)
         print("== Done!")
 
@@ -65,7 +60,7 @@ class InstallCommand(install):
 
 
 setup(
-    package_data={"nautilus-open-any-terminal": [MO_FILES]},
+    package_data={"nautilus-open-any-terminal": ["locale/*.mo"]},
     include_package_data=True,
     cmdclass={
         "install": InstallCommand,

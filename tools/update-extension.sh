@@ -33,19 +33,21 @@ case "$1" in
         mkdir -vp "${LANGUAGEDIR}"
         oldpwd="${PWD}"
         cd "$LANGUAGESRC" || exit
-        find . -name '*.po' | while read -r po_file;do
+        for po_file in *.po; do
             msgfmt -o "${po_file%.po}.mo" "${po_file}"
         done
-        find . -name '*.mo' -exec cp -v --parents '{}' "${LANGUAGEDIR}" \;
+
+        for mo_file in *.mo; do
+          install -Dvm644 "${mo_file}" "${LANGUAGEDIR}/${mo_file%.mo}/LC_MESSAGES/${LANGUAGEFILE}"
+        done
         cd "${oldpwd}" || exit
-        find . -name '*.mo' -exec chmod -c 0644 '{}' \;
         # copy schema file
-        install -Dv "${SCHEMASSRC}/${SCHEMAFILE}" -t "${SCHEMASDIR}"
+        install -Dvm644 "${SCHEMASSRC}/${SCHEMAFILE}" -t "${SCHEMASDIR}"
         glib-compile-schemas "${SCHEMASDIR}"
         ;;
     uninstall)
         rm -vf "${TARGDIR}/$(basename "${SRC}")"
-        find "${LANGUAGEDIR}" -type f -name "${LANGUAGEFILE}" -exec rm -vf '{}' \;
+        find "${LANGUAGEDIR}" -type f -name "${LANGUAGEFILE}" -delete -print
         rm -vf "${SCHEMASDIR}/${SCHEMAFILE}"
         glib-compile-schemas "${SCHEMASDIR}"
         ;;
