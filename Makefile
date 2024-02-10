@@ -6,11 +6,13 @@ else
 export PREFIX ?= ${HOME}/.local
 endif
 
-FILE_MANAGERS ?= nautilus caja
 EXTSRC := nautilus_open_any_terminal/nautilus_open_any_terminal.py
 SCHEMASRC := nautilus_open_any_terminal/schemas/com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml
 SCHEMADEST := $(PREFIX)/share/glib-2.0/schemas
 
+FILE_MANAGERS := nautilus caja
+INSTALLS := $(patsubst %,install-%,$(FILE_MANAGERS))
+UNINSTALLS := $(patsubst %,uninstall-%,$(FILE_MANAGERS))
 
 build:
 	$(MAKE) -C $(LOCALES)
@@ -18,20 +20,26 @@ build:
 clean:
 	$(MAKE) -C $(LOCALES) clean
 
-install:
-	for fm in $(FILE_MANAGERS); do \
-	    install -Dm644 $(EXTSRC) -t $(PREFIX)/share/$${fm}-python/extensions; \
-	done
-	$(MAKE) -C $(LOCALES) install
-	install -Dm644 $(SCHEMASRC) -t $(SCHEMADEST)
-
 schema:
 	glib-compile-schemas $(SCHEMADEST)
 
-uninstall:
-	$(RM) $(foreach fm,$(FILE_MANAGERS),$(PREFIX)/share/$(fm)-python/extensions/$(basename $(EXTSRC)))
+install: $(INSTALLS)
+
+$(INSTALLS): install-common
+	install -Dm644 $(EXTSRC) -t $(PREFIX)/share/$(patsubst install-%,%-python,$@)/extensions
+
+install-common:
+	$(MAKE) -C $(LOCALES) install
+	install -Dm644 $(SCHEMASRC) -t $(SCHEMADEST)
+
+uninstall: $(UNINSTALLS)
+
+$(UNINSTALLS): uninstall-common
+	$(RM) $(PREFIX)/share/$(patsubst uninstall-%,%-python,$@)/extensions/$(notdir $(EXTSRC))
+
+uninstall-common:
 	$(MAKE) -C $(LOCALES) uninstall
-	$(RM) $(SCHEMADEST)/$(basename $(SCHEMASRC))
+	$(RM) $(SCHEMADEST)/$(notdir $(SCHEMASRC))
 
 
-.PHONY: build clean install schema uninstall
+.PHONY: build clean schema install $(INSTALLS) install-common uninstall $(UNINSTALLS) uninstall-common

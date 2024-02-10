@@ -87,12 +87,12 @@ make
 make install schema      # User install
 sudo make install schema # System install
 ```
-By default, this extension is installed to extension directories of all
-supported file managers. This can be changed by setting `FILE_MANAGERS`
+`install` installs this extension to extension directories of all supported file
+managers. To avoid this, use `install-nautilus` or `install-caja` instead.
 
 ```sh
-make FILE_MANAGERS="nautilus" install schema # Install nautilus only
-FILE_MANAGERS="caja" make install schema # Install caja only
+make install-nautilus schema # Install nautilus only
+make install-caja schema # Install caja only
 ```
 
 ### restart nautilus
