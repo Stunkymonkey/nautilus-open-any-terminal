@@ -83,7 +83,7 @@ TERMINALS = {
     "urxvt": Terminal("rxvt-unicode"),
     "urxvtc": Terminal("urxvtc"),
     "uxterm": Terminal("UXTerm"),
-    "uxterm": Terminal("warp"),
+    "warp": Terminal("warp"),
     "wezterm": Terminal(
         "Wez's Terminal Emulator",
         workdir_arguments=["start", "--cwd"],
