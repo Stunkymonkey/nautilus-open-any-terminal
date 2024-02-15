@@ -37,6 +37,7 @@ Right now the plugin is limited to these terminal emulators. If one is missing p
 - `tilix`
 - `urxvt`
 - `urxvtc`
+- `warp`
 - `wezterm`
 - `xfce4-terminal`
 - `xterm`/`uxterm`
