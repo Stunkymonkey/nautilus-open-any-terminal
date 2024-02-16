@@ -171,6 +171,12 @@ def open_terminal_in_uri(uri: str):
 
         Popen(cmd)  # pylint: disable=consider-using-with
     else:
+        if terminal == "warp":
+            Popen(  # pylint: disable=consider-using-with
+                ["xdg-open", f'warp://action/new_{"tab" if new_tab else "window"}?path={result.path}']
+            )
+            return
+
         filename = unquote(result.path)
         if new_tab and terminal_data.new_tab_arguments:
             cmd.extend(terminal_data.new_tab_arguments)
