@@ -63,12 +63,12 @@ TERMINALS = {
     "konsole": Terminal("Konsole", new_tab_arguments=["--new-tab"]),
     "mate-terminal": Terminal("Mate Terminal", new_tab_arguments=["--tab"]),
     "mlterm": Terminal("Mlterm"),
-    "prompt": Terminal(
-        "Prompt",
+    "ptyxis": Terminal(
+        "Ptyxis",
         command_arguments=["-x"],
         new_tab_arguments=["--tab"],
         new_window_arguments=["--new-window"],
-        flatpak_package="org.gnome.Prompt",
+        flatpak_package="org.gnome.Ptyxis",
     ),
     "qterminal": Terminal("QTerminal"),
     "rio": Terminal("Rio"),
