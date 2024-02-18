@@ -24,7 +24,7 @@ Right now the plugin is limited to these terminal emulators. If one is missing p
 - `konsole`
 - `mate-terminal`
 - `mlterm`
-- `prompt`
+- `ptyxis`
 - `qterminal`
 - `rio`
 - `sakura`
