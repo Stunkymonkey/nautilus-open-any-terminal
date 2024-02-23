@@ -301,6 +301,10 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
                     tip=_("Open Remote {} In {}").format(terminal_data.name, uri),
                 )
             else:
+                # Let wezterm handle opening a local terminal
+                if terminal == "wezterm" and flatpak == "off":
+                    return []
+
                 filename = file_.get_name()
                 item = Nautilus.MenuItem(
                     name="OpenTerminal::open_file_item",
@@ -327,6 +331,10 @@ class OpenAnyTerminalExtension(GObject.GObject, Nautilus.MenuProvider):
                 tip=_("Open Remote {} In This Directory").format(terminal_data.name),
             )
         else:
+            # Let wezterm handle opening a local terminal
+            if terminal == "wezterm" and flatpak == "off":
+                return []
+
             item = Nautilus.MenuItem(
                 name="OpenTerminal::open_bg_file_item",
                 label=_("Open {} Here").format(terminal_data.name),
