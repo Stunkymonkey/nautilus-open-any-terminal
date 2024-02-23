@@ -70,6 +70,13 @@ TERMINALS = {
         new_window_arguments=["--new-window"],
         flatpak_package="org.gnome.Ptyxis",
     ),
+    "ptyxis-nightly": Terminal(
+        "Ptyxis",
+        command_arguments=["-x"],
+        new_tab_arguments=["--tab"],
+        new_window_arguments=["--new-window"],
+        flatpak_package="org.gnome.Ptyxis.Devel",
+    ),
     "qterminal": Terminal("QTerminal"),
     "rio": Terminal("Rio"),
     "sakura": Terminal("Sakura"),
