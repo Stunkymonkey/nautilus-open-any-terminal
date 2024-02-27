@@ -150,12 +150,16 @@ def read_os_release():
 
 
 @cache
-def distro_id():
-    """get the name of your linux distribution"""
+def distro_id() -> set[str]:
+    """get the set of distribution ids"""
     try:
-        return dict(read_os_release())["ID"]
+        os_release = dict(read_os_release())
     except OSError:
-        return "unknown"
+        return set(["unknown"])
+    ids = [os_release["ID"]]
+    if id_like := os_release.get("ID_LIKE"):
+        ids.extend(id_like.split(" "))
+    return set(ids)
 
 
 def open_terminal_in_uri(uri: str):
@@ -226,7 +230,7 @@ def set_terminal_args(*_args):
         flatpak_text = f"with flatpak as {flatpak}"
     else:
         terminal_cmd = [terminal]
-        if terminal == "blackbox" and distro_id() == "fedora":
+        if terminal == "blackbox" and "fedora" in distro_id():
             # It's called like this on fedora
             terminal_cmd[0] = "blackbox-terminal"
         flatpak = FLATPAK_PARMS[0]
