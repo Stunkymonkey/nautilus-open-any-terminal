@@ -1,6 +1,6 @@
 [project]
 name = "nautilus-open-any-terminal"
-version = "0.5.0"
+version = "0.5.1"
 description = "an extension for nautilus, which adds an context-entry for opening other terminal emulators than gnome-terminal."
 authors = [
     {name = "Felix Buehler", email = "account@buehler.rocks"},
