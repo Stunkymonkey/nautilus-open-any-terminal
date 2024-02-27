@@ -15,19 +15,19 @@ def build_mo():
         subprocess.run(["msgfmt", "-o", mo, po_path], check=True)
 
 
-class SdistCommand(sdist):  # pylint: disable=too-few-public-methods
+class SdistCommand(sdist):
     def run(self):
         build_mo()
         super().run()
 
 
-class BuildCommand(build_py):  # pylint: disable=too-few-public-methods
+class BuildCommand(build_py):
     def run(self):
         build_mo()
         super().run()
 
 
-class InstallCommand(install):  # pylint: disable=too-few-public-methods
+class InstallCommand(install):
     def run(self):
         super().run()
 

@@ -310,9 +310,9 @@ def set_terminal_args(*_args):
 
 if API_VERSION in ("3.0", "2.0"):
 
-    class OpenAnyTerminalShortcutProvider(
-        GObject.GObject, FileManager.LocationWidgetProvider
-    ):  # pylint: disable=too-few-public-methods
+    class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.LocationWidgetProvider):
+        """Provide keyboard shortcuts for opening terminals in Nautilus."""
+
         def __init__(self):
             gsettings_source = Gio.SettingsSchemaSource.get_default()
             if gsettings_source.lookup(GSETTINGS_PATH, True):

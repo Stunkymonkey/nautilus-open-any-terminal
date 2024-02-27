@@ -37,4 +37,4 @@ ignore_missing_imports = true
 [tool.pylint]
 max-line-length = 120
 ignored-modules = "gi"
-disable = "global-statement,invalid-name,missing-module-docstring,missing-class-docstring,missing-function-docstring"
+disable = "global-statement,invalid-name,missing-module-docstring,missing-class-docstring,missing-function-docstring,too-few-public-methods"
