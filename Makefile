@@ -11,9 +11,6 @@ EXTDEST := $(PREFIX)/share/nautilus-python/extensions
 SCHEMASRC := nautilus_open_any_terminal/schemas/com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml
 SCHEMADEST := $(PREFIX)/share/glib-2.0/schemas
 
-
-DESTDIR ?=
-
 build:
 	$(MAKE) -C $(LOCALES)
 
