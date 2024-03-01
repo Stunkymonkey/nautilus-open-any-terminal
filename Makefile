@@ -12,6 +12,8 @@ SCHEMASRC := nautilus_open_any_terminal/schemas/com.github.stunkymonkey.nautilus
 SCHEMADEST := $(PREFIX)/share/glib-2.0/schemas
 
 
+DESTDIR ?=
+
 build:
 	$(MAKE) -C $(LOCALES)
 
@@ -19,17 +21,16 @@ clean:
 	$(MAKE) -C $(LOCALES) clean
 
 install:
-	install -Dm644 $(EXTSRC) -t $(EXTDEST)
+	install -Dm644 $(EXTSRC) -t $(DESTDIR)$(EXTDEST)
 	$(MAKE) -C $(LOCALES) install
-	install -Dm644 $(SCHEMASRC) -t $(SCHEMADEST)
+	install -Dm644 $(SCHEMASRC) -t $(DESTDIR)$(SCHEMADEST)
 
 schema:
-	glib-compile-schemas $(SCHEMADEST)
+	glib-compile-schemas $(DESTDIR)$(SCHEMADEST)
 
 uninstall:
-	$(RM) $(EXTDEST)/$$(basename $(EXTSRC))
+	$(RM) $(DESTDIR)$(EXTDEST)/$$(basename $(EXTSRC))
 	$(MAKE) -C $(LOCALES) uninstall
-	$(RM) $(SCHEMADEST)/$$(basename $(SCHEMASRC))
-
+	$(RM) $(DESTDIR)$(SCHEMADEST)/$$(basename $(SCHEMASRC))
 
 .PHONY: build clean install schema uninstall
