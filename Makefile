@@ -12,10 +12,10 @@ SCHEMASRC := nautilus_open_any_terminal/schemas/com.github.stunkymonkey.nautilus
 SCHEMADEST := $(PREFIX)/share/glib-2.0/schemas
 
 build:
-	$(MAKE) -C $(LOCALES)
+	$(MAKE) -C $(LOCALES) DESTDIR=$(DESTDIR)
 
 clean:
-	$(MAKE) -C $(LOCALES) clean
+	$(MAKE) -C $(LOCALES) clean DESTDIR=$(DESTDIR)
 
 install:
 	install -Dm644 $(EXTSRC) -t $(DESTDIR)$(EXTDEST)
