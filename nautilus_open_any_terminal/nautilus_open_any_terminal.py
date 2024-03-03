@@ -169,44 +169,48 @@ def distro_id() -> set[str]:
         ids.extend(id_like.split(" "))
     return set(ids)
 
+def open_remote_terminal_in_uri(uri: str):
+    """Open a new remote terminal"""
+    result = urlparse(uri)
+    cmd = terminal_cmd.copy()
 
-def open_terminal_in_uri(uri: str):
+    cmd.extend(terminal_data.command_arguments)
+    cmd.extend(["ssh", "-t"])
+    if result.username:
+        cmd.append(f"{result.username}@{result.hostname}")
+    else:
+        cmd.append(result.hostname)
+
+    if result.port:
+        cmd.append("-p")
+        cmd.append(str(result.port))
+
+    cmd.extend(["cd", shlex.quote(unquote(result.path)), ";", "exec", "$SHELL"])
+
+    Popen(cmd)  # pylint: disable=consider-using-with
+
+
+def open_local_terminal_in_uri(uri: str):
     """open the new terminal with correct path"""
     result = urlparse(uri)
     cmd = terminal_cmd.copy()
-    if result.scheme in REMOTE_URI_SCHEME:
-        cmd.extend(terminal_data.command_arguments)
-        cmd.extend(["ssh", "-t"])
-        if result.username:
-            cmd.append(f"{result.username}@{result.hostname}")
-        else:
-            cmd.append(result.hostname)
+    if terminal == "warp":
+        Popen(  # pylint: disable=consider-using-with
+            ["xdg-open", f'warp://action/new_{"tab" if new_tab else "window"}?path={result.path}']
+        )
+        return
 
-        if result.port:
-            cmd.append("-p")
-            cmd.append(str(result.port))
+    filename = unquote(result.path)
+    if new_tab and terminal_data.new_tab_arguments:
+        cmd.extend(terminal_data.new_tab_arguments)
+    elif terminal_data.new_window_arguments:
+        cmd.extend(terminal_data.new_window_arguments)
 
-        cmd.extend(["cd", shlex.quote(unquote(result.path)), ";", "exec", "$SHELL"])
+    if filename and terminal_data.workdir_arguments:
+        cmd.extend(terminal_data.workdir_arguments)
+        cmd.append(filename)
 
-        Popen(cmd)  # pylint: disable=consider-using-with
-    else:
-        if terminal == "warp":
-            Popen(  # pylint: disable=consider-using-with
-                ["xdg-open", f'warp://action/new_{"tab" if new_tab else "window"}?path={result.path}']
-            )
-            return
-
-        filename = unquote(result.path)
-        if new_tab and terminal_data.new_tab_arguments:
-            cmd.extend(terminal_data.new_tab_arguments)
-        elif terminal_data.new_window_arguments:
-            cmd.extend(terminal_data.new_window_arguments)
-
-        if filename and terminal_data.workdir_arguments:
-            cmd.extend(terminal_data.workdir_arguments)
-            cmd.append(filename)
-
-        Popen(cmd, cwd=filename)  # pylint: disable=consider-using-with
+    Popen(cmd, cwd=filename)  # pylint: disable=consider-using-with
 
 
 def set_terminal_args(*_args):
@@ -272,7 +276,7 @@ if API_VERSION in ("3.0", "2.0"):
                 self._create_accel_group()
 
         def _open_terminal(self, *_args):
-            open_terminal_in_uri(self._uri)
+            open_local_terminal_in_uri(self._uri)
 
         def get_widget(self, uri, window):
             """follows uri and sets the correct window"""
@@ -285,8 +289,13 @@ if API_VERSION in ("3.0", "2.0"):
 
 
 class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
-    def _menu_activate_cb(self, menu, file_):
-        open_terminal_in_uri(file_.get_uri())
+    """Provide context menu items for opening terminals in Nautilus."""
+
+    def _menu_activate_cb(self, menu, file_, remote: bool):
+        if remote:
+            open_remote_terminal_in_uri(file_.get_uri())
+        else:
+            open_local_terminal_in_uri(file_.get_location().get_path())
 
     def get_file_items(self, *args):
         """Generates a list of menu items for a file or folder in the Nautilus file manager."""
@@ -308,18 +317,19 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
                     label=_("Open Remote {}").format(terminal_data.name),
                     tip=_("Open Remote {} In {}").format(terminal_data.name, uri),
                 )
-            else:
-                # Let wezterm handle opening a local terminal
-                if terminal == "wezterm" and flatpak == "off":
-                    return []
+                item.connect("activate", self._menu_activate_cb, file_, True)
+                items.append(item)
+            # Let wezterm handle opening a local terminal
+            if terminal == "wezterm" and flatpak == "off":
+                return items
 
-                filename = file_.get_name()
-                item = FileManager.MenuItem(
-                    name="OpenTerminal::open_file_item",
-                    label=_("Open In {}").format(terminal_data.name),
-                    tip=_("Open {} In {}").format(terminal_data.name, filename),
-                )
-            item.connect("activate", self._menu_activate_cb, file_)
+            filename = file_.get_name()
+            item = FileManager.MenuItem(
+                name="OpenTerminal::open_file_item",
+                label=_("Open In {}").format(terminal_data.name),
+                tip=_("Open {} In {}").format(terminal_data.name, filename),
+            )
+            item.connect("activate", self._menu_activate_cb, file_, False)
             items.append(item)
 
         return items
@@ -338,17 +348,18 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
                 label=_("Open Remote {} Here").format(terminal_data.name),
                 tip=_("Open Remote {} In This Directory").format(terminal_data.name),
             )
-        else:
-            # Let wezterm handle opening a local terminal
-            if terminal == "wezterm" and flatpak == "off":
-                return []
+            item.connect("activate", self._menu_activate_cb, file_, True)
+            items.append(item)
+        # Let wezterm handle opening a local terminal
+        if terminal == "wezterm" and flatpak == "off":
+            return items
 
-            item = FileManager.MenuItem(
-                name="OpenTerminal::open_bg_file_item",
-                label=_("Open {} Here").format(terminal_data.name),
-                tip=_("Open {} In This Directory").format(terminal_data.name),
-            )
-        item.connect("activate", self._menu_activate_cb, file_)
+        item = FileManager.MenuItem(
+            name="OpenTerminal::open_bg_file_item",
+            label=_("Open {} Here").format(terminal_data.name),
+            tip=_("Open {} In This Directory").format(terminal_data.name),
+        )
+        item.connect("activate", self._menu_activate_cb, file_, False)
         items.append(item)
         return items
 
