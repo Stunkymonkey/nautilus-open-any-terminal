@@ -21,8 +21,8 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools_scm]
 
-[tool.setuptools.packages]
-find = {namespaces = false}
+[tool.setuptools.packages.find]
+namespaces = false
 
 [tool.black]
 line-length = 120
@@ -36,5 +36,5 @@ ignore_missing_imports = true
 
 [tool.pylint]
 max-line-length = 120
-ignored-modules = "gi"
+ignored-modules = "gi,setuptools"
 disable = "global-statement,invalid-name,missing-module-docstring,missing-class-docstring,missing-function-docstring,too-few-public-methods"
