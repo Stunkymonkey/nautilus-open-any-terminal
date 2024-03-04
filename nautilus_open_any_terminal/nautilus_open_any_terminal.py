@@ -312,13 +312,11 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
         file_ = files[0]
 
         if file_.is_directory():
-            local_str = ""
             if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
-                local_str = "Local "
                 uri = file_.get_uri()
                 item = FileManager.MenuItem(
                     name="OpenTerminal::open_remote_item",
-                    label=_("Open In Remote {}").format(terminal_data.name),
+                    label=_("Open Remote {}").format(terminal_data.name),
                     tip=_("Open Remote {} In {}").format(terminal_data.name, uri),
                 )
                 item.connect("activate", self._menu_activate_cb, file_, True)
@@ -330,8 +328,8 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
             filename = file_.get_name()
             item = FileManager.MenuItem(
                 name="OpenTerminal::open_file_item",
-                label=_("Open In {}{}").format(local_str, terminal_data.name),
-                tip=_("Open {}{} In {}").format(local_str, terminal_data.name, filename),
+                label=_("Open In {}").format(terminal_data.name),
+                tip=_("Open {} In {}").format(terminal_data.name, filename),
             )
             item.connect("activate", self._menu_activate_cb, file_, False)
             items.append(item)
@@ -346,9 +344,7 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
         file_ = args[-1]
 
         items = []
-        local_str = ""
         if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
-            local_str = "Local "
             item = FileManager.MenuItem(
                 name="OpenTerminal::open_bg_remote_item",
                 label=_("Open Remote {} Here").format(terminal_data.name),
@@ -362,8 +358,8 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
 
         item = FileManager.MenuItem(
             name="OpenTerminal::open_bg_file_item",
-            label=_("Open {}{} Here").format(local_str, terminal_data.name),
-            tip=_("Open {}{} In This Directory").format(local_str, terminal_data.name),
+            label=_("Open {} Here").format(terminal_data.name),
+            tip=_("Open {} In This Directory").format(terminal_data.name),
         )
         item.connect("activate", self._menu_activate_cb, file_, False)
         items.append(item)
