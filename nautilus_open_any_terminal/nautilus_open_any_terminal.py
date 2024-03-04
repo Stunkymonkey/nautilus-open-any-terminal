@@ -119,6 +119,7 @@ flatpak = FLATPAK_PARMS[0]
 
 GSETTINGS_PATH = "com.github.stunkymonkey.nautilus-open-any-terminal"
 GSETTINGS_KEYBINDINGS = "keybindings"
+GSETTINGS_BIND_REMOTE = "bind-remote"
 GSETTINGS_TERMINAL = "terminal"
 GSETTINGS_NEW_TAB = "new-tab"
 GSETTINGS_FLATPAK = "flatpak"
@@ -278,7 +279,10 @@ if API_VERSION in ("3.0", "2.0"):
                 self._create_accel_group()
 
         def _open_terminal(self, *_args):
-            open_local_terminal_in_uri(self._uri)
+            if _gsettings.get_boolean(GSETTINGS_BIND_REMOTE):
+                open_local_terminal_in_uri(self._uri)
+            else:
+                open_remote_terminal_in_uri(self._uri)
 
         def get_widget(self, uri, window):
             """follows uri and sets the correct window"""

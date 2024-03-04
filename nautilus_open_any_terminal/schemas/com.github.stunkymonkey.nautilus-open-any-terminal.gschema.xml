@@ -11,6 +11,11 @@
       <summary>Keyboard shortcut used in Nautilus for Open Here extension</summary>
       <description></description>
     </key>
+    <key name="bind-remote" type="b">
+      <default>false</default>
+      <summary>Whether the keyboard shortcut opens a remote terminal in remote directories</summary>
+      <description></description>
+    </key>
     <key name="terminal" type="s">
       <default>'gnome-terminal'</default>
       <summary>Terminal used in Nautilus for Open Here extension</summary>
