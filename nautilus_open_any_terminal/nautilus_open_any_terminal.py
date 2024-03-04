@@ -316,23 +316,39 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
                 uri = file_.get_uri()
                 item = FileManager.MenuItem(
                     name="OpenTerminal::open_remote_item",
-                    label=_("Open Remote {}").format(terminal_data.name),
+                    label=_("Open In Remote {}").format(terminal_data.name),
                     tip=_("Open Remote {} In {}").format(terminal_data.name, uri),
                 )
                 item.connect("activate", self._menu_activate_cb, file_, True)
                 items.append(item)
-            # Let wezterm handle opening a local terminal
-            if terminal == "wezterm" and flatpak == "off":
-                return items
 
-            filename = file_.get_name()
-            item = FileManager.MenuItem(
-                name="OpenTerminal::open_file_item",
-                label=_("Open In {}").format(terminal_data.name),
-                tip=_("Open {} In {}").format(terminal_data.name, filename),
-            )
-            item.connect("activate", self._menu_activate_cb, file_, False)
-            items.append(item)
+                # Let wezterm handle opening a local terminal
+                if terminal == "wezterm" and flatpak == "off":
+                    return items
+
+                filename = file_.get_name()
+                item = FileManager.MenuItem(
+                    name="OpenTerminal::open_file_item",
+                    label=_("Open In Local {}").format(terminal_data.name),
+                    tip=_("Open Local {} In {}").format(terminal_data.name, filename),
+                )
+                item.connect("activate", self._menu_activate_cb, file_, False)
+                items.append(item)
+
+            else:
+
+                # Let wezterm handle opening a local terminal
+                if terminal == "wezterm" and flatpak == "off":
+                    return items
+
+                filename = file_.get_name()
+                item = FileManager.MenuItem(
+                    name="OpenTerminal::open_file_item",
+                    label=_("Open In {}").format(terminal_data.name),
+                    tip=_("Open {} In {}").format(terminal_data.name, filename),
+                )
+                item.connect("activate", self._menu_activate_cb, file_, False)
+                items.append(item)
 
         return items
 
@@ -352,17 +368,31 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
             )
             item.connect("activate", self._menu_activate_cb, file_, True)
             items.append(item)
-        # Let wezterm handle opening a local terminal
-        if terminal == "wezterm" and flatpak == "off":
-            return items
 
-        item = FileManager.MenuItem(
-            name="OpenTerminal::open_bg_file_item",
-            label=_("Open {} Here").format(terminal_data.name),
-            tip=_("Open {} In This Directory").format(terminal_data.name),
-        )
-        item.connect("activate", self._menu_activate_cb, file_, False)
-        items.append(item)
+            # Let wezterm handle opening a local terminal
+            if terminal == "wezterm" and flatpak == "off":
+                return items
+
+            item = FileManager.MenuItem(
+                name="OpenTerminal::open_bg_file_item",
+                label=_("Open Local {} Here").format(terminal_data.name),
+                tip=_("Open Local {} In This Directory").format(terminal_data.name),
+            )
+            item.connect("activate", self._menu_activate_cb, file_, False)
+            items.append(item)
+        else:
+
+            # Let wezterm handle opening a local terminal
+            if terminal == "wezterm" and flatpak == "off":
+                return items
+
+            item = FileManager.MenuItem(
+                name="OpenTerminal::open_bg_file_item",
+                label=_("Open {} Here").format(terminal_data.name),
+                tip=_("Open {} In This Directory").format(terminal_data.name),
+            )
+            item.connect("activate", self._menu_activate_cb, file_, False)
+            items.append(item)
         return items
 
 
