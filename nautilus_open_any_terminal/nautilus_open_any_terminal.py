@@ -1,4 +1,5 @@
 """nautilus extension: nautilus_open_any_terminal"""
+
 # based on: https://github.com/gnunn1/tilix/blob/master/data/nautilus/open-tilix.py
 
 import ast
@@ -168,6 +169,7 @@ def distro_id() -> set[str]:
     if id_like := os_release.get("ID_LIKE"):
         ids.extend(id_like.split(" "))
     return set(ids)
+
 
 def open_remote_terminal_in_uri(uri: str):
     """Open a new remote terminal"""
