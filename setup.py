@@ -65,7 +65,6 @@ class InstallCommand(install):
 setup(
     package_data={"nautilus-open-any-terminal": ["locale/*.mo"]},
     include_package_data=True,
-    setup_requires=["setuptools_scm"],
     cmdclass={
         "install": InstallCommand,
         "sdist": SdistCommand,
