@@ -71,6 +71,7 @@ TERMINALS = {
     "mlterm": Terminal("Mlterm"),
     "ptyxis": Terminal(
         "Ptyxis",
+        workdir_arguments=["-d"],
         command_arguments=["-x"],
         new_tab_arguments=["--tab"],
         new_window_arguments=["--new-window"],
@@ -78,6 +79,7 @@ TERMINALS = {
     ),
     "ptyxis-nightly": Terminal(
         "Ptyxis",
+        workdir_arguments=["-d"],
         command_arguments=["-x"],
         new_tab_arguments=["--tab"],
         new_window_arguments=["--new-window"],
