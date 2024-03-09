@@ -340,7 +340,6 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
                 items.append(item)
 
             else:
-
                 # Let wezterm handle opening a local terminal
                 if terminal == "wezterm" and flatpak == "off":
                     return items
@@ -385,7 +384,6 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
             item.connect("activate", self._menu_activate_cb, file_, False)
             items.append(item)
         else:
-
             # Let wezterm handle opening a local terminal
             if terminal == "wezterm" and flatpak == "off":
                 return items
