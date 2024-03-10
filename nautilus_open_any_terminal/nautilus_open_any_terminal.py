@@ -216,6 +216,61 @@ def open_local_terminal_in_uri(uri: str):
     Popen(cmd, cwd=filename)  # pylint: disable=consider-using-with
 
 
+def menu_item_id(*, foreground: bool, remote: bool):
+    return f"OpenTerminal::open{'_' if foreground else '_bg_'}{'remote' if remote else 'file'}_item"
+
+
+def get_menu_items(file: FileManager.FileInfo, callback, foreground: bool):
+    items = []
+    remote = file.get_uri_scheme() in REMOTE_URI_SCHEME
+
+    if remote:
+        if foreground:
+            REMOTE_LABEL = _("Open In Remote {}")
+            REMOTE_TIP = _("Open Remote {} In {}")
+            LOCAL_LABEL = _("Open In Local {}")
+            LOCAL_TIP = _("Open Local {} In {}")
+            tip = REMOTE_TIP.format(terminal_data.name, file.get_name())
+        else:
+            REMOTE_LABEL = _("Open Remote {} Here")
+            REMOTE_TIP = _("Open Remote {} In This Directory")
+            LOCAL_LABEL = _("Open Local {} Here")
+            LOCAL_TIP = _("Open Local {} In This Directory")
+            tip = REMOTE_TIP.format(terminal_data.name)
+
+        item = FileManager.MenuItem(
+            name=menu_item_id(foreground=foreground, remote=True),
+            label=REMOTE_LABEL.format(terminal_data.name),
+            tip=tip,
+        )
+        item.connect("activate", callback, file, True)
+        items.append(item)
+    elif foreground:
+        LOCAL_LABEL = _("Open In {}")
+        LOCAL_TIP = _("Open {} In {}")
+    else:
+        LOCAL_LABEL = _("Open {} Here")
+        LOCAL_TIP = _("Open {} In This Directory")
+
+    # Let wezterm handle opening a local terminal
+    if terminal == "wezterm" and flatpak == "off":
+        return items
+
+    if foreground:
+        tip = LOCAL_TIP.format(terminal_data.name, file.get_name())
+    else:
+        tip = LOCAL_TIP.format(terminal_data.name)
+
+    item = FileManager.MenuItem(
+        name=menu_item_id(foreground=foreground, remote=False),
+        label=LOCAL_LABEL.format(terminal_data.name),
+        tip=tip,
+    )
+    item.connect("activate", callback, file, False)
+    items.append(item)
+    return items
+
+
 def set_terminal_args(*_args):
     """set the terminal_cmd to the correct values"""
     global new_tab
@@ -312,48 +367,12 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
 
         if len(files) != 1:
             return []
-        items = []
         file_ = files[0]
 
         if file_.is_directory():
-            if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
-                uri = file_.get_uri()
-                item = FileManager.MenuItem(
-                    name="OpenTerminal::open_remote_item",
-                    label=_("Open In Remote {}").format(terminal_data.name),
-                    tip=_("Open Remote {} In {}").format(terminal_data.name, uri),
-                )
-                item.connect("activate", self._menu_activate_cb, file_, True)
-                items.append(item)
+            return get_menu_items(file_, self._menu_activate_cb, True)
 
-                # Let wezterm handle opening a local terminal
-                if terminal == "wezterm" and flatpak == "off":
-                    return items
-
-                filename = file_.get_name()
-                item = FileManager.MenuItem(
-                    name="OpenTerminal::open_file_item",
-                    label=_("Open In Local {}").format(terminal_data.name),
-                    tip=_("Open Local {} In {}").format(terminal_data.name, filename),
-                )
-                item.connect("activate", self._menu_activate_cb, file_, False)
-                items.append(item)
-
-            else:
-                # Let wezterm handle opening a local terminal
-                if terminal == "wezterm" and flatpak == "off":
-                    return items
-
-                filename = file_.get_name()
-                item = FileManager.MenuItem(
-                    name="OpenTerminal::open_file_item",
-                    label=_("Open In {}").format(terminal_data.name),
-                    tip=_("Open {} In {}").format(terminal_data.name, filename),
-                )
-                item.connect("activate", self._menu_activate_cb, file_, False)
-                items.append(item)
-
-        return items
+        return []
 
     def get_background_items(self, *args):
         """Generates a list of background menu items for a file or folder in the Nautilus file manager."""
@@ -361,41 +380,7 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
         # and `[window: Gtk.Widget, file: Nautilus.FileInfo]` in Nautilus 3.0 API.
 
         file_ = args[-1]
-
-        items = []
-        if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
-            item = FileManager.MenuItem(
-                name="OpenTerminal::open_bg_remote_item",
-                label=_("Open Remote {} Here").format(terminal_data.name),
-                tip=_("Open Remote {} In This Directory").format(terminal_data.name),
-            )
-            item.connect("activate", self._menu_activate_cb, file_, True)
-            items.append(item)
-
-            # Let wezterm handle opening a local terminal
-            if terminal == "wezterm" and flatpak == "off":
-                return items
-
-            item = FileManager.MenuItem(
-                name="OpenTerminal::open_bg_file_item",
-                label=_("Open Local {} Here").format(terminal_data.name),
-                tip=_("Open Local {} In This Directory").format(terminal_data.name),
-            )
-            item.connect("activate", self._menu_activate_cb, file_, False)
-            items.append(item)
-        else:
-            # Let wezterm handle opening a local terminal
-            if terminal == "wezterm" and flatpak == "off":
-                return items
-
-            item = FileManager.MenuItem(
-                name="OpenTerminal::open_bg_file_item",
-                label=_("Open {} Here").format(terminal_data.name),
-                tip=_("Open {} In This Directory").format(terminal_data.name),
-            )
-            item.connect("activate", self._menu_activate_cb, file_, False)
-            items.append(item)
-        return items
+        return get_menu_items(file_, self._menu_activate_cb, False)
 
 
 source = Gio.SettingsSchemaSource.get_default()
