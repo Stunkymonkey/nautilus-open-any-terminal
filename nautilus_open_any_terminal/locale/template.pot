@@ -1,0 +1,65 @@
+# nautilus_open_any_terminal translation file
+# Copyright (C) 2024 Stunkymonkey
+# This file is distributed under the same license as the nautilus_open_any_terminal package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+
+msgid ""
+msgstr ""
+"Project-Id-Version: nautilus_open_any_terminal\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-10 02:09+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: nautilus_open_any_terminal.py:229
+msgid "Open In Remote {}"
+msgstr ""
+
+#: nautilus_open_any_terminal.py:230
+msgid "Open Remote {} In {}"
+msgstr ""
+
+#: nautilus_open_any_terminal.py:231
+msgid "Open In Local {}"
+msgstr ""
+
+#: nautilus_open_any_terminal.py:232
+msgid "Open Local {} In {}"
+msgstr ""
+
+#: nautilus_open_any_terminal.py:235
+msgid "Open Remote {} Here"
+msgstr ""
+
+#: nautilus_open_any_terminal.py:236
+msgid "Open Remote {} In This Directory"
+msgstr ""
+
+#: nautilus_open_any_terminal.py:237
+msgid "Open Local {} Here"
+msgstr ""
+
+#: nautilus_open_any_terminal.py:238
+msgid "Open Local {} In This Directory"
+msgstr ""
+
+#: nautilus_open_any_terminal.py:249
+msgid "Open In {}"
+msgstr ""
+
+#: nautilus_open_any_terminal.py:250
+msgid "Open {} In {}"
+msgstr ""
+
+#: nautilus_open_any_terminal.py:252
+msgid "Open {} Here"
+msgstr ""
+
+#: nautilus_open_any_terminal.py:253
+msgid "Open {} In This Directory"
+msgstr ""
