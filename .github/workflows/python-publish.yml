@@ -5,9 +5,15 @@ on:
   release:
     types: [created]
 
+permissions: {}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
     steps:
       - uses: actions/checkout@v4
         with:
