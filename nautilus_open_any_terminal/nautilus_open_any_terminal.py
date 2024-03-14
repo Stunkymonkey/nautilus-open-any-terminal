@@ -188,7 +188,7 @@ def open_remote_terminal_in_uri(uri: str):
         cmd.append("-p")
         cmd.append(str(result.port))
 
-    cmd.extend(["cd", shlex.quote(unquote(result.path)), ";", "exec", "$SHELL"])
+    cmd.extend(["cd", shlex.quote(unquote(result.path)), ";", "exec", "$SHELL", "-l"])
 
     Popen(cmd)  # pylint: disable=consider-using-with
 
