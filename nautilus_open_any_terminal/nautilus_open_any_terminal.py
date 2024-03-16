@@ -61,6 +61,7 @@ TERMINALS = {
     "deepin-terminal": Terminal("Deepin Terminal"),
     "foot": Terminal("Foot"),
     "footclient": Terminal("FootClient"),
+    "ghostty": Terminal("Ghostty"),
     "gnome-terminal": Terminal("Terminal", new_tab_arguments=["--tab"]),
     "guake": Terminal("Guake", workdir_arguments=["--show", "--new-tab"]),
     "hyper": Terminal("Hyper"),
