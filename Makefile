@@ -1,14 +1,18 @@
 LOCALES := nautilus_open_any_terminal/locale
 
-ifeq ($(shell id -u),0)
-export PREFIX ?= /usr
-else
-export PREFIX ?= ${HOME}/.local
+ifneq ($(shell id -u),0)
+export DESTDIR ?= ${HOME}
 endif
 
+ifeq ($(DESTDIR),${HOME})
+export PREFIX ?= /.local
+endif
+export PREFIX ?= /usr
+
+DEST := $(DESTDIR)$(PREFIX)
 EXTSRC := nautilus_open_any_terminal/nautilus_open_any_terminal.py
 SCHEMASRC := nautilus_open_any_terminal/schemas/com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml
-SCHEMADEST := $(PREFIX)/share/glib-2.0/schemas
+SCHEMADEST := $(DEST)/share/glib-2.0/schemas
 
 FILE_MANAGERS := nautilus caja
 INSTALLS := $(patsubst %,install-%,$(FILE_MANAGERS))
@@ -26,7 +30,7 @@ schema:
 install: $(INSTALLS)
 
 $(INSTALLS): install-common
-	install -Dm644 $(EXTSRC) -t $(PREFIX)/share/$(patsubst install-%,%-python,$@)/extensions
+	install -Dm644 $(EXTSRC) -t $(DEST)/share/$(patsubst install-%,%-python,$@)/extensions
 
 install-common:
 	$(MAKE) -C $(LOCALES) install
@@ -35,7 +39,7 @@ install-common:
 uninstall: $(UNINSTALLS)
 
 $(UNINSTALLS): uninstall-common
-	$(RM) $(PREFIX)/share/$(patsubst uninstall-%,%-python,$@)/extensions/$(notdir $(EXTSRC))
+	$(RM) $(DEST)/share/$(patsubst uninstall-%,%-python,$@)/extensions/$(notdir $(EXTSRC))
 
 uninstall-common:
 	$(MAKE) -C $(LOCALES) uninstall
