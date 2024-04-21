@@ -58,6 +58,11 @@ TERMINALS = {
         flatpak_package="com.raggesilver.BlackBox",
     ),
     "cool-retro-term": Terminal("cool-retro-term", workdir_arguments=["--workdir"]),
+    "contour": Terminal(
+        "Contour",
+        workdir_arguments=["--working-directory"],
+        flatpak_package="org.contourterminal.Contour",
+    ),
     "deepin-terminal": Terminal("Deepin Terminal"),
     "foot": Terminal("Foot"),
     "footclient": Terminal("FootClient"),
