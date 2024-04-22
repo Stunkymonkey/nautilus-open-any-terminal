@@ -17,6 +17,7 @@ Right now the plugin is limited to these terminal emulators. If one is missing p
 - `alacritty`
 - `blackbox`
 - `cool-retro-term`
+- `contour`
 - `deepin-terminal`
 - `foot`/`footclient`
 - `ghostty`
