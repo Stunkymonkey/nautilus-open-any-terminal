@@ -129,6 +129,7 @@ GSETTINGS_BIND_REMOTE = "bind-remote"
 GSETTINGS_TERMINAL = "terminal"
 GSETTINGS_NEW_TAB = "new-tab"
 GSETTINGS_FLATPAK = "flatpak"
+GSETTINGS_USE_GENERIC_TERMINAL_NAME = "use-generic-terminal-name"
 REMOTE_URI_SCHEME = ["ftp", "sftp"]
 
 _ = gettext
@@ -226,9 +227,10 @@ def menu_item_id(*, foreground: bool, remote: bool):
     return f"OpenTerminal::open{'_' if foreground else '_bg_'}{'remote' if remote else 'file'}_item"
 
 
-def get_menu_items(file: FileManager.FileInfo, callback, foreground: bool):
+def get_menu_items(file: FileManager.FileInfo, callback, *, foreground: bool, terminal_name: str | None = None):
     items = []
     remote = file.get_uri_scheme() in REMOTE_URI_SCHEME
+    terminal_name = terminal_name or terminal_data.name
 
     if remote:
         if foreground:
@@ -236,17 +238,17 @@ def get_menu_items(file: FileManager.FileInfo, callback, foreground: bool):
             REMOTE_TIP = _("Open Remote {} In {}")
             LOCAL_LABEL = _("Open In Local {}")
             LOCAL_TIP = _("Open Local {} In {}")
-            tip = REMOTE_TIP.format(terminal_data.name, file.get_name())
+            tip = REMOTE_TIP.format(terminal_name, file.get_name())
         else:
             REMOTE_LABEL = _("Open Remote {} Here")
             REMOTE_TIP = _("Open Remote {} In This Directory")
             LOCAL_LABEL = _("Open Local {} Here")
             LOCAL_TIP = _("Open Local {} In This Directory")
-            tip = REMOTE_TIP.format(terminal_data.name)
+            tip = REMOTE_TIP.format(terminal_name)
 
         item = FileManager.MenuItem(
             name=menu_item_id(foreground=foreground, remote=True),
-            label=REMOTE_LABEL.format(terminal_data.name),
+            label=REMOTE_LABEL.format(terminal_name),
             tip=tip,
         )
         item.connect("activate", callback, file, True)
@@ -263,13 +265,13 @@ def get_menu_items(file: FileManager.FileInfo, callback, foreground: bool):
         return items
 
     if foreground:
-        tip = LOCAL_TIP.format(terminal_data.name, file.get_name())
+        tip = LOCAL_TIP.format(terminal_name, file.get_name())
     else:
-        tip = LOCAL_TIP.format(terminal_data.name)
+        tip = LOCAL_TIP.format(terminal_name)
 
     item = FileManager.MenuItem(
         name=menu_item_id(foreground=foreground, remote=False),
-        label=LOCAL_LABEL.format(terminal_data.name),
+        label=LOCAL_LABEL.format(terminal_name),
         tip=tip,
     )
     item.connect("activate", callback, file, False)
@@ -358,6 +360,16 @@ if API_VERSION in ("3.0", "2.0"):
 class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
     """Provide context menu items for opening terminals in Nautilus."""
 
+    def __init__(self):
+        gsettings_source = Gio.SettingsSchemaSource.get_default()
+        if gsettings_source.lookup(GSETTINGS_PATH, True):
+            self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
+
+    def _get_terminal_name(self):
+        if self._gsettings.get_boolean(GSETTINGS_USE_GENERIC_TERMINAL_NAME):
+            return _("Terminal")
+        return None
+
     def _menu_activate_cb(self, menu, file_, remote: bool):
         if remote:
             open_remote_terminal_in_uri(file_.get_uri())
@@ -376,7 +388,9 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
         file_ = files[0]
 
         if file_.is_directory():
-            return get_menu_items(file_, self._menu_activate_cb, True)
+            return get_menu_items(
+                file_, self._menu_activate_cb, foreground=True, terminal_name=self._get_terminal_name()
+            )
 
         return []
 
@@ -386,7 +400,7 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
         # and `[window: Gtk.Widget, file: Nautilus.FileInfo]` in Nautilus 3.0 API.
 
         file_ = args[-1]
-        return get_menu_items(file_, self._menu_activate_cb, False)
+        return get_menu_items(file_, self._menu_activate_cb, foreground=False, terminal_name=self._get_terminal_name())
 
 
 source = Gio.SettingsSchemaSource.get_default()
