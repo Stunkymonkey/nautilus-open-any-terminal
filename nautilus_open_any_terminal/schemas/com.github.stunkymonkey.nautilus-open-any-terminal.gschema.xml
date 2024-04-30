@@ -21,9 +21,18 @@
       <summary>Terminal used in Nautilus for Open Here extension</summary>
       <description></description>
     </key>
+    <key name="use-generic-terminal-name" type="b">
+      <default>false</default>
+      <summary>Whether to display specific or generic terminal name.</summary>
+      <description>
+        If false, "Alacritty", "Xterm" or other specific terminal names will be used.
+
+        If true, "Terminal" or it's translation will be used.
+      </description>
+    </key>
     <key name="new-tab" type="b">
       <default>false</default>
-      <summary>Whether the new terminal should be oppened in a new tab or in a new window</summary>
+      <summary>Whether the new terminal should be opened in a new tab or in a new window</summary>
       <description></description>
     </key>
     <key name="flatpak" enum="com.github.stunkymonkey.nautilus-open-any-terminal.flatpak">

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nautilus_open_any_terminal\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-10 02:09+0100\n"
+"POT-Creation-Date: 2024-04-30 20:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,50 +16,54 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: nautilus_open_any_terminal.py:229
+#: nautilus_open_any_terminal.py:237
 msgid "Open In Remote {}"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:230
+#: nautilus_open_any_terminal.py:238
 msgid "Open Remote {} In {}"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:231
+#: nautilus_open_any_terminal.py:239
 msgid "Open In Local {}"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:232
+#: nautilus_open_any_terminal.py:240
 msgid "Open Local {} In {}"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:235
+#: nautilus_open_any_terminal.py:243
 msgid "Open Remote {} Here"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:236
+#: nautilus_open_any_terminal.py:244
 msgid "Open Remote {} In This Directory"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:237
+#: nautilus_open_any_terminal.py:245
 msgid "Open Local {} Here"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:238
+#: nautilus_open_any_terminal.py:246
 msgid "Open Local {} In This Directory"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:249
+#: nautilus_open_any_terminal.py:257
 msgid "Open In {}"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:250
+#: nautilus_open_any_terminal.py:258
 msgid "Open {} In {}"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:252
+#: nautilus_open_any_terminal.py:260
 msgid "Open {} Here"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:253
+#: nautilus_open_any_terminal.py:261
 msgid "Open {} In This Directory"
+msgstr ""
+
+#: nautilus_open_any_terminal.py:370
+msgid "Terminal"
 msgstr ""
