@@ -82,7 +82,7 @@ TERMINALS = {
         command_arguments=["-x"],
         new_tab_arguments=["--tab"],
         new_window_arguments=["--new-window"],
-        flatpak_package="org.gnome.Ptyxis",
+        flatpak_package="app.devsuite.Ptyxis",
     ),
     "ptyxis-nightly": Terminal(
         "Ptyxis",
