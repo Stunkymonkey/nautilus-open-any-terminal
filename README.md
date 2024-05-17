@@ -12,7 +12,8 @@ is an extension for nautilus, which adds an context-entry for opening other term
 
 ## Supported Terminal Emulators
 
-Right now the plugin is limited to these terminal emulators. If one is missing please open an issue.
+The following terminal emulators are fully supported. PRs for other terminals
+are welcome!
 
 - `alacritty`
 - `blackbox`
@@ -47,6 +48,9 @@ Right now the plugin is limited to these terminal emulators. If one is missing p
 - `wezterm`
 - `xfce4-terminal`
 - `xterm`/`uxterm`
+
+Additionally, the terminal can be set to `custom`, which allows you to set
+custom commands for opening a local or remote terminal via dconf.
 
 ## Installing
 
