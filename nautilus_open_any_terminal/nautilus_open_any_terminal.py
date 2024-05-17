@@ -49,6 +49,16 @@ class Terminal:
     flatpak_package: Optional[str] = None
 
 
+_ = gettext
+for localedir in [expanduser("~/.local/share/locale"), "/usr/share/locale"]:
+    try:
+        trans = translation("nautilus-open-any-terminal", localedir)
+        trans.install()
+        _ = trans.gettext
+        break
+    except FileNotFoundError:
+        continue
+
 TERMINALS = {
     "alacritty": Terminal("Alacritty"),
     "blackbox": Terminal(
@@ -58,6 +68,7 @@ TERMINALS = {
         flatpak_package="com.raggesilver.BlackBox",
     ),
     "cool-retro-term": Terminal("cool-retro-term", workdir_arguments=["--workdir"]),
+    "custom": Terminal(_("Terminal"), command_arguments=[]),
     "contour": Terminal(
         "Contour",
         workdir_arguments=["--working-directory"],
@@ -122,6 +133,8 @@ terminal_cmd: list[str] = None  # type: ignore
 terminal_data: Terminal = TERMINALS["gnome-terminal"]
 new_tab = False
 flatpak = FLATPAK_PARMS[0]
+custom_local_command: str
+custom_remote_command: str
 
 GSETTINGS_PATH = "com.github.stunkymonkey.nautilus-open-any-terminal"
 GSETTINGS_KEYBINDINGS = "keybindings"
@@ -130,17 +143,9 @@ GSETTINGS_TERMINAL = "terminal"
 GSETTINGS_NEW_TAB = "new-tab"
 GSETTINGS_FLATPAK = "flatpak"
 GSETTINGS_USE_GENERIC_TERMINAL_NAME = "use-generic-terminal-name"
+GSETTINGS_CUSTOM_LOCAL_COMMAND = "custom-local-command"
+GSETTINGS_CUSTOM_REMOTE_COMMAND = "custom-remote-command"
 REMOTE_URI_SCHEME = ["ftp", "sftp"]
-
-_ = gettext
-for localedir in [expanduser("~/.local/share/locale"), "/usr/share/locale"]:
-    try:
-        trans = translation("nautilus-open-any-terminal", localedir)
-        trans.install()
-        _ = trans.gettext
-        break
-    except FileNotFoundError:
-        continue
 
 
 # Adapted from https://www.freedesktop.org/software/systemd/man/latest/os-release.html
@@ -179,6 +184,14 @@ def distro_id() -> set[str]:
     return set(ids)
 
 
+def parse_custom_command(command: str, data: str | list[str]) -> list[str]:
+    """Substitute every '%s' in the command with data and split it into arguments"""
+    if isinstance(data, str):
+        data = [data]
+
+    return shlex.split(command.replace("%s", shlex.join(data)))
+
+
 def open_remote_terminal_in_uri(uri: str):
     """Open a new remote terminal"""
     result = urlparse(uri)
@@ -189,13 +202,16 @@ def open_remote_terminal_in_uri(uri: str):
     if result.username:
         cmd.append(f"{result.username}@{result.hostname}")
     else:
-        cmd.append(result.hostname)
+        cmd.append(result.hostname)  # type: ignore
 
     if result.port:
         cmd.append("-p")
         cmd.append(str(result.port))
 
     cmd.extend(["cd", shlex.quote(unquote(result.path)), ";", "exec", "$SHELL", "-l"])
+
+    if terminal == "custom":
+        cmd = parse_custom_command(custom_remote_command, cmd)
 
     Popen(cmd)  # pylint: disable=consider-using-with
 
@@ -211,14 +227,17 @@ def open_local_terminal_in_uri(uri: str):
         return
 
     filename = unquote(result.path)
-    if new_tab and terminal_data.new_tab_arguments:
-        cmd.extend(terminal_data.new_tab_arguments)
-    elif terminal_data.new_window_arguments:
-        cmd.extend(terminal_data.new_window_arguments)
+    if terminal == "custom":
+        cmd = parse_custom_command(custom_local_command, filename)
+    else:
+        if new_tab and terminal_data.new_tab_arguments:
+            cmd.extend(terminal_data.new_tab_arguments)
+        elif terminal_data.new_window_arguments:
+            cmd.extend(terminal_data.new_window_arguments)
 
-    if filename and terminal_data.workdir_arguments:
-        cmd.extend(terminal_data.workdir_arguments)
-        cmd.append(filename)
+        if filename and terminal_data.workdir_arguments:
+            cmd.extend(terminal_data.workdir_arguments)
+            cmd.append(filename)
 
     Popen(cmd, cwd=filename)  # pylint: disable=consider-using-with
 
@@ -285,6 +304,8 @@ def set_terminal_args(*_args):
     global flatpak
     global terminal_cmd
     global terminal_data
+    global custom_local_command
+    global custom_remote_command
     value = _gsettings.get_string(GSETTINGS_TERMINAL)
     newer_tab = _gsettings.get_boolean(GSETTINGS_NEW_TAB)
     flatpak = FLATPAK_PARMS[_gsettings.get_enum(GSETTINGS_FLATPAK)]
@@ -306,6 +327,10 @@ def set_terminal_args(*_args):
     if flatpak != FLATPAK_PARMS[0] and terminal_data.flatpak_package is not None:
         terminal_cmd = ["flatpak", "run", "--" + flatpak, terminal_data.flatpak_package]
         flatpak_text = f"with flatpak as {flatpak}"
+    elif terminal == "custom":
+        terminal_cmd = []
+        custom_local_command = _gsettings.get_string(GSETTINGS_CUSTOM_LOCAL_COMMAND)
+        custom_remote_command = _gsettings.get_string(GSETTINGS_CUSTOM_REMOTE_COMMAND)
     else:
         terminal_cmd = [terminal]
         if terminal == "blackbox" and "fedora" in distro_id():

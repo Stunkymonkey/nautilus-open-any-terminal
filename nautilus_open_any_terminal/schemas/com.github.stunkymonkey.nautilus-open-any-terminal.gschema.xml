@@ -21,6 +21,22 @@
       <summary>Terminal used in Nautilus for Open Here extension</summary>
       <description></description>
     </key>
+    <key name="custom-local-command" type="s">
+      <default>""</default>
+      <summary>Command that opens a local terminal if terminal is set to "custom"</summary>
+      <description>
+        Every occurence of "%s" in the command will be replaced with the path where the terminal should be opened.
+        Any number of "%s" in the command are valid, including 0.
+      </description>
+    </key>
+    <key name="custom-remote-command" type="s">
+      <default>""</default>
+      <summary>Command that opens a remote terminal if terminal is set to "custom"</summary>
+      <description>
+        Every occurence of "%s" in the command will be replaced with an ssh command that connects to the remote server.
+        There should be at least 1 "%s" in the command.
+      </description>
+    </key>
     <key name="use-generic-terminal-name" type="b">
       <default>false</default>
       <summary>Whether to display specific or generic terminal name.</summary>
