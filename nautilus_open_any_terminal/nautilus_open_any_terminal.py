@@ -79,7 +79,7 @@ TERMINALS = {
     "ptyxis": Terminal(
         "Ptyxis",
         workdir_arguments=["-d"],
-        command_arguments=["-x"],
+        command_arguments=["--"],
         new_tab_arguments=["--tab"],
         new_window_arguments=["--new-window"],
         flatpak_package="app.devsuite.Ptyxis",
@@ -87,7 +87,7 @@ TERMINALS = {
     "ptyxis-nightly": Terminal(
         "Ptyxis",
         workdir_arguments=["-d"],
-        command_arguments=["-x"],
+        command_arguments=["--"],
         new_tab_arguments=["--tab"],
         new_window_arguments=["--new-window"],
         flatpak_package="org.gnome.Ptyxis.Devel",
