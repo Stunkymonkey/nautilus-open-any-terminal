@@ -227,17 +227,12 @@ def open_local_terminal_in_uri(uri: str):
         return
 
     filename = unquote(result.path)
+
     if terminal == "custom":
         cmd = parse_custom_command(custom_local_command, filename)
-    else:
-        if new_tab and terminal_data.new_tab_arguments:
-            cmd.extend(terminal_data.new_tab_arguments)
-        elif terminal_data.new_window_arguments:
-            cmd.extend(terminal_data.new_window_arguments)
-
-        if filename and terminal_data.workdir_arguments:
-            cmd.extend(terminal_data.workdir_arguments)
-            cmd.append(filename)
+    elif filename and terminal_data.workdir_arguments:
+        cmd.extend(terminal_data.workdir_arguments)
+        cmd.append(filename)
 
     Popen(cmd, cwd=filename)  # pylint: disable=consider-using-with
 
@@ -327,10 +322,6 @@ def set_terminal_args(*_args):
     if flatpak != FLATPAK_PARMS[0] and terminal_data.flatpak_package is not None:
         terminal_cmd = ["flatpak", "run", "--" + flatpak, terminal_data.flatpak_package]
         flatpak_text = f"with flatpak as {flatpak}"
-    elif terminal == "custom":
-        terminal_cmd = []
-        custom_local_command = _gsettings.get_string(GSETTINGS_CUSTOM_LOCAL_COMMAND)
-        custom_remote_command = _gsettings.get_string(GSETTINGS_CUSTOM_REMOTE_COMMAND)
     else:
         terminal_cmd = [terminal]
         if terminal == "blackbox" and "fedora" in distro_id():
@@ -338,6 +329,16 @@ def set_terminal_args(*_args):
             terminal_cmd[0] = "blackbox-terminal"
         flatpak = FLATPAK_PARMS[0]
         flatpak_text = ""
+
+    if terminal == "custom":
+        terminal_cmd = []
+        custom_local_command = _gsettings.get_string(GSETTINGS_CUSTOM_LOCAL_COMMAND)
+        custom_remote_command = _gsettings.get_string(GSETTINGS_CUSTOM_REMOTE_COMMAND)
+    elif new_tab and terminal_data.new_tab_arguments:
+        terminal_cmd.extend(terminal_data.new_tab_arguments)
+    elif terminal_data.new_window_arguments:
+        terminal_cmd.extend(terminal_data.new_window_arguments)
+
     print(f'open-any-terminal: terminal is set to "{terminal}" {new_tab_text} {flatpak_text}')
 
 
