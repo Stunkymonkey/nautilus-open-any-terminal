@@ -34,7 +34,7 @@ elif (API_VERSION := get_required_version("Caja")) is not None:
 else:
     raise RuntimeError("This module can only be executed as a Nautilus/Caja extension")
 
-from gi.repository import Gio, GObject, Gtk  # noqa: E402 pylint: disable=wrong-import-position
+from gi.repository import Gio, GLib, GObject, Gtk  # noqa: E402 pylint: disable=wrong-import-position
 
 
 @dataclass(frozen=True)
@@ -194,13 +194,21 @@ def parse_custom_command(command: str, data: str | list[str]) -> list[str]:
     return shlex.split(command.replace("%s", shlex.join(data)))
 
 
-def open_remote_terminal_in_uri(uri: str):
-    """Open a new remote terminal"""
-    result = urlparse(uri)
-    cmd = terminal_cmd.copy()
+def run_command_in_terminal(command: list[str]):
+    if terminal == "custom":
+        cmd = parse_custom_command(custom_remote_command, command)
+    else:
+        cmd = terminal_cmd.copy()
+        cmd.extend(terminal_data.command_arguments)
+        cmd.extend(command)
 
-    cmd.extend(terminal_data.command_arguments)
-    cmd.extend(["ssh", "-t"])
+    Popen(cmd)  # pylint: disable=consider-using-with
+
+
+def ssh_command_from_uri(uri: str, *, is_directory: bool):
+    """Creates an ssh command that executes or cd's into remote uri"""
+    result = urlparse(uri)
+    cmd = ["ssh", "-t"]
     if result.username:
         cmd.append(f"{result.username}@{result.hostname}")
     else:
@@ -210,12 +218,18 @@ def open_remote_terminal_in_uri(uri: str):
         cmd.append("-p")
         cmd.append(str(result.port))
 
-    cmd.extend(["cd", shlex.quote(unquote(result.path)), ";", "exec", "$SHELL", "-l"])
+    target = shlex.quote(unquote(result.path))
+    if is_directory:
+        cmd.extend(["cd", target, ";", "exec", "$SHELL", "-l"])
+    else:
+        cmd.extend(["exec", target])
 
-    if terminal == "custom":
-        cmd = parse_custom_command(custom_remote_command, cmd)
+    return cmd
 
-    Popen(cmd)  # pylint: disable=consider-using-with
+
+def open_remote_terminal_in_uri(uri: str):
+    """Open a new remote terminal"""
+    run_command_in_terminal(ssh_command_from_uri(uri, is_directory=True))
 
 
 def open_local_terminal_in_uri(uri: str):
@@ -239,11 +253,17 @@ def open_local_terminal_in_uri(uri: str):
     Popen(cmd, cwd=filename)  # pylint: disable=consider-using-with
 
 
-def menu_item_id(*, foreground: bool, remote: bool):
+def directory_menu_item_id(*, foreground: bool, remote: bool):
     return f"OpenTerminal::open{'_' if foreground else '_bg_'}{'remote' if remote else 'file'}_item"
 
 
-def get_menu_items(file: FileManager.FileInfo, callback, *, foreground: bool, terminal_name: str | None = None):
+def executable_menu_item_id(*, remote: bool):
+    return f"OpenTerminal::execute{'_remote_' if remote else '_file_'}item"
+
+
+def get_directory_menu_items(
+    file: FileManager.FileInfo, callback, *, foreground: bool, terminal_name: str | None = None
+):
     items = []
     remote = file.get_uri_scheme() in REMOTE_URI_SCHEME
     terminal_name = terminal_name or terminal_data.name
@@ -263,7 +283,7 @@ def get_menu_items(file: FileManager.FileInfo, callback, *, foreground: bool, te
             tip = REMOTE_TIP.format(terminal_name)
 
         item = FileManager.MenuItem(
-            name=menu_item_id(foreground=foreground, remote=True),
+            name=directory_menu_item_id(foreground=foreground, remote=True),
             label=REMOTE_LABEL.format(terminal_name),
             tip=tip,
         )
@@ -286,13 +306,55 @@ def get_menu_items(file: FileManager.FileInfo, callback, *, foreground: bool, te
         tip = LOCAL_TIP.format(terminal_name)
 
     item = FileManager.MenuItem(
-        name=menu_item_id(foreground=foreground, remote=False),
+        name=directory_menu_item_id(foreground=foreground, remote=False),
         label=LOCAL_LABEL.format(terminal_name),
         tip=tip,
     )
     item.connect("activate", callback, file, False)
     items.append(item)
     return items
+
+
+def get_executable_menu_items(file: FileManager.FileInfo, callback, *, terminal_name: str | None = None):
+    items = []
+    remote = file.get_uri_scheme() in REMOTE_URI_SCHEME
+    terminal_name = terminal_name or terminal_data.name
+
+    if remote:
+        REMOTE_LABEL = _("Execute In Remote {}")
+        REMOTE_TIP = _("Execute {} In {} Via SSH")
+        LOCAL_LABEL = _("Execute In Local {}")
+        LOCAL_TIP = _("Execute {} In Local {}")
+
+        tip = REMOTE_TIP.format(file.get_name(), terminal_name)
+        item = FileManager.MenuItem(
+            name=executable_menu_item_id(remote=True),
+            label=REMOTE_LABEL.format(terminal_name),
+            tip=tip,
+        )
+        item.connect("activate", callback, file, True)
+        items.append(item)
+    else:
+        LOCAL_LABEL = _("Execute In {}")
+        LOCAL_TIP = _("Execute {} In {}")
+
+    tip = LOCAL_TIP.format(file.get_name(), terminal_name)
+    item = FileManager.MenuItem(
+        name=executable_menu_item_id(remote=False),
+        label=LOCAL_LABEL.format(terminal_name),
+        tip=tip,
+    )
+    item.connect("activate", callback, file, False)
+    items.append(item)
+    return items
+
+
+def is_executable(file: Gio.File) -> bool:
+    try:
+        attributes = file.query_info("access::can-execute", Gio.FileQueryInfoFlags.NONE)
+    except GLib.Error:
+        return False
+    return attributes.get_attribute_boolean("access::can-execute")
 
 
 def set_terminal_args(*_args):
@@ -399,11 +461,24 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
             return _("Terminal")
         return None
 
-    def _menu_activate_cb(self, menu, file_, remote: bool):
+    def _menu_dir_activate_cb(self, menu, file_, remote: bool):
         if remote:
             open_remote_terminal_in_uri(file_.get_uri())
         else:
             open_local_terminal_in_uri(file_.get_location().get_path())
+
+    def _menu_exe_activate_cb(self, menu, file_, remote: bool):
+        if remote:
+            cmd = ssh_command_from_uri(file_.get_uri(), is_directory=False)
+        else:
+            file = file_.get_location().get_path()
+
+            # Passing a single string to xterm -e will execute it in a shell
+            if terminal in ["xterm", "uxterm"]:
+                file = f"exec {shlex.quote(file)}"
+
+            cmd = [file]
+        run_command_in_terminal(cmd)
 
     def get_file_items(self, *args):
         """Generates a list of menu items for a file or folder in the Nautilus file manager."""
@@ -417,9 +492,12 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
         file_ = files[0]
 
         if file_.is_directory():
-            return get_menu_items(
-                file_, self._menu_activate_cb, foreground=True, terminal_name=self._get_terminal_name()
+            return get_directory_menu_items(
+                file_, self._menu_dir_activate_cb, foreground=True, terminal_name=self._get_terminal_name()
             )
+
+        if is_executable(file_.get_location()):
+            return get_executable_menu_items(file_, self._menu_exe_activate_cb, terminal_name=self._get_terminal_name())
 
         return []
 
@@ -429,7 +507,9 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
         # and `[window: Gtk.Widget, file: Nautilus.FileInfo]` in Nautilus 3.0 API.
 
         file_ = args[-1]
-        return get_menu_items(file_, self._menu_activate_cb, foreground=False, terminal_name=self._get_terminal_name())
+        return get_directory_menu_items(
+            file_, self._menu_dir_activate_cb, foreground=False, terminal_name=self._get_terminal_name()
+        )
 
 
 source = Gio.SettingsSchemaSource.get_default()
