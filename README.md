@@ -60,10 +60,25 @@ custom commands for opening a local or remote terminal via dconf.
 yay -S nautilus-open-any-terminal
 ```
 
-### Nixpkgs (NixOS) [![nixpkgs unstable package](https://repology.org/badge/version-for-repo/nix_unstable/nautilus-open-any-terminal.svg)](https://repology.org/project/nautilus-open-any-terminal/versions)
+### Nixpkgs (NixOS) [![nixpkgs stable 24.05 package](https://repology.org/badge/version-for-repo/nix_stable_24_05/nautilus-open-any-terminal.svg)](https://repology.org/project/nautilus-open-any-terminal/versions)
+For configuration.nix (works without needing to enable Gnome DE)
+```sh
+programs.nautilus-open-any-terminal = {
+  enable = true;
+  terminal = "kitty";
+};
 
-```bash
-nix-env -iA nixos.nautilus-open-any-terminal
+environment = {
+  sessionVariables.NAUTILUS_4_EXTENSION_DIR = "${pkgs.gnome.nautilus-python}/lib/nautilus/extensions-4";
+  pathsToLink = [
+    "/share/nautilus-python/extensions"
+  ];
+
+  systemPackages = with pkgs; [
+    gnome.nautilus
+    gnome.nautilus-python
+  ];
+};
 ```
 
 ### From PYPI [![PyPI package](https://repology.org/badge/version-for-repo/pypi/nautilus-open-any-terminal.svg)](https://repology.org/project/nautilus-open-any-terminal/versions)
