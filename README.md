@@ -62,7 +62,7 @@ yay -S nautilus-open-any-terminal
 
 ### Nixpkgs (NixOS) [![nixpkgs stable 24.05 package](https://repology.org/badge/version-for-repo/nix_stable_24_05/nautilus-open-any-terminal.svg)](https://repology.org/project/nautilus-open-any-terminal/versions)
 For configuration.nix (works without needing to enable Gnome DE)
-```sh
+```nix
 programs.nautilus-open-any-terminal = {
   enable = true;
   terminal = "kitty";
