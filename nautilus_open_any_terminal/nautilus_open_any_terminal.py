@@ -276,6 +276,10 @@ def get_menu_items(file: FileManager.FileInfo, callback, *, foreground: bool, te
         LOCAL_LABEL = _("Open {} Here")
         LOCAL_TIP = _("Open {} In This Directory")
 
+    # Let wezterm handle opening a local terminal
+    if terminal == "wezterm" and flatpak == "off":
+        return items
+
     if foreground:
         tip = LOCAL_TIP.format(terminal_name, file.get_name())
     else:
