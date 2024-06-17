@@ -294,6 +294,7 @@ def get_menu_items(file: FileManager.FileInfo, callback, *, foreground: bool, te
 
 
 def set_terminal_args(*_args):
+    # pylint: disable=possibly-used-before-assignment
     """set the terminal_cmd to the correct values"""
     global new_tab
     global flatpak
