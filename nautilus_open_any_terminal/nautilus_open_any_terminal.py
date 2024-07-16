@@ -270,16 +270,16 @@ def get_directory_menu_items(
 
     if remote:
         if foreground:
-            REMOTE_LABEL = _("Open In Remote {}")
-            REMOTE_TIP = _("Open Remote {} In {}")
-            LOCAL_LABEL = _("Open In Local {}")
-            LOCAL_TIP = _("Open Local {} In {}")
+            REMOTE_LABEL = _("Open in Remote {}")
+            REMOTE_TIP = _("Open Remote {} in {}")
+            LOCAL_LABEL = _("Open in Local {}")
+            LOCAL_TIP = _("Open Local {} in {}")
             tip = REMOTE_TIP.format(terminal_name, file.get_name())
         else:
             REMOTE_LABEL = _("Open Remote {} Here")
-            REMOTE_TIP = _("Open Remote {} In This Directory")
+            REMOTE_TIP = _("Open Remote {} in This Directory")
             LOCAL_LABEL = _("Open Local {} Here")
-            LOCAL_TIP = _("Open Local {} In This Directory")
+            LOCAL_TIP = _("Open Local {} in This Directory")
             tip = REMOTE_TIP.format(terminal_name)
 
         item = FileManager.MenuItem(
@@ -290,11 +290,11 @@ def get_directory_menu_items(
         item.connect("activate", callback, file, True)
         items.append(item)
     elif foreground:
-        LOCAL_LABEL = _("Open In {}")
-        LOCAL_TIP = _("Open {} In {}")
+        LOCAL_LABEL = _("Open in {}")
+        LOCAL_TIP = _("Open {} in {}")
     else:
         LOCAL_LABEL = _("Open {} Here")
-        LOCAL_TIP = _("Open {} In This Directory")
+        LOCAL_TIP = _("Open {} in This Directory")
 
     # Let wezterm handle opening a local terminal
     if terminal == "wezterm" and flatpak == "off":
@@ -321,10 +321,10 @@ def get_executable_menu_items(file: FileManager.FileInfo, callback, *, terminal_
     terminal_name = terminal_name or terminal_data.name
 
     if remote:
-        REMOTE_LABEL = _("Execute In Remote {}")
-        REMOTE_TIP = _("Execute {} In {} Via SSH")
-        LOCAL_LABEL = _("Execute In Local {}")
-        LOCAL_TIP = _("Execute {} In Local {}")
+        REMOTE_LABEL = _("Execute in Remote {}")
+        REMOTE_TIP = _("Execute {} in {} via SSH")
+        LOCAL_LABEL = _("Execute in Local {}")
+        LOCAL_TIP = _("Execute {} in Local {}")
 
         tip = REMOTE_TIP.format(file.get_name(), terminal_name)
         item = FileManager.MenuItem(
@@ -335,8 +335,8 @@ def get_executable_menu_items(file: FileManager.FileInfo, callback, *, terminal_
         item.connect("activate", callback, file, True)
         items.append(item)
     else:
-        LOCAL_LABEL = _("Execute In {}")
-        LOCAL_TIP = _("Execute {} In {}")
+        LOCAL_LABEL = _("Execute in {}")
+        LOCAL_TIP = _("Execute {} in {}")
 
     tip = LOCAL_TIP.format(file.get_name(), terminal_name)
     item = FileManager.MenuItem(

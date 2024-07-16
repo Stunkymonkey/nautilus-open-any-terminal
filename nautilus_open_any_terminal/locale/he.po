@@ -1,95 +1,90 @@
-# nautilus_open_any_terminal translation file
-# Copyright (C) 2024 Stunkymonkey
-# This file is distributed under the same license as the nautilus_open_any_terminal package.
-# lvxnull <lvxnull at proton dot me>, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: nautilus_open_any_terminal\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-30 20:38+0200\n"
-"PO-Revision-Date: 2024-07-01 12:13+0200\n"
-"Last-Translator: lvxnull\n"
-"Language-Team: lvxnull\n"
-"Language: pl\n"
+"POT-Creation-Date: 2024-07-01 12:09+0200\n"
+"PO-Revision-Date: 2024-07-16 14:30+0300\n"
+"Last-Translator: Laxystem <the@laxla.quest>\n"
+"Language-Team: Laxystem <the@laxla.quest>\n"
+"Language: he\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 "
-"|| n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.0\n"
+"X-Poedit-Basepath: ..\n"
 
 #: nautilus_open_any_terminal.py:71 nautilus_open_any_terminal.py:457
 msgid "Terminal"
-msgstr "Terminal"
+msgstr "מסוף"
 
 #: nautilus_open_any_terminal.py:276
 msgid "Open in Remote {}"
-msgstr "Otwórz zdalny {}"
+msgstr "פתיחה ב־{} מרוחק"
 
 #: nautilus_open_any_terminal.py:277
 msgid "Open Remote {} in {}"
-msgstr "Otwórz zdalny {} w {}"
+msgstr "פתיחת {} מרוחק ב־{}"
 
 #: nautilus_open_any_terminal.py:278
 msgid "Open in Local {}"
-msgstr "Otwórz w lokalnym {}"
+msgstr "פתיחה ב־{} מקומי"
 
 #: nautilus_open_any_terminal.py:279
 msgid "Open Local {} in {}"
-msgstr "Otwórz lokalny {} w {}"
+msgstr "פתיחת {} מקומי ב־{}"
 
 #: nautilus_open_any_terminal.py:282
 msgid "Open Remote {} Here"
-msgstr "Otwórz zdalny {} tutaj"
+msgstr "פתיחת {} מרוחק כאן"
 
 #: nautilus_open_any_terminal.py:283
 msgid "Open Remote {} in This Directory"
-msgstr "Otwórz zdalny {} w tym katalogu"
+msgstr "פתיחת {} מרוחק בתיקייה זו"
 
 #: nautilus_open_any_terminal.py:284
 msgid "Open Local {} Here"
-msgstr "Otwórz lokalny {} tutaj"
+msgstr "פתיחת {} מקומי כאן"
 
 #: nautilus_open_any_terminal.py:285
 msgid "Open Local {} in This Directory"
-msgstr "Otwórz lokalny {} w tym katalogu"
+msgstr "פתיחת {} מקומי בתיקייה זו"
 
 #: nautilus_open_any_terminal.py:296
 msgid "Open in {}"
-msgstr "Otwórz w {}"
+msgstr "פתיחה ב־{}"
 
 #: nautilus_open_any_terminal.py:297
 msgid "Open {} in {}"
-msgstr "Otwórz {} w {}"
+msgstr "פתיחת {} ב־{}"
 
 #: nautilus_open_any_terminal.py:299
 msgid "Open {} Here"
-msgstr "Otwórz {} tutaj"
+msgstr "פתיחת {} כאן"
 
 #: nautilus_open_any_terminal.py:300
 msgid "Open {} in This Directory"
-msgstr "Otwórz {} w tym katalogu"
+msgstr "פתיחת {} בתיקייה זו"
 
 #: nautilus_open_any_terminal.py:327
 msgid "Execute in Remote {}"
-msgstr "Wykonaj w zdalnym {}"
+msgstr "הרצה ב־{} מקומי"
 
 #: nautilus_open_any_terminal.py:328
 msgid "Execute {} in {} via SSH"
-msgstr "Wykonaj {} w {} przez SSH"
+msgstr "הרצת {} ב־{} דרך SSH"
 
 #: nautilus_open_any_terminal.py:329
 msgid "Execute in Local {}"
-msgstr "Wykonaj w lokalnym {}"
+msgstr "הרצה ב־{} מקומי"
 
 #: nautilus_open_any_terminal.py:330
 msgid "Execute {} in Local {}"
-msgstr "Wykonaj {} w lokalnym {}"
+msgstr "הרצת {} ב־{} מקומי"
 
 #: nautilus_open_any_terminal.py:341
 msgid "Execute in {}"
-msgstr "Wykonaj w {}"
+msgstr "הרצה ב־{}"
 
 #: nautilus_open_any_terminal.py:342
 msgid "Execute {} in {}"
-msgstr "Wykonaj {} w {}"
+msgstr "הרצת {} ב־{}"

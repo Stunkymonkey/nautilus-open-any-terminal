@@ -20,15 +20,15 @@ msgid "Open Remote {}"
 msgstr "Fungua Remote {}"
 
 #: open_any_terminal_extension.py:210
-msgid "Open Remote {} In {}"
+msgid "Open Remote {} in {}"
 msgstr "Fungua Remote {} katika {}"
 
 #: open_any_terminal_extension.py:218
-msgid "Open In {}"
+msgid "Open in {}"
 msgstr "Fungua katika {}"
 
 #: open_any_terminal_extension.py:219
-msgid "Open {} In {}"
+msgid "Open {} in {}"
 msgstr "Fungua {} katika {}"
 
 #: open_any_terminal_extension.py:231
@@ -36,7 +36,7 @@ msgid "Open Remote {} Here"
 msgstr "Fungua Remote {} hapa"
 
 #: open_any_terminal_extension.py:232
-msgid "Open Remote {} In This Directory"
+msgid "Open Remote {} in This Directory"
 msgstr "Fungua Remote {} katika folda hii"
 
 #: open_any_terminal_extension.py:239
@@ -44,5 +44,5 @@ msgid "Open {} Here"
 msgstr "Fungua {} hapa"
 
 #: open_any_terminal_extension.py:240
-msgid "Open {} In This Directory"
+msgid "Open {} in This Directory"
 msgstr "Fungua {} katika folda hii"

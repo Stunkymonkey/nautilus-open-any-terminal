@@ -20,15 +20,15 @@ msgid "Open Remote {}"
 msgstr "Abrir {} remoto"
 
 #: open_any_terminal_extension.py:210
-msgid "Open Remote {} In {}"
+msgid "Open Remote {} in {}"
 msgstr "Abrir {} remoto en {}"
 
 #: open_any_terminal_extension.py:218
-msgid "Open In {}"
+msgid "Open in {}"
 msgstr "Abrir en {}"
 
 #: open_any_terminal_extension.py:219
-msgid "Open {} In {}"
+msgid "Open {} in {}"
 msgstr "Abrir {} en {}"
 
 #: open_any_terminal_extension.py:231
@@ -36,7 +36,7 @@ msgid "Open Remote {} Here"
 msgstr "Abrir {} remoto aquí"
 
 #: open_any_terminal_extension.py:232
-msgid "Open Remote {} In This Directory"
+msgid "Open Remote {} in This Directory"
 msgstr "Abrir {} remoto en este directorio"
 
 #: open_any_terminal_extension.py:239
@@ -44,5 +44,5 @@ msgid "Open {} Here"
 msgstr "Abrir {} aquí"
 
 #: open_any_terminal_extension.py:240
-msgid "Open {} In This Directory"
+msgid "Open {} in This Directory"
 msgstr "Abrir {} en este directorio"
