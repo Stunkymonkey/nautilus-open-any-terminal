@@ -17,15 +17,15 @@ msgid "Open Remote {}"
 msgstr "Uzağı {} ile Aç"
 
 #: open_any_terminal_extension.py:210
-msgid "Open Remote {} In {}"
+msgid "Open Remote {} in {}"
 msgstr "Uzaktaki {} {} ile Aç"
 
 #: open_any_terminal_extension.py:218
-msgid "Open In {}"
+msgid "Open in {}"
 msgstr "{} İçinde Aç"
 
 #: open_any_terminal_extension.py:219
-msgid "Open {} In {}"
+msgid "Open {} in {}"
 msgstr "{} {} İçinde Aç"
 
 #: open_any_terminal_extension.py:231
@@ -33,7 +33,7 @@ msgid "Open Remote {} Here"
 msgstr "Uzaktaki Burayı {} ile Aç"
 
 #: open_any_terminal_extension.py:232
-msgid "Open Remote {} In This Directory"
+msgid "Open Remote {} in This Directory"
 msgstr "Uzaktaki Bu Dizini {} ile Aç"
 
 #: open_any_terminal_extension.py:239
@@ -41,5 +41,5 @@ msgid "Open {} Here"
 msgstr "{} ile Aç"
 
 #: open_any_terminal_extension.py:240
-msgid "Open {} In This Directory"
+msgid "Open {} in This Directory"
 msgstr "Bu Dizini {} ile Aç"

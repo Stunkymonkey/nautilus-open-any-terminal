@@ -19,19 +19,19 @@ msgstr ""
 "X-Generator: Poedit 3.0.1\n"
 
 #: nautilus_open_any_terminal.py:229
-msgid "Open In Remote {}"
+msgid "Open in Remote {}"
 msgstr "Ouvrir à distance {}"
 
 #: nautilus_open_any_terminal.py:230
-msgid "Open Remote {} In {}"
+msgid "Open Remote {} in {}"
 msgstr "Ouvrir à distance {} dans {}"
 
 #: nautilus_open_any_terminal.py:231
-msgid "Open In Local {}"
+msgid "Open in Local {}"
 msgstr "Ouvrir localement {}"
 
 #: nautilus_open_any_terminal.py:232
-msgid "Open Local {} In {}"
+msgid "Open Local {} in {}"
 msgstr "Ouvrir localement {} dans {}"
 
 #: nautilus_open_any_terminal.py:235
@@ -39,7 +39,7 @@ msgid "Open Remote {} Here"
 msgstr "Ouvrir à distance {} ici"
 
 #: nautilus_open_any_terminal.py:236
-msgid "Open Remote {} In This Directory"
+msgid "Open Remote {} in This Directory"
 msgstr "Ouvrir à distance {} dans ce dossier"
 
 #: nautilus_open_any_terminal.py:237
@@ -47,15 +47,15 @@ msgid "Open Local {} Here"
 msgstr "Ouvrir localement {} ici"
 
 #: nautilus_open_any_terminal.py:238
-msgid "Open Local {} In This Directory"
+msgid "Open Local {} in This Directory"
 msgstr "Ouvrir localement {} dans ce dossier"
 
 #: nautilus_open_any_terminal.py:249
-msgid "Open In {}"
+msgid "Open in {}"
 msgstr "Ouvrir dans {}"
 
 #: nautilus_open_any_terminal.py:250
-msgid "Open {} In {}"
+msgid "Open {} in {}"
 msgstr "Ouvrir {} dans {}"
 
 #: nautilus_open_any_terminal.py:252
@@ -63,5 +63,5 @@ msgid "Open {} Here"
 msgstr "Ouvrir {} ici"
 
 #: nautilus_open_any_terminal.py:253
-msgid "Open {} In This Directory"
+msgid "Open {} in This Directory"
 msgstr "Ouvrir {} dans ce dossier"
