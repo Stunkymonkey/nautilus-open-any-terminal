@@ -11,6 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
+"X-Poedit-SearchPath-0: nautilus_open_any_terminal.py\n"
 
 #: open_any_terminal_extension.py:209
 msgid "Open Remote {}"
