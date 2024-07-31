@@ -10,6 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SearchPath-0: nautilus_open_any_terminal.py\n"
 
 #: open_any_terminal_extension.py:329
 msgid "Open Remote {}"

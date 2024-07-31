@@ -16,78 +16,78 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: nautilus_open_any_terminal.py:71 nautilus_open_any_terminal.py:457
+#: nautilus_open_any_terminal.py:71 nautilus_open_any_terminal.py:461
 msgid "Terminal"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:276
+#: nautilus_open_any_terminal.py:273
 msgid "Open in Remote {}"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:277
+#: nautilus_open_any_terminal.py:274
 msgid "Open Remote {} in {}"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:278
+#: nautilus_open_any_terminal.py:275
 msgid "Open in Local {}"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:279
+#: nautilus_open_any_terminal.py:276
 msgid "Open Local {} in {}"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:282
+#: nautilus_open_any_terminal.py:279
 msgid "Open Remote {} Here"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:283
+#: nautilus_open_any_terminal.py:280
 msgid "Open Remote {} in This Directory"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:284
+#: nautilus_open_any_terminal.py:281
 msgid "Open Local {} Here"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:285
+#: nautilus_open_any_terminal.py:282
 msgid "Open Local {} in This Directory"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:296
+#: nautilus_open_any_terminal.py:293
 msgid "Open in {}"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:297
+#: nautilus_open_any_terminal.py:294
 msgid "Open {} in {}"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:299
+#: nautilus_open_any_terminal.py:296
 msgid "Open {} Here"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:300
+#: nautilus_open_any_terminal.py:297
 msgid "Open {} in This Directory"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:327
+#: nautilus_open_any_terminal.py:324
 msgid "Execute in Remote {}"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:328
+#: nautilus_open_any_terminal.py:325
 msgid "Execute {} in {} via SSH"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:329
+#: nautilus_open_any_terminal.py:326
 msgid "Execute in Local {}"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:330
+#: nautilus_open_any_terminal.py:327
 msgid "Execute {} in Local {}"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:341
+#: nautilus_open_any_terminal.py:338
 msgid "Execute in {}"
 msgstr ""
 
-#: nautilus_open_any_terminal.py:342
+#: nautilus_open_any_terminal.py:339
 msgid "Execute {} in {}"
 msgstr ""
