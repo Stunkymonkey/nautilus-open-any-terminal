@@ -156,6 +156,6 @@ gsettings set com.github.stunkymonkey.nautilus-open-any-terminal flatpak system
 Since `setup.py` does not provide a natively uninstall method the makefile has an uninstall option.
 
 ```sh
-make uninstall scheme      # user uninstall
-sudo make uninstall scheme # system uninstall
+make uninstall schema      # user uninstall
+sudo make uninstall schema # system uninstall
 ```
