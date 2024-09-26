@@ -74,7 +74,6 @@ TERMINALS = {
     "ghostty": Terminal("Ghostty"),
     "gnome-terminal": Terminal("Terminal", new_tab_arguments=["--tab"]),
     "guake": Terminal("Guake", workdir_arguments=["--show", "--new-tab"]),
-    "hyper": Terminal("Hyper"),
     "kermit": Terminal("Kermit"),
     "kgx": Terminal("Console", new_tab_arguments=["--tab"]),
     "kitty": Terminal("kitty"),

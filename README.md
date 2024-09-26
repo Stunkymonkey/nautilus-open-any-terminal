@@ -24,7 +24,6 @@ are welcome!
 - `ghostty`
 - `gnome-terminal`
 - `guake`
-- `hyper`
 - `kermit`
 - `kgx` (GNOME Console)
 - `kitty`
