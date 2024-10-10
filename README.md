@@ -100,6 +100,8 @@ pip install nautilus-open-any-terminal
 ```
 
 ### From source
+Requires `gettext`.
+
 ```sh
 git clone https://github.com/Stunkymonkey/nautilus-open-any-terminal.git
 cd nautilus-open-any-terminal
