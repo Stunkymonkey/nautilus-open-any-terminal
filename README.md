@@ -106,7 +106,7 @@ After that install it either with the apt command:
 ```bash
 apt install <package_name>.deb
 ```
-or depending on your Linux-Distro, you can just double click the .deb file and install it that way.
+or depending on your Linux Distro, you can just double click the .deb file and install it that way.
 ### From source
 Requires [`gettext`](https://www.gnu.org/software/gettext/).
 
