@@ -98,7 +98,7 @@ System-wide install:
 ```bash
 pip install nautilus-open-any-terminal
 ```
-### For Debian/Ubuntu based Distros.
+### For Debian/Ubuntu based Distros
 
 Download the .deb package, for either Nautilus and or Caja from the [GitHub releases page](https://github.com/Stunkymonkey/nautilus-open-any-terminal/releases/latest).
 After that install it either with the apt command:
