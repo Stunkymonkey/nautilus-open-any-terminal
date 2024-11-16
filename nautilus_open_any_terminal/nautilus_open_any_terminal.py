@@ -65,7 +65,7 @@ TERMINALS = {
         "Bobcat",
         workdir_arguments=["--working-dir"],
         command_arguments=["--"],
-    ),  
+    ),
     "cool-retro-term": Terminal("cool-retro-term", workdir_arguments=["--workdir"]),
     "custom": Terminal(_("Terminal"), command_arguments=[]),
     "contour": Terminal(
