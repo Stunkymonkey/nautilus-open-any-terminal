@@ -17,6 +17,7 @@ are welcome!
 
 - `alacritty`
 - `blackbox`
+- `bobcat`
 - `cool-retro-term`
 - `contour`
 - `deepin-terminal`
