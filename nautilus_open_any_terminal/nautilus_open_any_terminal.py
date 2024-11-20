@@ -81,7 +81,7 @@ TERMINALS = {
     "guake": Terminal("Guake", workdir_arguments=["--show", "--new-tab"]),
     "kermit": Terminal("Kermit"),
     "kgx": Terminal("Console", new_tab_arguments=["--tab"]),
-    "kitty": Terminal("kitty"),
+    "kitty": Terminal("Kitty"),
     "konsole": Terminal("Konsole", new_tab_arguments=["--new-tab"]),
     "mate-terminal": Terminal("Mate Terminal", new_tab_arguments=["--tab"]),
     "mlterm": Terminal("Mlterm"),
