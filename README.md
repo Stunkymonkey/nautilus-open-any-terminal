@@ -68,17 +68,9 @@ programs.nautilus-open-any-terminal = {
   terminal = "kitty";
 };
 
-environment = {
-  sessionVariables.NAUTILUS_4_EXTENSION_DIR = "${pkgs.gnome.nautilus-python}/lib/nautilus/extensions-4";
-  pathsToLink = [
-    "/share/nautilus-python/extensions"
-  ];
-
-  systemPackages = with pkgs; [
-    gnome.nautilus
-    gnome.nautilus-python
-  ];
-};
+environment.systemPackages = with pkgs; [
+  nautilus
+];
 ```
 
 ### From PYPI [![PyPI package](https://repology.org/badge/version-for-repo/pypi/nautilus-open-any-terminal.svg)](https://repology.org/project/nautilus-open-any-terminal/versions)
