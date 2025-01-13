@@ -342,39 +342,83 @@ def set_terminal_args(*_args):
     print(f'open-any-terminal: terminal is set to "{terminal}" {new_tab_text} {flatpak_text}')
 
 
-if API_VERSION in ("3.0", "2.0"):
+class OpenAnyTerminalShortcutProvider(GObject.GObject):
+    """Provide keyboard shortcuts for opening terminals in Nautilus/Caja."""
 
-    class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.LocationWidgetProvider):
-        """Provide keyboard shortcuts for opening terminals in Nautilus."""
+    def __init__(self):
+        super().__init__()
+        self._uri = None
+        self._window = None
 
-        def __init__(self):
-            gsettings_source = Gio.SettingsSchemaSource.get_default()
-            if gsettings_source.lookup(GSETTINGS_PATH, True):
-                self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
-                self._gsettings.connect("changed", self._bind_shortcut)
-                self._create_accel_group()
-            self._window = None
-            self._uri = None
+        gsettings_source = Gio.SettingsSchemaSource.get_default()
+        if gsettings_source.lookup(GSETTINGS_PATH, True):
+            self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
+            if API_VERSION == "4.0":
+                self._setup_keybindings()
+            elif API_VERSION in ("3.0", "2.0"):
+                self._initialize_legacy_bindings()
 
-        def _create_accel_group(self):
+    def _open_terminal(self, *_args):
+        """Open the terminal at the specified URI."""
+        if self._uri:
+            open_func = (
+                open_local_terminal_in_uri
+                if self._gsettings.get_boolean(GSETTINGS_BIND_REMOTE)
+                else open_remote_terminal_in_uri
+            )
+            open_func(self._uri)
+
+    if API_VERSION == "4.0":
+        # Nautilus 4.0-specific implementation
+        def _setup_keybindings(self):
+            """Set up custom keybindings for the extension."""
+            app = Gtk.Application.get_default()
+            if app is None:
+                print("No Gtk.Application found. Keybindings cannot be set.")
+                return
+
+            action = Gio.SimpleAction.new("open_any_terminal", None)
+            action.connect("activate", self._open_terminal)
+            app.add_action(action)
+
+            shortcut = self._gsettings.get_string(GSETTINGS_KEYBINDINGS)
+            app.set_accels_for_action("app.open_any_terminal", [shortcut])
+            self._gsettings.connect("changed", self._update_shortcut)
+
+        def _update_shortcut(self, _gsettings, key):
+            """Update keybindings when settings change."""
+            if key == GSETTINGS_KEYBINDINGS:
+                app = Gtk.Application.get_default()
+                if app:
+                    shortcut = self._gsettings.get_string(GSETTINGS_KEYBINDINGS)
+                    app.set_accels_for_action("app.open_any_terminal", [shortcut])
+
+        def get_background_items(self, current_folder):
+            """Update current URI when folder changes."""
+            self._uri = current_folder.get_uri() if current_folder else None
+            return []
+
+    elif API_VERSION in ("3.0", "2.0"):
+        # Nautilus/Caja 3.0/2.0-specific implementation
+        def _initialize_legacy_bindings(self):
+            """Initialize legacy bindings for older APIs."""
             self._accel_group = Gtk.AccelGroup()
+            self._bind_legacy_shortcut()
+
+        def _bind_legacy_shortcut(self):
+            """Bind keyboard shortcuts for older APIs."""
             shortcut = self._gsettings.get_string(GSETTINGS_KEYBINDINGS)
             key, mod = Gtk.accelerator_parse(shortcut)
             self._accel_group.connect(key, mod, Gtk.AccelFlags.VISIBLE, self._open_terminal)
 
-        def _bind_shortcut(self, _gsettings, key):
+        def _update_legacy_shortcut(self, _gsettings, key):
+            """Update shortcuts when settings change in older APIs."""
             if key == GSETTINGS_KEYBINDINGS:
                 self._accel_group.disconnect(self._open_terminal)
-                self._create_accel_group()
-
-        def _open_terminal(self, *_args):
-            if _gsettings.get_boolean(GSETTINGS_BIND_REMOTE):
-                open_local_terminal_in_uri(self._uri)
-            else:
-                open_remote_terminal_in_uri(self._uri)
+                self._bind_legacy_shortcut()
 
         def get_widget(self, uri, window):
-            """follows uri and sets the correct window"""
+            """Set the correct window and URI."""
             self._uri = uri
             if self._window:
                 self._window.remove_accel_group(self._accel_group)
