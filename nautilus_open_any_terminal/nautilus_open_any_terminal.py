@@ -239,11 +239,9 @@ def open_local_terminal_in_uri(uri: str):
     cmd = terminal_cmd.copy()
     if terminal == "warp":
         # Force new_tab to be considered even without traditional tab arguments
-        action_type = "tab" if _gsettings.get_boolean(GSETTINGS_NEW_TAB) else "window"
-        Popen([
-            "xdg-open",
-            f'warp://action/new_{action_type}?path={result.path}'
-        ])
+        Popen(  # pylint: disable=consider-using-with
+            ["xdg-open", f"warp://action/new_{"tab" if new_tab else "window"}?path={result.path}"]
+        )
         return
 
     filename = unquote(result.path)
