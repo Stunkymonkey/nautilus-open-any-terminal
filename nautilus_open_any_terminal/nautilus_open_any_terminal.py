@@ -114,7 +114,10 @@ TERMINALS = {
     "urxvt": Terminal("rxvt-unicode"),
     "urxvtc": Terminal("urxvtc"),
     "uxterm": Terminal("UXTerm"),
-    "warp": Terminal("warp"),
+    "warp": Terminal(
+        "Warp",
+        new_tab_arguments=["--virtual-arg-for-tabs"],  # This is just to indicate tab support
+    ),
     "wezterm": Terminal(
         "Wez's Terminal Emulator",
         workdir_arguments=["--cwd"],
@@ -235,8 +238,9 @@ def open_local_terminal_in_uri(uri: str):
     result = urlparse(uri)
     cmd = terminal_cmd.copy()
     if terminal == "warp":
+        # Force new_tab to be considered even without traditional tab arguments
         Popen(  # pylint: disable=consider-using-with
-            ["xdg-open", f'warp://action/new_{"tab" if new_tab else "window"}?path={result.path}']
+            ["xdg-open", f"warp://action/new_{"tab" if new_tab else "window"}?path={result.path}"]
         )
         return
 
