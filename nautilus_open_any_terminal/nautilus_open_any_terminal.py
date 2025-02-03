@@ -11,7 +11,7 @@ from gettext import gettext, translation
 from os.path import expanduser
 from subprocess import Popen
 from typing import Optional
-from urllib.parse import quote, unquote, urlparse
+from urllib.parse import unquote, urlparse
 
 from gi import get_required_version, require_version
 
@@ -77,7 +77,7 @@ TERMINALS = {
     "foot": Terminal("Foot"),
     "footclient": Terminal("FootClient"),
     "ghostty": Terminal("Ghostty"),
-    "gnome-terminal": Terminal("Terminal", new_tab_arguments=["--tab"]),
+    "gnome-terminal": Terminal("Terminal", new_tab_arguments=["--tab"], command_arguments=["--"]),
     "guake": Terminal("Guake", workdir_arguments=["--show", "--new-tab"]),
     "kermit": Terminal("Kermit"),
     "kgx": Terminal("Console", new_tab_arguments=["--tab"]),
@@ -195,15 +195,18 @@ def parse_custom_command(command: str, data: str | list[str]) -> list[str]:
     return shlex.split(command.replace("%s", shlex.join(data)))
 
 
-def run_command_in_terminal(command: list[str]):
+def run_command_in_terminal(command: list[str], *, cwd: str | None = None):
     if terminal == "custom":
         cmd = parse_custom_command(custom_remote_command, command)
     else:
         cmd = terminal_cmd.copy()
+        if cwd and terminal_data.workdir_arguments:
+            cmd.extend(terminal_data.workdir_arguments)
+            cmd.append(cwd)
         cmd.extend(terminal_data.command_arguments)
         cmd.extend(command)
 
-    Popen(cmd)  # pylint: disable=consider-using-with
+    Popen(cmd, cwd=cwd)  # pylint: disable=consider-using-with
 
 
 def ssh_command_from_uri(uri: str, *, is_directory: bool):
@@ -236,7 +239,11 @@ def open_remote_terminal_in_uri(uri: str):
 def open_local_terminal_in_uri(uri: str):
     """open the new terminal with correct path"""
     result = urlparse(uri)
-    cmd = terminal_cmd.copy()
+    filename = unquote(result.path)
+    if result.scheme == "admin":
+        run_command_in_terminal(["sudo", "-s"], cwd=filename)
+        return
+
     if terminal == "warp":
         # Force new_tab to be considered even without traditional tab arguments
         Popen(  # pylint: disable=consider-using-with
@@ -244,8 +251,7 @@ def open_local_terminal_in_uri(uri: str):
         )
         return
 
-    filename = unquote(result.path)
-
+    cmd = terminal_cmd.copy()
     if terminal == "custom":
         cmd = parse_custom_command(custom_local_command, filename)
     elif filename and terminal_data.workdir_arguments:
@@ -467,19 +473,21 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
         if remote:
             open_remote_terminal_in_uri(file_.get_uri())
         else:
-            open_local_terminal_in_uri("file://" + quote(file_.get_location().get_path()))
+            open_local_terminal_in_uri(file_.get_uri())
 
     def _menu_exe_activate_cb(self, menu, file_, remote: bool):
         if remote:
             cmd = ssh_command_from_uri(file_.get_uri(), is_directory=False)
         else:
-            file = file_.get_location().get_path()
+            result = urlparse(file_.get_uri())
+            file = unquote(result.path)
 
-            # Passing a single string to xterm -e will execute it in a shell
-            if terminal in ["xterm", "uxterm"]:
-                file = f"exec {shlex.quote(file)}"
-
-            cmd = [file]
+            if result.scheme == "admin":
+                cmd = ["sudo", file]
+            elif terminal in ["xterm", "uxterm"]:
+                cmd = [f"exec {shlex.quote(file)}"]
+            else:
+                cmd = [file]
         run_command_in_terminal(cmd)
 
     def get_file_items(self, *args):
