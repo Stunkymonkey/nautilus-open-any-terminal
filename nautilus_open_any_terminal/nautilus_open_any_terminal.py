@@ -79,6 +79,11 @@ TERMINALS = {
         flatpak_package="org.contourterminal.Contour",
     ),
     "deepin-terminal": Terminal("Deepin Terminal"),
+    "ddterm": Terminal(
+        "Drop down Terminal extension",
+        workdir_arguments=["--working-directory"],
+        flatpak_package="com.github.amezin.ddterm",
+    ),
     "foot": Terminal("Foot"),
     "footclient": Terminal("FootClient"),
     "ghostty": Terminal("Ghostty"),
