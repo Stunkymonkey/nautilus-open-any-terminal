@@ -21,6 +21,7 @@ are welcome!
 - `cool-retro-term`
 - `contour`
 - `deepin-terminal`
+- `ddterm`
 - `foot`/`footclient`
 - `ghostty`
 - `gnome-terminal`
