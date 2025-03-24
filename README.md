@@ -91,6 +91,7 @@ System-wide install:
 ```bash
 pip install nautilus-open-any-terminal
 ```
+
 ### For Debian/Ubuntu based Distros
 
 Download the '.deb' package, for either Nautilus and or Caja from the [GitHub releases page](https://github.com/Stunkymonkey/nautilus-open-any-terminal/releases/latest).
@@ -99,8 +100,18 @@ After that install it either with the apt command:
 ```bash
 apt install <package_name>.deb
 ```
+
 Or depending on your Linux Distro, you can just double-click the '.deb' file and install it that way.
+
+### For Fedora Copr
+
+```sh
+dnf copr enable monkeygold/nautilus-open-any-terminal
+dnf install nautilus-open-any-terminal
+```
+
 ### From source
+
 Requires [`gettext`](https://www.gnu.org/software/gettext/).
 
 ```sh
@@ -111,6 +122,7 @@ make
 make install schema      # User install
 sudo make install schema # System install
 ```
+
 `install` installs this extension to extension directories of all supported file
 managers. To avoid this, use `install-nautilus` or `install-caja` instead.
 
