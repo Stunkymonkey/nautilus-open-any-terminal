@@ -16,7 +16,7 @@ The following terminal emulators are fully supported. PRs for other terminals
 are welcome!
 
 - `alacritty`
-- `blackbox`
+- `blackbox` ( use `blackbox-terminal` for Debian)
 - `bobcat`
 - `cool-retro-term`
 - `contour`
