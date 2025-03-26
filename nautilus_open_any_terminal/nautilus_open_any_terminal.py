@@ -61,6 +61,11 @@ TERMINALS = {
         command_arguments=["-c"],
         flatpak_package="com.raggesilver.BlackBox",
     ),
+    "blackbox-terminal": Terminal(
+        "Black Box",
+        workdir_arguments=["--working-directory"],
+        command_arguments=["-c"],
+    ),    
     "bobcat": Terminal(
         "Bobcat",
         workdir_arguments=["--working-dir"],
