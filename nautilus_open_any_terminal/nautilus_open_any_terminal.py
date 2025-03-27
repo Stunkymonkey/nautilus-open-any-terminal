@@ -65,7 +65,7 @@ TERMINALS = {
         "Black Box",
         workdir_arguments=["--working-directory"],
         command_arguments=["-c"],
-    ),    
+    ),
     "bobcat": Terminal(
         "Bobcat",
         workdir_arguments=["--working-dir"],
