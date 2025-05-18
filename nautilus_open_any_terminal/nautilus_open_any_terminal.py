@@ -257,7 +257,7 @@ def open_local_terminal_in_uri(uri: str):
     if terminal == "warp":
         # Force new_tab to be considered even without traditional tab arguments
         Popen(  # pylint: disable=consider-using-with
-            ["xdg-open", f"warp://action/new_{"tab" if new_tab else "window"}?path={result.path}"]
+            ["xdg-open", f"warp://action/new_{'tab' if new_tab else 'window'}?path={result.path}"]
         )
         return
 
