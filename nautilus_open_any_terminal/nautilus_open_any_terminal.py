@@ -349,7 +349,7 @@ class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.InfoProvider)
         super().__init__()
         print("init shortcuts")
         gsettings_source = Gio.SettingsSchemaSource.get_default()
-        print(gsettings_source.lookup(GSETTINGS_PATH, True))
+        print("gsettings_source", gsettings_source.lookup(GSETTINGS_PATH, True))
 
         self._uri = None
         self._window = None
@@ -360,11 +360,11 @@ class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.InfoProvider)
             if API_VERSION == "4.0":
                 self._setup_keybindings()
             elif API_VERSION in ("3.0", "2.0"):
-                print("call other then 4.0")
                 self._initialize_legacy_bindings()
 
     def _open_terminal(self, *_args):
         """Open the terminal at the specified URI."""
+        print("got trigger", args)
         if self._uri:
             open_func = (
                 open_local_terminal_in_uri
@@ -387,7 +387,7 @@ class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.InfoProvider)
             app.add_action(action)
 
             shortcut = self._gsettings.get_string(GSETTINGS_KEYBINDINGS)
-            print(shortcut)
+            print("shortcut", shortcut)
             app.set_accels_for_action("app.open_any_terminal", [shortcut])
             self._gsettings.connect("changed", self._update_shortcut)
             print("register keybinding")
@@ -457,7 +457,6 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
         """Generates a list of menu items for a file or folder in the Nautilus file manager."""
         # `args` will be `[files: List[Nautilus.FileInfo]]` in Nautilus 4.0 API,
         # and `[window: Gtk.Widget, files: List[Nautilus.FileInfo]]` in Nautilus 3.0 API.
-        print("get_file_items", args)
         files = args[-1]
 
         if len(files) != 1:
