@@ -342,7 +342,7 @@ def set_terminal_args(*_args):
     print(f'open-any-terminal: terminal is set to "{terminal}" {new_tab_text} {flatpak_text}')
 
 
-class OpenAnyTerminalShortcutProvider(GObject.GObject):
+class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.InfoProvider):
     """Provide keyboard shortcuts for opening terminals in Nautilus/Caja."""
 
     def __init__(self):
