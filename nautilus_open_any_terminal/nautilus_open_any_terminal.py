@@ -342,39 +342,42 @@ def set_terminal_args(*_args):
     print(f'open-any-terminal: terminal is set to "{terminal}" {new_tab_text} {flatpak_text}')
 
 
-class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.InfoProvider):
-    """Provide keyboard shortcuts for opening terminals in Nautilus/Caja."""
+if API_VERSION == "4.0":
 
-    def __init__(self):
-        super().__init__()
-        print("init shortcuts")
-        gsettings_source = Gio.SettingsSchemaSource.get_default()
-        print("gsettings_source", gsettings_source.lookup(GSETTINGS_PATH, True))
+    class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.MenuProvider):
+        """Provide keyboard shortcuts for opening terminals in Nautilus/Caja."""
 
-        self._uri = None
-        self._window = None
+        def __init__(self):
+            super().__init__()
+            print("init shortcuts")
+            gsettings_source = Gio.SettingsSchemaSource.get_default()
+            print("gsettings_source", gsettings_source.lookup(GSETTINGS_PATH, True))
 
-        gsettings_source = Gio.SettingsSchemaSource.get_default()
-        if gsettings_source.lookup(GSETTINGS_PATH, True):
-            self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
-            if API_VERSION == "4.0":
+            self._uri = None
+            self._window = None
+
+            gsettings_source = Gio.SettingsSchemaSource.get_default()
+            if gsettings_source.lookup(GSETTINGS_PATH, True):
+                self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
                 self._setup_keybindings()
-            elif API_VERSION in ("3.0", "2.0"):
-                self._initialize_legacy_bindings()
 
-    def _open_terminal(self, *_args):
-        """Open the terminal at the specified URI."""
-        print("got trigger", args)
-        if self._uri:
-            open_func = (
-                open_local_terminal_in_uri
-                if self._gsettings.get_boolean(GSETTINGS_BIND_REMOTE)
-                else open_remote_terminal_in_uri
-            )
-            open_func(self._uri)
+        def get_background_items(self, current_folder):
+            """Update current URI when folder changes."""
+            print(current_folder)
+            self._uri = current_folder.get_uri() if current_folder else None
+            return []
 
-    if API_VERSION == "4.0":
-        # Nautilus 4.0-specific implementation
+        def _open_terminal(self, *_args):
+            """Open the terminal at the specified URI."""
+            print("got trigger", _args)
+            if self._uri:
+                open_func = (
+                    open_local_terminal_in_uri
+                    if self._gsettings.get_boolean(GSETTINGS_BIND_REMOTE)
+                    else open_remote_terminal_in_uri
+                )
+                open_func(self._uri)
+
         def _setup_keybindings(self):
             """Set up custom keybindings for the extension."""
             app = Gtk.Application.get_default()
@@ -390,7 +393,6 @@ class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.InfoProvider)
             print("shortcut", shortcut)
             app.set_accels_for_action("app.open_any_terminal", [shortcut])
             self._gsettings.connect("changed", self._update_shortcut)
-            print("register keybinding")
 
         def _update_shortcut(self, _gsettings, key):
             """Update keybindings when settings change."""
@@ -400,13 +402,33 @@ class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.InfoProvider)
                     shortcut = self._gsettings.get_string(GSETTINGS_KEYBINDINGS)
                     app.set_accels_for_action("app.open_any_terminal", [shortcut])
 
-        def get_background_items(self, current_folder):
-            """Update current URI when folder changes."""
-            self._uri = current_folder.get_uri() if current_folder else None
-            return []
+elif API_VERSION in ("3.0", "2.0"):
 
-    elif API_VERSION in ("3.0", "2.0"):
-        # Nautilus/Caja 3.0/2.0-specific implementation
+    class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.LocationWidgetProvider):
+        """Provide keyboard shortcuts for opening terminals in Nautilus/Caja."""
+
+        def __init__(self):
+            super().__init__()
+            gsettings_source = Gio.SettingsSchemaSource.get_default()
+
+            self._uri = None
+            self._window = None
+
+            gsettings_source = Gio.SettingsSchemaSource.get_default()
+            if gsettings_source.lookup(GSETTINGS_PATH, True):
+                self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
+                self._initialize_legacy_bindings()
+
+        def _open_terminal(self, *_args):
+            """Open the terminal at the specified URI."""
+            if self._uri:
+                open_func = (
+                    open_local_terminal_in_uri
+                    if self._gsettings.get_boolean(GSETTINGS_BIND_REMOTE)
+                    else open_remote_terminal_in_uri
+                )
+                open_func(self._uri)
+
         def _initialize_legacy_bindings(self):
             """Initialize legacy bindings for older APIs."""
             self._accel_group = Gtk.AccelGroup()
