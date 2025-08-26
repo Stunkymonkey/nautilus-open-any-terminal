@@ -349,9 +349,7 @@ if API_VERSION == "4.0":
 
         def __init__(self):
             super().__init__()
-            print("init shortcuts")
             gsettings_source = Gio.SettingsSchemaSource.get_default()
-            print("gsettings_source", gsettings_source.lookup(GSETTINGS_PATH, True))
 
             self._uri = None
             self._window = None
@@ -363,9 +361,9 @@ if API_VERSION == "4.0":
 
         def get_background_items(self, current_folder):
             """Update current URI when folder changes."""
-            print(current_folder)
-            self._uri = current_folder.get_uri() if current_folder else None
-            return []
+            file_ = args[-1]
+            return get_menu_items(file_, self._menu_activate_cb, foreground=False, terminal_name=self._get_terminal_name())
+
 
         def _open_terminal(self, *_args):
             """Open the terminal at the specified URI."""
@@ -390,7 +388,6 @@ if API_VERSION == "4.0":
             app.add_action(action)
 
             shortcut = self._gsettings.get_string(GSETTINGS_KEYBINDINGS)
-            print("shortcut", shortcut)
             app.set_accels_for_action("app.open_any_terminal", [shortcut])
             self._gsettings.connect("changed", self._update_shortcut)
 
@@ -479,6 +476,7 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
         """Generates a list of menu items for a file or folder in the Nautilus file manager."""
         # `args` will be `[files: List[Nautilus.FileInfo]]` in Nautilus 4.0 API,
         # and `[window: Gtk.Widget, files: List[Nautilus.FileInfo]]` in Nautilus 3.0 API.
+
         files = args[-1]
 
         if len(files) != 1:
@@ -497,7 +495,6 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
         # `args` will be `[folder: Nautilus.FileInfo]` in Nautilus 4.0 API,
         # and `[window: Gtk.Widget, file: Nautilus.FileInfo]` in Nautilus 3.0 API.
 
-        print("get_background_items", args)
         file_ = args[-1]
         return get_menu_items(file_, self._menu_activate_cb, foreground=False, terminal_name=self._get_terminal_name())
 
