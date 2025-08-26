@@ -347,17 +347,17 @@ class OpenAnyTerminalShortcutProvider(GObject.GObject):
 
     def __init__(self):
         super().__init__()
+        print("init shortcuts")
+        gsettings_source = Gio.SettingsSchemaSource.get_default()
+        print(gsettings_source.lookup(GSETTINGS_PATH, True))
+
         self._uri = None
         self._window = None
-
-        print("init shortcuts")
 
         gsettings_source = Gio.SettingsSchemaSource.get_default()
         if gsettings_source.lookup(GSETTINGS_PATH, True):
             self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
-            print("check version")
             if API_VERSION == "4.0":
-                print("call 4.0")
                 self._setup_keybindings()
             elif API_VERSION in ("3.0", "2.0"):
                 print("call other then 4.0")
