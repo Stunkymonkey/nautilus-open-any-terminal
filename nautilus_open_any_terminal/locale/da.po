@@ -1,0 +1,94 @@
+# nautilus_open_any_terminal translation file
+# Copyright (C) 2024 Stunkymonkey
+# This file is distributed under the same license as the nautilus_open_any_terminal package.
+# Danish translation, 2024.
+
+msgid ""
+msgstr ""
+"Project-Id-Version: nautilus_open_any_terminal\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-01 12:09+0200\n"
+"PO-Revision-Date: 2024-12-19 12:00+0100\n"
+"Last-Translator: AI Assistant\n"
+"Language-Team: Danish\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: nautilus_open_any_terminal.py:71 nautilus_open_any_terminal.py:461
+msgid "Terminal"
+msgstr "Terminal"
+
+#: nautilus_open_any_terminal.py:273
+msgid "Open in Remote {}"
+msgstr "Åbn i fjern-{}"
+
+#: nautilus_open_any_terminal.py:274
+msgid "Open Remote {} in {}"
+msgstr "Åbn fjern-{} i {}"
+
+#: nautilus_open_any_terminal.py:275
+msgid "Open in Local {}"
+msgstr "Åbn i lokal {}"
+
+#: nautilus_open_any_terminal.py:276
+msgid "Open Local {} in {}"
+msgstr "Åbn lokal {} i {}"
+
+#: nautilus_open_any_terminal.py:279
+msgid "Open Remote {} Here"
+msgstr "Åbn fjern-{} her"
+
+#: nautilus_open_any_terminal.py:280
+msgid "Open Remote {} in This Directory"
+msgstr "Åbn fjern-{} i denne mappe"
+
+#: nautilus_open_any_terminal.py:281
+msgid "Open Local {} Here"
+msgstr "Åbn lokal {} her"
+
+#: nautilus_open_any_terminal.py:282
+msgid "Open Local {} in This Directory"
+msgstr "Åbn lokal {} i denne mappe"
+
+#: nautilus_open_any_terminal.py:293
+msgid "Open in {}"
+msgstr "Åbn i {}"
+
+#: nautilus_open_any_terminal.py:294
+msgid "Open {} in {}"
+msgstr "Åbn {} i {}"
+
+#: nautilus_open_any_terminal.py:296
+msgid "Open {} Here"
+msgstr "Åbn {} her"
+
+#: nautilus_open_any_terminal.py:297
+msgid "Open {} in This Directory"
+msgstr "Åbn {} i denne mappe"
+
+#: nautilus_open_any_terminal.py:324
+msgid "Execute in Remote {}"
+msgstr "Udfør i fjern-{}"
+
+#: nautilus_open_any_terminal.py:325
+msgid "Execute {} in {} via SSH"
+msgstr "Udfør {} i {} via SSH"
+
+#: nautilus_open_any_terminal.py:326
+msgid "Execute in Local {}"
+msgstr "Udfør i lokal {}"
+
+#: nautilus_open_any_terminal.py:327
+msgid "Execute {} in Local {}"
+msgstr "Udfør {} i lokal {}"
+
+#: nautilus_open_any_terminal.py:338
+msgid "Execute in {}"
+msgstr "Udfør i {}"
+
+#: nautilus_open_any_terminal.py:339
+msgid "Execute {} in {}"
+msgstr "Udfør {} i {}"
