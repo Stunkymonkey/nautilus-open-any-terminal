@@ -15,34 +15,34 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: nautilus_open_any_terminal.py\n"
 
-#: open_any_terminal_extension.py:209
+#: nautilus_open_any_terminal.py:291
 msgid "Open Remote {}"
 msgstr "Fungua Remote {}"
 
-#: open_any_terminal_extension.py:210
+#: nautilus_open_any_terminal.py:292
 msgid "Open Remote {} in {}"
 msgstr "Fungua Remote {} katika {}"
 
-#: open_any_terminal_extension.py:218
+#: nautilus_open_any_terminal.py:311
 msgid "Open in {}"
 msgstr "Fungua katika {}"
 
-#: open_any_terminal_extension.py:219
+#: nautilus_open_any_terminal.py:312
 msgid "Open {} in {}"
 msgstr "Fungua {} katika {}"
 
-#: open_any_terminal_extension.py:231
+#: nautilus_open_any_terminal.py:297
 msgid "Open Remote {} Here"
 msgstr "Fungua Remote {} hapa"
 
-#: open_any_terminal_extension.py:232
+#: nautilus_open_any_terminal.py:298
 msgid "Open Remote {} in This Directory"
 msgstr "Fungua Remote {} katika folda hii"
 
-#: open_any_terminal_extension.py:239
+#: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"
 msgstr "Fungua {} hapa"
 
-#: open_any_terminal_extension.py:240
+#: nautilus_open_any_terminal.py:315
 msgid "Open {} in This Directory"
 msgstr "Fungua {} katika folda hii"
