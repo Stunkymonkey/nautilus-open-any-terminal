@@ -17,78 +17,78 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: nautilus_open_any_terminal.py:71 nautilus_open_any_terminal.py:461
+#: nautilus_open_any_terminal.py:75 nautilus_open_any_terminal.py:479
 msgid "Terminal"
 msgstr "터미널"
 
-#: nautilus_open_any_terminal.py:273
+#: nautilus_open_any_terminal.py:291
 msgid "Open in Remote {}"
 msgstr "원격 {}에서 열기"
 
-#: nautilus_open_any_terminal.py:274
+#: nautilus_open_any_terminal.py:292
 msgid "Open Remote {} in {}"
 msgstr "원격 {}을 {}에서 열기"
 
-#: nautilus_open_any_terminal.py:275
+#: nautilus_open_any_terminal.py:311
 msgid "Open in Local {}"
 msgstr "로컬 {}에서 열기"
 
-#: nautilus_open_any_terminal.py:276
+#: nautilus_open_any_terminal.py:312
 msgid "Open Local {} in {}"
 msgstr "로컬 {}을 {}에서 열기"
 
-#: nautilus_open_any_terminal.py:279
+#: nautilus_open_any_terminal.py:315
 msgid "Open Remote {} Here"
 msgstr "원격 {}을 여기서 열기"
 
-#: nautilus_open_any_terminal.py:280
+#: nautilus_open_any_terminal.py:298
 msgid "Open Remote {} in This Directory"
 msgstr "원격 {}을 이 디렉터리에서 열기"
 
-#: nautilus_open_any_terminal.py:281
+#: nautilus_open_any_terminal.py:299
 msgid "Open Local {} Here"
 msgstr "로컬 {}을 여기서 열기"
 
-#: nautilus_open_any_terminal.py:282
+#: nautilus_open_any_terminal.py:300
 msgid "Open Local {} in This Directory"
 msgstr "로컬 {}을 이 디렉터리에서 열기"
 
-#: nautilus_open_any_terminal.py:293
+#: nautilus_open_any_terminal.py:311
 msgid "Open in {}"
 msgstr "{}에서 열기"
 
-#: nautilus_open_any_terminal.py:294
+#: nautilus_open_any_terminal.py:312
 msgid "Open {} in {}"
 msgstr "{}을 {}에서 열기"
 
-#: nautilus_open_any_terminal.py:296
+#: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"
 msgstr "{}을 여기서 열기"
 
-#: nautilus_open_any_terminal.py:297
+#: nautilus_open_any_terminal.py:315
 msgid "Open {} in This Directory"
 msgstr "{}을 이 디렉터리에서 열기"
 
-#: nautilus_open_any_terminal.py:324
+#: nautilus_open_any_terminal.py:342
 msgid "Execute in Remote {}"
 msgstr "원격 {}에서 실행"
 
-#: nautilus_open_any_terminal.py:325
+#: nautilus_open_any_terminal.py:343
 msgid "Execute {} in {} via SSH"
 msgstr "SSH를 통해 {}을 {}에서 실행"
 
-#: nautilus_open_any_terminal.py:326
+#: nautilus_open_any_terminal.py:344
 msgid "Execute in Local {}"
 msgstr "로컬 {}에서 실행"
 
-#: nautilus_open_any_terminal.py:327
+#: nautilus_open_any_terminal.py:345
 msgid "Execute {} in Local {}"
 msgstr "{}을 로컬 {}에서 실행"
 
-#: nautilus_open_any_terminal.py:338
+#: nautilus_open_any_terminal.py:356
 msgid "Execute in {}"
 msgstr "{}에서 실행"
 
-#: nautilus_open_any_terminal.py:339
+#: nautilus_open_any_terminal.py:357
 msgid "Execute {} in {}"
 msgstr "{}을 {}에서 실행"

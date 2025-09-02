@@ -39,15 +39,15 @@ msgstr "Открыть {} в {} (локально)"
 msgid "Open Remote {} Here"
 msgstr "Открыть с помощью {} (удалённо)"
 
-#: nautilus_open_any_terminal.py:273
+#: nautilus_open_any_terminal.py:291
 msgid "Open Remote {} in This Directory"
 msgstr "Открыть эту папку с помощью {} (удалённо)"
 
-#: nautilus_open_any_terminal.py:274
+#: nautilus_open_any_terminal.py:292
 msgid "Open Local {} Here"
 msgstr "Открыть с помощью {} (локально)"
 
-#: nautilus_open_any_terminal.py:275
+#: nautilus_open_any_terminal.py:311
 msgid "Open Local {} in This Directory"
 msgstr "Открыть эту папку с помощью {} (локально)"
 

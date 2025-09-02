@@ -23,7 +23,7 @@ msgstr ""
 msgid "Terminal"
 msgstr "Terminal"
 
-#: nautilus_open_any_terminal.py:276
+#: nautilus_open_any_terminal.py:312
 msgid "Open in Remote {}"
 msgstr "Otwórz zdalny {}"
 
@@ -35,11 +35,11 @@ msgstr "Otwórz zdalny {} w {}"
 msgid "Open in Local {}"
 msgstr "Otwórz w lokalnym {}"
 
-#: nautilus_open_any_terminal.py:279
+#: nautilus_open_any_terminal.py:315
 msgid "Open Local {} in {}"
 msgstr "Otwórz lokalny {} w {}"
 
-#: nautilus_open_any_terminal.py:282
+#: nautilus_open_any_terminal.py:300
 msgid "Open Remote {} Here"
 msgstr "Otwórz zdalny {} tutaj"
 
@@ -55,11 +55,11 @@ msgstr "Otwórz lokalny {} tutaj"
 msgid "Open Local {} in This Directory"
 msgstr "Otwórz lokalny {} w tym katalogu"
 
-#: nautilus_open_any_terminal.py:296
+#: nautilus_open_any_terminal.py:314
 msgid "Open in {}"
 msgstr "Otwórz w {}"
 
-#: nautilus_open_any_terminal.py:297
+#: nautilus_open_any_terminal.py:315
 msgid "Open {} in {}"
 msgstr "Otwórz {} w {}"
 
@@ -71,7 +71,7 @@ msgstr "Otwórz {} tutaj"
 msgid "Open {} in This Directory"
 msgstr "Otwórz {} w tym katalogu"
 
-#: nautilus_open_any_terminal.py:327
+#: nautilus_open_any_terminal.py:345
 msgid "Execute in Remote {}"
 msgstr "Wykonaj w zdalnym {}"
 

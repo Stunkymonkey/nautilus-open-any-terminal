@@ -17,78 +17,78 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: nautilus_open_any_terminal.py:71 nautilus_open_any_terminal.py:461
+#: nautilus_open_any_terminal.py:75 nautilus_open_any_terminal.py:479
 msgid "Terminal"
 msgstr "Τερματικό"
 
-#: nautilus_open_any_terminal.py:273
+#: nautilus_open_any_terminal.py:291
 msgid "Open in Remote {}"
 msgstr "Άνοιγμα σε απομακρυσμένο {}"
 
-#: nautilus_open_any_terminal.py:274
+#: nautilus_open_any_terminal.py:292
 msgid "Open Remote {} in {}"
 msgstr "Άνοιγμα απομακρυσμένου {} σε {}"
 
-#: nautilus_open_any_terminal.py:275
+#: nautilus_open_any_terminal.py:311
 msgid "Open in Local {}"
 msgstr "Άνοιγμα σε τοπικό {}"
 
-#: nautilus_open_any_terminal.py:276
+#: nautilus_open_any_terminal.py:312
 msgid "Open Local {} in {}"
 msgstr "Άνοιγμα τοπικού {} σε {}"
 
-#: nautilus_open_any_terminal.py:279
+#: nautilus_open_any_terminal.py:315
 msgid "Open Remote {} Here"
 msgstr "Άνοιγμα απομακρυσμένου {} εδώ"
 
-#: nautilus_open_any_terminal.py:280
+#: nautilus_open_any_terminal.py:298
 msgid "Open Remote {} in This Directory"
 msgstr "Άνοιγμα απομακρυσμένου {} σε αυτόν τον κατάλογο"
 
-#: nautilus_open_any_terminal.py:281
+#: nautilus_open_any_terminal.py:299
 msgid "Open Local {} Here"
 msgstr "Άνοιγμα τοπικού {} εδώ"
 
-#: nautilus_open_any_terminal.py:282
+#: nautilus_open_any_terminal.py:300
 msgid "Open Local {} in This Directory"
 msgstr "Άνοιγμα τοπικού {} σε αυτόν τον κατάλογο"
 
-#: nautilus_open_any_terminal.py:293
+#: nautilus_open_any_terminal.py:311
 msgid "Open in {}"
 msgstr "Άνοιγμα σε {}"
 
-#: nautilus_open_any_terminal.py:294
+#: nautilus_open_any_terminal.py:312
 msgid "Open {} in {}"
 msgstr "Άνοιγμα {} σε {}"
 
-#: nautilus_open_any_terminal.py:296
+#: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"
 msgstr "Άνοιγμα {} εδώ"
 
-#: nautilus_open_any_terminal.py:297
+#: nautilus_open_any_terminal.py:315
 msgid "Open {} in This Directory"
 msgstr "Άνοιγμα {} σε αυτόν τον κατάλογο"
 
-#: nautilus_open_any_terminal.py:324
+#: nautilus_open_any_terminal.py:342
 msgid "Execute in Remote {}"
 msgstr "Εκτέλεση σε απομακρυσμένο {}"
 
-#: nautilus_open_any_terminal.py:325
+#: nautilus_open_any_terminal.py:343
 msgid "Execute {} in {} via SSH"
 msgstr "Εκτέλεση {} σε {} μέσω SSH"
 
-#: nautilus_open_any_terminal.py:326
+#: nautilus_open_any_terminal.py:344
 msgid "Execute in Local {}"
 msgstr "Εκτέλεση σε τοπικό {}"
 
-#: nautilus_open_any_terminal.py:327
+#: nautilus_open_any_terminal.py:345
 msgid "Execute {} in Local {}"
 msgstr "Εκτέλεση {} σε τοπικό {}"
 
-#: nautilus_open_any_terminal.py:338
+#: nautilus_open_any_terminal.py:356
 msgid "Execute in {}"
 msgstr "Εκτέλεση σε {}"
 
-#: nautilus_open_any_terminal.py:339
+#: nautilus_open_any_terminal.py:357
 msgid "Execute {} in {}"
 msgstr "Εκτέλεση {} σε {}"
