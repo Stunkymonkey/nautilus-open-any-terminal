@@ -7,6 +7,7 @@ pkgs.mkShell {
     mypy
     pylint
     python3
+    ruff
     shellcheck
   ];
 }
