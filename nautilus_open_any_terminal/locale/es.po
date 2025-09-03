@@ -15,34 +15,34 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: nautilus_open_any_terminal.py\n"
 
-#: open_any_terminal_extension.py:209
+#: nautilus_open_any_terminal.py:291
 msgid "Open Remote {}"
 msgstr "Abrir {} remoto"
 
-#: open_any_terminal_extension.py:210
+#: nautilus_open_any_terminal.py:292
 msgid "Open Remote {} in {}"
 msgstr "Abrir {} remoto en {}"
 
-#: open_any_terminal_extension.py:218
+#: nautilus_open_any_terminal.py:311
 msgid "Open in {}"
 msgstr "Abrir en {}"
 
-#: open_any_terminal_extension.py:219
+#: nautilus_open_any_terminal.py:312
 msgid "Open {} in {}"
 msgstr "Abrir {} en {}"
 
-#: open_any_terminal_extension.py:231
+#: nautilus_open_any_terminal.py:297
 msgid "Open Remote {} Here"
 msgstr "Abrir {} remoto aquí"
 
-#: open_any_terminal_extension.py:232
+#: nautilus_open_any_terminal.py:298
 msgid "Open Remote {} in This Directory"
 msgstr "Abrir {} remoto en este directorio"
 
-#: open_any_terminal_extension.py:239
+#: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"
 msgstr "Abrir {} aquí"
 
-#: open_any_terminal_extension.py:240
+#: nautilus_open_any_terminal.py:315
 msgid "Open {} in This Directory"
 msgstr "Abrir {} en este directorio"

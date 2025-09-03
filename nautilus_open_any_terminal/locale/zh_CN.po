@@ -12,34 +12,34 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-SearchPath-0: nautilus_open_any_terminal.py\n"
 
-#: open_any_terminal_extension.py:329
+#: nautilus_open_any_terminal.py:291
 msgid "Open Remote {}"
 msgstr "打开远程 {}"
 
-#: open_any_terminal_extension.py:330
+#: nautilus_open_any_terminal.py:292
 msgid "Open Remote {} in {}"
 msgstr "在 {1} 打开远程 {0}"
 
-#: open_any_terminal_extension.py:338
+#: nautilus_open_any_terminal.py:311
 msgid "Open in {}"
 msgstr "在 {} 打开"
 
-#: open_any_terminal_extension.py:339
+#: nautilus_open_any_terminal.py:312
 msgid "Open {} in {}"
 msgstr "在 {1} 打开 {0}"
 
-#: open_any_terminal_extension.py:356
+#: nautilus_open_any_terminal.py:314
 msgid "Open Remote {} Here"
 msgstr "在此打开远程 {} "
 
-#: open_any_terminal_extension.py:357
+#: nautilus_open_any_terminal.py:315
 msgid "Open Remote {} in This Directory"
 msgstr "在此目录打开远程 {}"
 
-#: open_any_terminal_extension.py:364
+#: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"
 msgstr "在此打开 {} "
 
-#: open_any_terminal_extension.py:365
+#: nautilus_open_any_terminal.py:315
 msgid "Open {} in This Directory"
 msgstr "在这此目录打开 {}"

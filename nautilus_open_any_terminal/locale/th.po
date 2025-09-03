@@ -1,95 +1,94 @@
 # nautilus_open_any_terminal translation file
 # Copyright (C) 2024 Stunkymonkey
 # This file is distributed under the same license as the nautilus_open_any_terminal package.
-# Vojtěch Perník <translations@pervoj.cz>, 2024.
-#
+# Thai translation, 2024.
+
 msgid ""
 msgstr ""
 "Project-Id-Version: nautilus_open_any_terminal\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-01 12:09+0200\n"
-"PO-Revision-Date: 2024-08-25 15:41+0200\n"
-"Last-Translator: Vojtěch Perník <translations@pervoj.cz>\n"
-"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
-"Language: cs\n"
+"PO-Revision-Date: 2024-12-19 12:00+0700\n"
+"Last-Translator: AI Assistant\n"
+"Language-Team: Thai\n"
+"Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
-"X-Generator: Gtranslator 46.1\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: nautilus_open_any_terminal.py:75 nautilus_open_any_terminal.py:479
 msgid "Terminal"
-msgstr "terminál"
+msgstr "เทอร์มินัล"
 
 #: nautilus_open_any_terminal.py:291
 msgid "Open in Remote {}"
-msgstr "Otevřít v aplikaci {} (vzdáleně)"
+msgstr "เปิดใน{} ระยะไกล"
 
 #: nautilus_open_any_terminal.py:292
 msgid "Open Remote {} in {}"
-msgstr "Otevřít aplikaci {} v {} (vzdáleně)"
+msgstr "เปิด{} ระยะไกลใน{}"
 
 #: nautilus_open_any_terminal.py:311
 msgid "Open in Local {}"
-msgstr "Otevřít v aplikaci {} (lokálně)"
+msgstr "เปิดใน{} ภายในเครื่อง"
 
 #: nautilus_open_any_terminal.py:312
 msgid "Open Local {} in {}"
-msgstr "Otevřít aplikaci {} v {} (lokálně)"
+msgstr "เปิด{} ภายในเครื่องใน{}"
 
 #: nautilus_open_any_terminal.py:315
 msgid "Open Remote {} Here"
-msgstr "Otevřít zde aplikaci {} (vzdáleně)"
+msgstr "เปิด{} ระยะไกลที่นี่"
 
 #: nautilus_open_any_terminal.py:298
 msgid "Open Remote {} in This Directory"
-msgstr "Otevřít aplikaci {} v této složce (vzdáleně)"
+msgstr "เปิด{} ระยะไกลในไดเรกทอรีนี้"
 
 #: nautilus_open_any_terminal.py:299
 msgid "Open Local {} Here"
-msgstr "Otevřít zde aplikaci {} (lokálně)"
+msgstr "เปิด{} ภายในเครื่องที่นี่"
 
 #: nautilus_open_any_terminal.py:300
 msgid "Open Local {} in This Directory"
-msgstr "Otevřít aplikaci {} v této složce (lokálně)"
+msgstr "เปิด{} ภายในเครื่องในไดเรกทอรีนี้"
 
 #: nautilus_open_any_terminal.py:311
 msgid "Open in {}"
-msgstr "Otevřít v aplikaci {}"
+msgstr "เปิดใน{}"
 
 #: nautilus_open_any_terminal.py:312
 msgid "Open {} in {}"
-msgstr "Otevřít aplikaci {} v {}"
+msgstr "เปิด{}ใน{}"
 
 #: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"
-msgstr "Otevřít zde aplikaci {}"
+msgstr "เปิด{}ที่นี่"
 
 #: nautilus_open_any_terminal.py:315
 msgid "Open {} in This Directory"
-msgstr "Otevřít aplikaci {} v této složce"
+msgstr "เปิด{}ในไดเรกทอรีนี้"
 
 #: nautilus_open_any_terminal.py:342
 msgid "Execute in Remote {}"
-msgstr "Spustit v aplikaci {} (vzdáleně)"
+msgstr "ดำเนินการใน{} ระยะไกล"
 
 #: nautilus_open_any_terminal.py:343
 msgid "Execute {} in {} via SSH"
-msgstr "Spustit {} v aplikaci {} přes SSH"
+msgstr "ดำเนินการ{}ใน{}ผ่าน SSH"
 
 #: nautilus_open_any_terminal.py:344
 msgid "Execute in Local {}"
-msgstr "Spustit v aplikaci {} (lokálně)"
+msgstr "ดำเนินการใน{} ภายในเครื่อง"
 
 #: nautilus_open_any_terminal.py:345
 msgid "Execute {} in Local {}"
-msgstr "Spustit {} v aplikaci {} (lokálně)"
+msgstr "ดำเนินการ{}ใน{} ภายในเครื่อง"
 
 #: nautilus_open_any_terminal.py:356
 msgid "Execute in {}"
-msgstr "Spustit v aplikaci {}"
+msgstr "ดำเนินการใน{}"
 
 #: nautilus_open_any_terminal.py:357
 msgid "Execute {} in {}"
-msgstr "Spustit {} v aplikaci {}"
+msgstr "ดำเนินการ{}ใน{}"

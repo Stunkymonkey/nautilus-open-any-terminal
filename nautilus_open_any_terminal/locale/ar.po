@@ -16,78 +16,78 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.7\n"
 
-#: nautilus_open_any_terminal.py:71 nautilus_open_any_terminal.py:461
+#: nautilus_open_any_terminal.py:75 nautilus_open_any_terminal.py:479
 msgid "Terminal"
 msgstr "الطرفية"
 
-#: nautilus_open_any_terminal.py:273
+#: nautilus_open_any_terminal.py:291
 msgid "Open in Remote {}"
 msgstr "افتح في {} بعيدًا"
 
-#: nautilus_open_any_terminal.py:274
+#: nautilus_open_any_terminal.py:292
 msgid "Open Remote {} in {}"
 msgstr "افتح {} بعيدًا في {}"
 
-#: nautilus_open_any_terminal.py:275
+#: nautilus_open_any_terminal.py:311
 msgid "Open in Local {}"
 msgstr "افتح في {} محليًا"
 
-#: nautilus_open_any_terminal.py:276
+#: nautilus_open_any_terminal.py:312
 msgid "Open Local {} in {}"
 msgstr "افتح {} محليًا في {}"
 
-#: nautilus_open_any_terminal.py:279
+#: nautilus_open_any_terminal.py:315
 msgid "Open Remote {} Here"
 msgstr "افتح {} بعيدًا هنا"
 
-#: nautilus_open_any_terminal.py:280
+#: nautilus_open_any_terminal.py:298
 msgid "Open Remote {} in This Directory"
 msgstr "افتح {} بعيدًا في هذا المجلد"
 
-#: nautilus_open_any_terminal.py:281
+#: nautilus_open_any_terminal.py:299
 msgid "Open Local {} Here"
 msgstr "افتح {} محليًا هنا"
 
-#: nautilus_open_any_terminal.py:282
+#: nautilus_open_any_terminal.py:300
 msgid "Open Local {} in This Directory"
 msgstr "افتح {} محليًا في هذا المجلد"
 
-#: nautilus_open_any_terminal.py:293
+#: nautilus_open_any_terminal.py:311
 msgid "Open in {}"
 msgstr "افتح في {}"
 
-#: nautilus_open_any_terminal.py:294
+#: nautilus_open_any_terminal.py:312
 msgid "Open {} in {}"
 msgstr "افتح {} في {}"
 
-#: nautilus_open_any_terminal.py:296
+#: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"
 msgstr "افتح {} هنا"
 
-#: nautilus_open_any_terminal.py:297
+#: nautilus_open_any_terminal.py:315
 msgid "Open {} in This Directory"
 msgstr "افتح {} في هذا المجلد"
 
-#: nautilus_open_any_terminal.py:324
+#: nautilus_open_any_terminal.py:342
 msgid "Execute in Remote {}"
 msgstr "شغِّل في {} بعيدًا"
 
-#: nautilus_open_any_terminal.py:325
+#: nautilus_open_any_terminal.py:343
 msgid "Execute {} in {} via SSH"
 msgstr "شغِّل {} في {} عبر SSH"
 
-#: nautilus_open_any_terminal.py:326
+#: nautilus_open_any_terminal.py:344
 msgid "Execute in Local {}"
 msgstr "شغِّل في {} محليًا"
 
-#: nautilus_open_any_terminal.py:327
+#: nautilus_open_any_terminal.py:345
 msgid "Execute {} in Local {}"
 msgstr "شغِّل {} في {} محليًا"
 
-#: nautilus_open_any_terminal.py:338
+#: nautilus_open_any_terminal.py:356
 msgid "Execute in {}"
 msgstr "شغِّل في {}"
 
-#: nautilus_open_any_terminal.py:339
+#: nautilus_open_any_terminal.py:357
 msgid "Execute {} in {}"
 msgstr "شغِّل {} في {}"

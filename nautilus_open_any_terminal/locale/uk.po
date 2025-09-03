@@ -16,78 +16,78 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: nautilus_open_any_terminal.py\n"
 
-#: nautilus_open_any_terminal.py:71 nautilus_open_any_terminal.py:461
+#: nautilus_open_any_terminal.py:75 nautilus_open_any_terminal.py:479
 msgid "Terminal"
 msgstr "Термінал"
 
-#: nautilus_open_any_terminal.py:273
+#: nautilus_open_any_terminal.py:291
 msgid "Open in Remote {}"
 msgstr "Відкрити у віддаленому {}"
 
-#: nautilus_open_any_terminal.py:274
+#: nautilus_open_any_terminal.py:292
 msgid "Open Remote {} in {}"
 msgstr "Відкрити віддалений {} у {}"
 
-#: nautilus_open_any_terminal.py:275
+#: nautilus_open_any_terminal.py:311
 msgid "Open in Local {}"
 msgstr "Відкрити у локальному {}"
 
-#: nautilus_open_any_terminal.py:276
+#: nautilus_open_any_terminal.py:312
 msgid "Open Local {} in {}"
 msgstr "Відкрити локальний {} у {}"
 
-#: nautilus_open_any_terminal.py:279
+#: nautilus_open_any_terminal.py:315
 msgid "Open Remote {} Here"
 msgstr "Відкрити віддалений {} тут"
 
-#: nautilus_open_any_terminal.py:280
+#: nautilus_open_any_terminal.py:298
 msgid "Open Remote {} in This Directory"
 msgstr "Відкрити віддалений {} у цій теці"
 
-#: nautilus_open_any_terminal.py:281
+#: nautilus_open_any_terminal.py:299
 msgid "Open Local {} Here"
 msgstr "Відкрити локальний {} тут"
 
-#: nautilus_open_any_terminal.py:282
+#: nautilus_open_any_terminal.py:300
 msgid "Open Local {} in This Directory"
 msgstr "Відкрити локальний {} у цій теці"
 
-#: nautilus_open_any_terminal.py:293
+#: nautilus_open_any_terminal.py:311
 msgid "Open in {}"
 msgstr "Відкрити у {}"
 
-#: nautilus_open_any_terminal.py:294
+#: nautilus_open_any_terminal.py:312
 msgid "Open {} in {}"
 msgstr "Відкрити {} у {}"
 
-#: nautilus_open_any_terminal.py:296
+#: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"
 msgstr "Відкрити {} тут"
 
-#: nautilus_open_any_terminal.py:297
+#: nautilus_open_any_terminal.py:315
 msgid "Open {} in This Directory"
 msgstr "Відкрити {} у цій теці"
 
-#: nautilus_open_any_terminal.py:324
+#: nautilus_open_any_terminal.py:342
 msgid "Execute in Remote {}"
 msgstr "Виконати у віддаленному {}"
 
-#: nautilus_open_any_terminal.py:325
+#: nautilus_open_any_terminal.py:343
 msgid "Execute {} in {} via SSH"
 msgstr "Виконати {} у {} через SSH"
 
-#: nautilus_open_any_terminal.py:326
+#: nautilus_open_any_terminal.py:344
 msgid "Execute in Local {}"
 msgstr "Виконати у локальному {}"
 
-#: nautilus_open_any_terminal.py:327
+#: nautilus_open_any_terminal.py:345
 msgid "Execute {} in Local {}"
 msgstr "Виконати {} у локальному {}"
 
-#: nautilus_open_any_terminal.py:338
+#: nautilus_open_any_terminal.py:356
 msgid "Execute in {}"
 msgstr "Виконати у {}"
 
-#: nautilus_open_any_terminal.py:339
+#: nautilus_open_any_terminal.py:357
 msgid "Execute {} in {}"
 msgstr "Виконати {} у {}"

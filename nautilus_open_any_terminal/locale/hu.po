@@ -1,91 +1,94 @@
+# nautilus_open_any_terminal translation file
+# Copyright (C) 2024 Stunkymonkey
+# This file is distributed under the same license as the nautilus_open_any_terminal package.
+# Hungarian translation, 2024.
+
 msgid ""
 msgstr ""
 "Project-Id-Version: nautilus_open_any_terminal\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-01 12:09+0200\n"
-"PO-Revision-Date: 2024-09-21 15:22+0200\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: it\n"
+"PO-Revision-Date: 2024-12-19 12:00+0100\n"
+"Last-Translator: AI Assistant\n"
+"Language-Team: Hungarian\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 46.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: nautilus_open_any_terminal.py:75 nautilus_open_any_terminal.py:479
 msgid "Terminal"
-msgstr "terminale"
+msgstr "Terminál"
 
 #: nautilus_open_any_terminal.py:291
 msgid "Open in Remote {}"
-msgstr "Apri {} remoto"
+msgstr "Megnyitás távoli {}-ban"
 
 #: nautilus_open_any_terminal.py:292
-#, fuzzy
 msgid "Open Remote {} in {}"
-msgstr "Apri {} remoto in {}"
+msgstr "Távoli {} megnyitása {}-ban"
 
 #: nautilus_open_any_terminal.py:311
 msgid "Open in Local {}"
-msgstr "Apri nel {} locale"
+msgstr "Megnyitás helyi {}-ban"
 
 #: nautilus_open_any_terminal.py:312
-#, fuzzy
 msgid "Open Local {} in {}"
-msgstr "Apri {} locale in {}"
+msgstr "Helyi {} megnyitása {}-ban"
 
 #: nautilus_open_any_terminal.py:315
 msgid "Open Remote {} Here"
-msgstr "Apri nel {} remoto qui"
+msgstr "Távoli {} megnyitása itt"
 
 #: nautilus_open_any_terminal.py:298
 msgid "Open Remote {} in This Directory"
-msgstr "Apri {} remoto in questa cartella"
+msgstr "Távoli {} megnyitása ebben a könyvtárban"
 
 #: nautilus_open_any_terminal.py:299
 msgid "Open Local {} Here"
-msgstr "Apri nel {} locale"
+msgstr "Helyi {} megnyitása itt"
 
 #: nautilus_open_any_terminal.py:300
 msgid "Open Local {} in This Directory"
-msgstr "Apri {} locale in questa cartella"
+msgstr "Helyi {} megnyitása ebben a könyvtárban"
 
 #: nautilus_open_any_terminal.py:311
 msgid "Open in {}"
-msgstr "Apri nel {}"
+msgstr "Megnyitás {}-ban"
 
 #: nautilus_open_any_terminal.py:312
 msgid "Open {} in {}"
-msgstr "Apri {} in {}"
+msgstr "{} megnyitása {}-ban"
 
 #: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"
-msgstr "Apri nel {} qui"
+msgstr "{} megnyitása itt"
 
 #: nautilus_open_any_terminal.py:315
 msgid "Open {} in This Directory"
-msgstr "Apri {} in questa cartella"
+msgstr "{} megnyitása ebben a könyvtárban"
 
 #: nautilus_open_any_terminal.py:342
 msgid "Execute in Remote {}"
-msgstr "Esegui in {} remoto"
+msgstr "Végrehajtás távoli {}-ban"
 
 #: nautilus_open_any_terminal.py:343
 msgid "Execute {} in {} via SSH"
-msgstr "Esegui {} nel {} tramite SSH"
+msgstr "{} végrehajtása {}-ban SSH-n keresztül"
 
 #: nautilus_open_any_terminal.py:344
 msgid "Execute in Local {}"
-msgstr "Esegui nel {} locale"
+msgstr "Végrehajtás helyi {}-ban"
 
 #: nautilus_open_any_terminal.py:345
 msgid "Execute {} in Local {}"
-msgstr "Esegui {} nel {} locale"
+msgstr "{} végrehajtása helyi {}-ban"
 
 #: nautilus_open_any_terminal.py:356
 msgid "Execute in {}"
-msgstr "Esegui nel {}"
+msgstr "Végrehajtás {}-ban"
 
 #: nautilus_open_any_terminal.py:357
 msgid "Execute {} in {}"
-msgstr "Esegui {} nel {}"
+msgstr "{} végrehajtása {}-ban"
