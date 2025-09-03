@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nautilus-open-any-terminal\n"
-"POT-Creation-Date: 2024-10-04 16:55+0300\n"
+"POT-Creation-Date: 2024-12-19 12:09+0200\n"
 "PO-Revision-Date: 2024-10-04 17:49+0300\n"
 "Last-Translator: Andrey Antsiferov <me@antsif.ru>\n"
 "Language-Team: Andrew Anciferoff\n"
@@ -15,78 +15,78 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: nautilus_open_any_terminal.py\n"
 
-#: nautilus_open_any_terminal.py:65 nautilus_open_any_terminal.py:454
+#: nautilus_open_any_terminal.py:75 nautilus_open_any_terminal.py:479
 msgid "Terminal"
 msgstr "Терминал"
 
-#: nautilus_open_any_terminal.py:266
+#: nautilus_open_any_terminal.py:291
 msgid "Open in Remote {}"
 msgstr "Открыть с помощью {} (удалённо)"
 
-#: nautilus_open_any_terminal.py:267
+#: nautilus_open_any_terminal.py:292
 msgid "Open Remote {} in {}"
 msgstr "Открыть {} в {} (удалённо)"
 
-#: nautilus_open_any_terminal.py:268
+#: nautilus_open_any_terminal.py:293
 msgid "Open in Local {}"
 msgstr "Открыть с помощью {} (локально)"
 
-#: nautilus_open_any_terminal.py:269
+#: nautilus_open_any_terminal.py:294
 msgid "Open Local {} in {}"
 msgstr "Открыть {} в {} (локально)"
 
-#: nautilus_open_any_terminal.py:272
+#: nautilus_open_any_terminal.py:297
 msgid "Open Remote {} Here"
 msgstr "Открыть с помощью {} (удалённо)"
 
-#: nautilus_open_any_terminal.py:291
+#: nautilus_open_any_terminal.py:298
 msgid "Open Remote {} in This Directory"
 msgstr "Открыть эту папку с помощью {} (удалённо)"
 
-#: nautilus_open_any_terminal.py:292
+#: nautilus_open_any_terminal.py:299
 msgid "Open Local {} Here"
 msgstr "Открыть с помощью {} (локально)"
 
-#: nautilus_open_any_terminal.py:311
+#: nautilus_open_any_terminal.py:300
 msgid "Open Local {} in This Directory"
 msgstr "Открыть эту папку с помощью {} (локально)"
 
-#: nautilus_open_any_terminal.py:286
+#: nautilus_open_any_terminal.py:311
 msgid "Open in {}"
 msgstr "Открыть с помощью {}"
 
-#: nautilus_open_any_terminal.py:287
+#: nautilus_open_any_terminal.py:312
 msgid "Open {} in {}"
 msgstr "Открыть {} в {}"
 
-#: nautilus_open_any_terminal.py:289
+#: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"
 msgstr "Открыть с помощью {}"
 
-#: nautilus_open_any_terminal.py:290
+#: nautilus_open_any_terminal.py:315
 msgid "Open {} in This Directory"
 msgstr "Открыть эту папку с помощью {}"
 
-#: nautilus_open_any_terminal.py:317
+#: nautilus_open_any_terminal.py:342
 msgid "Execute in Remote {}"
 msgstr "Запустить в {} (удалённо)"
 
-#: nautilus_open_any_terminal.py:318
+#: nautilus_open_any_terminal.py:343
 msgid "Execute {} in {} via SSH"
 msgstr "Запустить {} в {} через SSH"
 
-#: nautilus_open_any_terminal.py:319
+#: nautilus_open_any_terminal.py:344
 msgid "Execute in Local {}"
 msgstr "Запустить в {} (локально)"
 
-#: nautilus_open_any_terminal.py:320
+#: nautilus_open_any_terminal.py:345
 msgid "Execute {} in Local {}"
 msgstr "Запустить {} в {} (локально)"
 
-#: nautilus_open_any_terminal.py:331
+#: nautilus_open_any_terminal.py:356
 msgid "Execute in {}"
 msgstr "Запустить в {}"
 
-#: nautilus_open_any_terminal.py:332
+#: nautilus_open_any_terminal.py:357
 msgid "Execute {} in {}"
 msgstr "Запустить {} в {}"
