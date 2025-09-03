@@ -1,27 +1,59 @@
+# nautilus_open_any_terminal translation file
+# Copyright (C) 2024 Stunkymonkey
+# This file is distributed under the same license as the nautilus_open_any_terminal package.
+# Lucas Lira, 2022-2024.
+
 msgid ""
 msgstr ""
-"Project-Id-Version: nautilus-open-any-terminal\n"
-"POT-Creation-Date: 2022-05-03 23:43-0500\n"
-"PO-Revision-Date: 2022-05-04 15:42-0500\n"
-"Last-Translator: \n"
-"Language-Team: Lucas Lira\n"
-"Language: br\n"
+"Project-Id-Version: nautilus_open_any_terminal\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-19 12:09+0200\n"
+"PO-Revision-Date: 2024-12-19 12:00-0300\n"
+"Last-Translator: AI Assistant\n"
+"Language-Team: Brazilian Portuguese\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
-"X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Updated\n"
 "X-Poedit-SearchPath-0: nautilus_open_any_terminal.py\n"
 
+#: nautilus_open_any_terminal.py:75 nautilus_open_any_terminal.py:479
+msgid "Terminal"
+msgstr "Terminal"
+
 #: nautilus_open_any_terminal.py:291
-msgid "Open Remote {}"
-msgstr "Abrir {} remotamente"
+msgid "Open in Remote {}"
+msgstr "Abrir no {} remoto"
 
 #: nautilus_open_any_terminal.py:292
 msgid "Open Remote {} in {}"
-msgstr "Abrir {} remotamente no {}"
+msgstr "Abrir {} remoto no {}"
+
+#: nautilus_open_any_terminal.py:293
+msgid "Open in Local {}"
+msgstr "Abrir no {} local"
+
+#: nautilus_open_any_terminal.py:294
+msgid "Open Local {} in {}"
+msgstr "Abrir {} local no {}"
+
+#: nautilus_open_any_terminal.py:297
+msgid "Open Remote {} Here"
+msgstr "Abrir {} remoto aqui"
+
+#: nautilus_open_any_terminal.py:298
+msgid "Open Remote {} in This Directory"
+msgstr "Abrir {} remoto neste diretório"
+
+#: nautilus_open_any_terminal.py:299
+msgid "Open Local {} Here"
+msgstr "Abrir {} local aqui"
+
+#: nautilus_open_any_terminal.py:300
+msgid "Open Local {} in This Directory"
+msgstr "Abrir {} local neste diretório"
 
 #: nautilus_open_any_terminal.py:311
 msgid "Open in {}"
@@ -31,18 +63,34 @@ msgstr "Abrir no {}"
 msgid "Open {} in {}"
 msgstr "Abrir {} no {}"
 
-#: nautilus_open_any_terminal.py:297
-msgid "Open Remote {} Here"
-msgstr "Abrir {} remotamente aqui"
-
-#: nautilus_open_any_terminal.py:298
-msgid "Open Remote {} in This Directory"
-msgstr "Abrir {} remotamente neste diretório"
-
 #: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"
-msgstr "Abrir no {}"
+msgstr "Abrir {} aqui"
 
 #: nautilus_open_any_terminal.py:315
 msgid "Open {} in This Directory"
 msgstr "Abrir {} neste diretório"
+
+#: nautilus_open_any_terminal.py:342
+msgid "Execute in Remote {}"
+msgstr "Executar no {} remoto"
+
+#: nautilus_open_any_terminal.py:343
+msgid "Execute {} in {} via SSH"
+msgstr "Executar {} no {} via SSH"
+
+#: nautilus_open_any_terminal.py:344
+msgid "Execute in Local {}"
+msgstr "Executar no {} local"
+
+#: nautilus_open_any_terminal.py:345
+msgid "Execute {} in Local {}"
+msgstr "Executar {} no {} local"
+
+#: nautilus_open_any_terminal.py:356
+msgid "Execute in {}"
+msgstr "Executar no {}"
+
+#: nautilus_open_any_terminal.py:357
+msgid "Execute {} in {}"
+msgstr "Executar {} no {}"

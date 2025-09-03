@@ -1,48 +1,96 @@
+# nautilus_open_any_terminal translation file
+# Copyright (C) 2024 Stunkymonkey
+# This file is distributed under the same license as the nautilus_open_any_terminal package.
+# Felix Bühler, 2022-2024.
+
 msgid ""
 msgstr ""
-"Project-Id-Version: nautilus-open-any-terminal\n"
-"POT-Creation-Date: 2022-03-08 16:30+0100\n"
-"PO-Revision-Date: 2022-03-08 16:58+0100\n"
-"Last-Translator: \n"
-"Language-Team: Felix Bühler\n"
+"Project-Id-Version: nautilus_open_any_terminal\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-19 12:09+0200\n"
+"PO-Revision-Date: 2024-12-19 12:00+0100\n"
+"Last-Translator: AI Assistant\n"
+"Language-Team: German\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
-"X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Updated\n"
 "X-Poedit-SearchPath-0: nautilus_open_any_terminal.py\n"
 
+#: nautilus_open_any_terminal.py:75 nautilus_open_any_terminal.py:479
+msgid "Terminal"
+msgstr "Terminal"
+
 #: nautilus_open_any_terminal.py:291
-msgid "Open Remote {}"
-msgstr "Öffne Remote-{}"
+msgid "Open in Remote {}"
+msgstr "In Remote-{} öffnen"
 
 #: nautilus_open_any_terminal.py:292
 msgid "Open Remote {} in {}"
-msgstr "Öffne Remote-{} in {}"
+msgstr "Remote-{} in {} öffnen"
 
-#: nautilus_open_any_terminal.py:311
-msgid "Open in {}"
-msgstr "Öffne in {}"
+#: nautilus_open_any_terminal.py:293
+msgid "Open in Local {}"
+msgstr "In lokalem {} öffnen"
 
-#: nautilus_open_any_terminal.py:312
-msgid "Open {} in {}"
-msgstr "Öffne {} in {}"
+#: nautilus_open_any_terminal.py:294
+msgid "Open Local {} in {}"
+msgstr "Lokales {} in {} öffnen"
 
 #: nautilus_open_any_terminal.py:297
 msgid "Open Remote {} Here"
-msgstr "Öffne Remote-{} hier"
+msgstr "Remote-{} hier öffnen"
 
 #: nautilus_open_any_terminal.py:298
 msgid "Open Remote {} in This Directory"
-msgstr "Öffne Remote-{} in diesem Ordner"
+msgstr "Remote-{} in diesem Verzeichnis öffnen"
+
+#: nautilus_open_any_terminal.py:299
+msgid "Open Local {} Here"
+msgstr "Lokales {} hier öffnen"
+
+#: nautilus_open_any_terminal.py:300
+msgid "Open Local {} in This Directory"
+msgstr "Lokales {} in diesem Verzeichnis öffnen"
+
+#: nautilus_open_any_terminal.py:311
+msgid "Open in {}"
+msgstr "In {} öffnen"
+
+#: nautilus_open_any_terminal.py:312
+msgid "Open {} in {}"
+msgstr "{} in {} öffnen"
 
 #: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"
-msgstr "Öffne {} hier"
+msgstr "{} hier öffnen"
 
 #: nautilus_open_any_terminal.py:315
 msgid "Open {} in This Directory"
-msgstr "Öffne {} in diesem Ordner"
+msgstr "{} in diesem Verzeichnis öffnen"
+
+#: nautilus_open_any_terminal.py:342
+msgid "Execute in Remote {}"
+msgstr "In Remote-{} ausführen"
+
+#: nautilus_open_any_terminal.py:343
+msgid "Execute {} in {} via SSH"
+msgstr "{} in {} über SSH ausführen"
+
+#: nautilus_open_any_terminal.py:344
+msgid "Execute in Local {}"
+msgstr "In lokalem {} ausführen"
+
+#: nautilus_open_any_terminal.py:345
+msgid "Execute {} in Local {}"
+msgstr "{} in lokalem {} ausführen"
+
+#: nautilus_open_any_terminal.py:356
+msgid "Execute in {}"
+msgstr "In {} ausführen"
+
+#: nautilus_open_any_terminal.py:357
+msgid "Execute {} in {}"
+msgstr "{} in {} ausführen"

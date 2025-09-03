@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nautilus_open_any_terminal\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-10 02:09+0100\n"
-"PO-Revision-Date: 2024-03-30 13:20+0100\n"
+"POT-Creation-Date: 2024-12-19 12:09+0200\n"
+"PO-Revision-Date: 2024-12-19 13:20+0100\n"
 "Last-Translator: Frédéric Petit <contact@fredericpetit.fr>\n"
 "Language-Team: Frédéric Petit <contact@fredericpetit.fr>\n"
 "Language: fr\n"
@@ -16,8 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Updated\n"
 "X-Poedit-SearchPath-0: nautilus_open_any_terminal.py\n"
+
+#: nautilus_open_any_terminal.py:75 nautilus_open_any_terminal.py:479
+msgid "Terminal"
+msgstr "Terminal"
 
 #: nautilus_open_any_terminal.py:291
 msgid "Open in Remote {}"
@@ -66,3 +70,27 @@ msgstr "Ouvrir {} ici"
 #: nautilus_open_any_terminal.py:315
 msgid "Open {} in This Directory"
 msgstr "Ouvrir {} dans ce dossier"
+
+#: nautilus_open_any_terminal.py:342
+msgid "Execute in Remote {}"
+msgstr "Exécuter à distance {}"
+
+#: nautilus_open_any_terminal.py:343
+msgid "Execute {} in {} via SSH"
+msgstr "Exécuter {} dans {} via SSH"
+
+#: nautilus_open_any_terminal.py:344
+msgid "Execute in Local {}"
+msgstr "Exécuter localement {}"
+
+#: nautilus_open_any_terminal.py:345
+msgid "Execute {} in Local {}"
+msgstr "Exécuter {} localement dans {}"
+
+#: nautilus_open_any_terminal.py:356
+msgid "Execute in {}"
+msgstr "Exécuter dans {}"
+
+#: nautilus_open_any_terminal.py:357
+msgid "Execute {} in {}"
+msgstr "Exécuter {} dans {}"

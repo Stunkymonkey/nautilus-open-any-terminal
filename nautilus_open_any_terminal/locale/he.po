@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nautilus_open_any_terminal\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 12:09+0200\n"
+"POT-Creation-Date: 2024-12-19 12:09+0200\n"
 "PO-Revision-Date: 2024-07-16 14:30+0300\n"
 "Last-Translator: Laxystem <the@laxla.quest>\n"
 "Language-Team: Laxystem <the@laxla.quest>\n"
@@ -14,78 +14,78 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: nautilus_open_any_terminal.py\n"
 
-#: nautilus_open_any_terminal.py:71 nautilus_open_any_terminal.py:457
+#: nautilus_open_any_terminal.py:75 nautilus_open_any_terminal.py:479
 msgid "Terminal"
 msgstr "מסוף"
 
-#: nautilus_open_any_terminal.py:312
+#: nautilus_open_any_terminal.py:291
 msgid "Open in Remote {}"
 msgstr "פתיחה ב־{} מרוחק"
 
-#: nautilus_open_any_terminal.py:277
+#: nautilus_open_any_terminal.py:292
 msgid "Open Remote {} in {}"
 msgstr "פתיחת {} מרוחק ב־{}"
 
-#: nautilus_open_any_terminal.py:278
+#: nautilus_open_any_terminal.py:293
 msgid "Open in Local {}"
 msgstr "פתיחה ב־{} מקומי"
 
-#: nautilus_open_any_terminal.py:315
+#: nautilus_open_any_terminal.py:294
 msgid "Open Local {} in {}"
 msgstr "פתיחת {} מקומי ב־{}"
 
-#: nautilus_open_any_terminal.py:300
+#: nautilus_open_any_terminal.py:297
 msgid "Open Remote {} Here"
 msgstr "פתיחת {} מרוחק כאן"
 
-#: nautilus_open_any_terminal.py:283
+#: nautilus_open_any_terminal.py:298
 msgid "Open Remote {} in This Directory"
 msgstr "פתיחת {} מרוחק בתיקייה זו"
 
-#: nautilus_open_any_terminal.py:284
+#: nautilus_open_any_terminal.py:299
 msgid "Open Local {} Here"
 msgstr "פתיחת {} מקומי כאן"
 
-#: nautilus_open_any_terminal.py:285
+#: nautilus_open_any_terminal.py:300
 msgid "Open Local {} in This Directory"
 msgstr "פתיחת {} מקומי בתיקייה זו"
 
-#: nautilus_open_any_terminal.py:314
+#: nautilus_open_any_terminal.py:311
 msgid "Open in {}"
 msgstr "פתיחה ב־{}"
 
-#: nautilus_open_any_terminal.py:315
+#: nautilus_open_any_terminal.py:312
 msgid "Open {} in {}"
 msgstr "פתיחת {} ב־{}"
 
-#: nautilus_open_any_terminal.py:299
+#: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"
 msgstr "פתיחת {} כאן"
 
-#: nautilus_open_any_terminal.py:300
+#: nautilus_open_any_terminal.py:315
 msgid "Open {} in This Directory"
 msgstr "פתיחת {} בתיקייה זו"
 
-#: nautilus_open_any_terminal.py:345
+#: nautilus_open_any_terminal.py:342
 msgid "Execute in Remote {}"
 msgstr "הרצה ב־{} מקומי"
 
-#: nautilus_open_any_terminal.py:328
+#: nautilus_open_any_terminal.py:343
 msgid "Execute {} in {} via SSH"
 msgstr "הרצת {} ב־{} דרך SSH"
 
-#: nautilus_open_any_terminal.py:329
+#: nautilus_open_any_terminal.py:344
 msgid "Execute in Local {}"
 msgstr "הרצה ב־{} מקומי"
 
-#: nautilus_open_any_terminal.py:330
+#: nautilus_open_any_terminal.py:345
 msgid "Execute {} in Local {}"
 msgstr "הרצת {} ב־{} מקומי"
 
-#: nautilus_open_any_terminal.py:341
+#: nautilus_open_any_terminal.py:356
 msgid "Execute in {}"
 msgstr "הרצה ב־{}"
 
-#: nautilus_open_any_terminal.py:342
+#: nautilus_open_any_terminal.py:357
 msgid "Execute {} in {}"
 msgstr "הרצת {} ב־{}"
