@@ -425,12 +425,82 @@ def set_terminal_args(*_args):
     print(f'open-any-terminal: terminal is set to "{terminal}" {new_tab_text} {flatpak_text}')
 
 
-if API_VERSION in ("3.0", "2.0"):
+if API_VERSION == "4.0":
 
-    class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.LocationWidgetProvider):
+    class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.MenuProvider):
         """Provide keyboard shortcuts for opening terminals in Nautilus."""
 
         def __init__(self):
+            super().__init__()
+            self.previous_cwd = expanduser("~")
+
+            gsettings_source = Gio.SettingsSchemaSource.get_default()
+            if gsettings_source.lookup(GSETTINGS_PATH, True):
+                self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
+                self._setup_keybindings()
+
+        def get_background_items(self, current_folder: FileManager.FileInfo):
+            """Update current URI when folder changes."""
+            if current_folder:
+                if current_folder.get_uri_scheme() in REMOTE_URI_SCHEME:
+                    folder_path = current_folder.get_uri()
+                else:
+                    folder_path = current_folder.get_location().get_path()
+
+                if folder_path and folder_path != self.previous_cwd:
+                    self.previous_cwd = folder_path
+            return []
+
+        def _open_terminal(self, *_args):
+            """Open the terminal at the specified URI."""
+            if self._gsettings.get_boolean(GSETTINGS_BIND_REMOTE):
+                open_remote_terminal_in_uri(self.previous_cwd)
+            else:
+                open_local_terminal_in_uri(self.previous_cwd)
+
+        def _setup_keybindings(self):
+            """Set up custom keybindings for the extension."""
+            self.app = Gtk.Application.get_default()
+            if self.app is None:
+                print("No Gtk.Application found. Keybindings cannot be set.")
+                return
+
+            action = Gio.SimpleAction.new("open_any_terminal", None)
+            action.connect("activate", self._open_terminal)
+            self.app.add_action(action)
+            self._bind_shortcut()
+            self._gsettings.connect("changed", self._update_shortcut)
+
+        def _update_shortcut(self, _gsettings, key):
+            """remove keybinding"""
+            if key == GSETTINGS_KEYBINDINGS:
+                self.app.set_accels_for_action("app.open_any_terminal", [])
+                self._bind_shortcut()
+
+        def _bind_shortcut(self):
+            """Parse and update keybindings when settings change."""
+            shortcut = self._gsettings.get_string(GSETTINGS_KEYBINDINGS)
+
+            if not shortcut:
+                self.app.set_accels_for_action("app.open_any_terminal", [])
+                return
+
+            valid, key, mods = Gtk.accelerator_parse(shortcut)
+            if not valid:
+                print("Invalid shortcut in GSettings: %r", shortcut)
+                self.app.set_accels_for_action("app.open_any_terminal", [])
+                return
+
+            normalized = Gtk.accelerator_name(key, mods)
+            self.app.set_accels_for_action("app.open_any_terminal", [normalized])
+
+elif API_VERSION in ("3.0", "2.0"):
+
+    class OpenAnyTerminalShortcutProviderLegacy(GObject.GObject, FileManager.LocationWidgetProvider):
+        """Provide keyboard shortcuts for opening terminals in Nautilus/Caja."""
+
+        def __init__(self):
+            super().__init__()
             gsettings_source = Gio.SettingsSchemaSource.get_default()
             if gsettings_source.lookup(GSETTINGS_PATH, True):
                 self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
@@ -470,6 +540,7 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
     """Provide context menu items for opening terminals in Nautilus."""
 
     def __init__(self):
+        super().__init__()
         gsettings_source = Gio.SettingsSchemaSource.get_default()
         if gsettings_source.lookup(GSETTINGS_PATH, True):
             self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
