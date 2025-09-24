@@ -7,13 +7,13 @@ is an extension for nautilus, which adds an context-entry for opening other term
 ![screenshot](./screenshot.png)
 
 ## Supported file managers
+
 - Nautilus
 - Caja
 
 ## Supported Terminal Emulators
 
-The following terminal emulators are fully supported. PRs for other terminals
-are welcome!
+The following terminal emulators are fully supported. PRs for other terminals are welcome!
 
 - `alacritty`
 - `blackbox` ( use `blackbox-terminal` for Debian)
@@ -50,19 +50,20 @@ are welcome!
 - `xfce4-terminal`
 - `xterm`/`uxterm`
 
-Additionally, the terminal can be set to `custom`, which allows you to set
-custom commands for opening a local or remote terminal via dconf.
+Additionally, the terminal can be set to `custom`, which allows you to set custom commands for opening a local or remote terminal via dconf.
 
 ## Installing
 
-### From the AUR (Arch Linux) [![AUR  package](https://repology.org/badge/version-for-repo/aur/nautilus-open-any-terminal.svg)](https://repology.org/project/nautilus-open-any-terminal/versions)
+### From the AUR (Arch Linux) [![AUR package](https://repology.org/badge/version-for-repo/aur/nautilus-open-any-terminal.svg)](https://repology.org/project/nautilus-open-any-terminal/versions)
 
 ```bash
 yay -S nautilus-open-any-terminal
 ```
 
 ### Nixpkgs (NixOS) [![nixpkgs stable 24.05 package](https://repology.org/badge/version-for-repo/nix_stable_24_05/nautilus-open-any-terminal.svg)](https://repology.org/project/nautilus-open-any-terminal/versions)
+
 For configuration.nix (works without needing to enable Gnome DE)
+
 ```nix
 programs.nautilus-open-any-terminal = {
   enable = true;
@@ -77,6 +78,7 @@ environment.systemPackages = with pkgs; [
 ### From PYPI [![PyPI package](https://repology.org/badge/version-for-repo/pypi/nautilus-open-any-terminal.svg)](https://repology.org/project/nautilus-open-any-terminal/versions)
 
 Dependencies to install before:
+
 - `nautilus-python` (`python-nautilus`/`python3-nautilus`(newer) package on Debian / Ubuntu)
 - `gir1.2-gtk-4.0` (Debian / Ubuntu)
 - `typelib-1_0-Gtk-4_0` (openSUSE)
@@ -106,7 +108,7 @@ Or depending on your Linux Distro, you can just double-click the '.deb' file and
 
 ### For Fedora Copr
 
-```sh
+```bash
 dnf copr enable monkeygold/nautilus-open-any-terminal
 dnf install nautilus-open-any-terminal
 ```
@@ -115,7 +117,7 @@ dnf install nautilus-open-any-terminal
 
 Requires [`gettext`](https://www.gnu.org/software/gettext/).
 
-```sh
+```bash
 git clone https://github.com/Stunkymonkey/nautilus-open-any-terminal.git
 cd nautilus-open-any-terminal
 make
@@ -124,12 +126,11 @@ make install schema      # User install
 sudo make install schema # System install
 ```
 
-`install` installs this extension to extension directories of all supported file
-managers. To avoid this, use `install-nautilus` or `install-caja` instead.
+`install` installs this extension to extension directories of all supported file managers. To avoid this, use `install-nautilus` or `install-caja` instead.
 
-```sh
+```bash
 make install-nautilus schema # Install nautilus only
-make install-caja schema # Install caja only
+make install-caja schema     # Install caja only
 ```
 
 ### restart nautilus
@@ -142,7 +143,7 @@ nautilus -q
 
 ## Settings
 
-To configure the plugin’s behaviour make sure to run (system-wide):
+To configure the plugin's behaviour make sure to run (system-wide):
 
 ```bash
 glib-compile-schemas /usr/share/glib-2.0/schemas
@@ -168,9 +169,10 @@ gsettings set com.github.stunkymonkey.nautilus-open-any-terminal flatpak system
 ```
 
 ## Uninstall
-Since `setup.py` does not provide a natively uninstall method the makefile has an uninstall option.
 
-```sh
+Since `setup.py` does not provide a natively uninstall method the Makefile has an uninstall option.
+
+```bash
 make uninstall schema      # user uninstall
 sudo make uninstall schema # system uninstall
 ```
