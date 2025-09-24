@@ -1,37 +1,72 @@
 ---
-name: Upload Python Package
+name: Publish Python Package
 
 on:
   release:
-    types: [created]
+    types: [published]
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
-  deploy:
+  build:
+    name: Build distribution
     runs-on: ubuntu-latest
-
+    timeout-minutes: 10
     permissions:
       contents: read
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           fetch-tags: true
+          persist-credentials: false
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
-      - name: Install dependencies
+          python-version: "3.x"
+
+      - name: Install system dependencies
         run: |
-          sudo apt-get install gettext -y && pip install build
+          sudo apt-get update
+          sudo apt-get install -y gettext
+
+      - name: Install build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install build
+
       - name: Build package
         run: python -m build
-      - name: Install upload dependency
-        run: pip install twine
-      - name: Publish package
-        env:
-          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: twine upload dist/*
+
+      - name: Store the distribution packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+
+  publish-to-pypi:
+    name: Publish to PyPI
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
+
+    environment:
+      name: pypi
+      url: https://pypi.org/p/nautilus-open-any-terminal
+
+    steps:
+      - name: Download all the dists
+        uses: actions/download-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+
+      - name: Publish distribution to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1 # zizmor: ignore[unpinned-uses]
