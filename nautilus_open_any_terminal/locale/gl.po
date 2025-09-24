@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nautilus_open_any_terminal\n"
 "Report-Msgid-Bugs-To: github.com/gbrea \n"
-"POT-Creation-Date: 2024-07-01 12:09+0200\n"
+"POT-Creation-Date: 2024-12-19 12:09+0200\n"
 "PO-Revision-Date: 2024-11-21 14:14+0200\n"
 "Last-Translator: \n"
 "Language-Team: gbrea\n"
@@ -28,15 +28,15 @@ msgstr "Abrir remotamente no {}"
 msgid "Open Remote {} in {}"
 msgstr "Abrir {} remotamente no {}"
 
-#: nautilus_open_any_terminal.py:311
+#: nautilus_open_any_terminal.py:293
 msgid "Open in Local {}"
 msgstr "Abrir localmente no {}"
 
-#: nautilus_open_any_terminal.py:312
+#: nautilus_open_any_terminal.py:294
 msgid "Open Local {} in {}"
 msgstr "Abrir {} localmente no {}"
 
-#: nautilus_open_any_terminal.py:315
+#: nautilus_open_any_terminal.py:297
 msgid "Open Remote {} Here"
 msgstr "Abrir {} remotamente aquí"
 

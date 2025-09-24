@@ -2,41 +2,40 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nautilus_open_any_terminal\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 12:09+0200\n"
-"PO-Revision-Date: 2024-09-21 15:22+0200\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2024-12-19 12:09+0200\n"
+"PO-Revision-Date: 2024-12-19 15:22+0100\n"
+"Last-Translator: AI Assistant\n"
+"Language-Team: Italian\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 46.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Updated\n"
 
 #: nautilus_open_any_terminal.py:75 nautilus_open_any_terminal.py:479
 msgid "Terminal"
-msgstr "terminale"
+msgstr "Terminale"
 
 #: nautilus_open_any_terminal.py:291
 msgid "Open in Remote {}"
-msgstr "Apri {} remoto"
+msgstr "Apri in {} remoto"
 
 #: nautilus_open_any_terminal.py:292
-#, fuzzy
 msgid "Open Remote {} in {}"
 msgstr "Apri {} remoto in {}"
 
-#: nautilus_open_any_terminal.py:311
+#: nautilus_open_any_terminal.py:293
 msgid "Open in Local {}"
-msgstr "Apri nel {} locale"
+msgstr "Apri in {} locale"
 
-#: nautilus_open_any_terminal.py:312
-#, fuzzy
+#: nautilus_open_any_terminal.py:294
 msgid "Open Local {} in {}"
 msgstr "Apri {} locale in {}"
 
-#: nautilus_open_any_terminal.py:315
+#: nautilus_open_any_terminal.py:297
 msgid "Open Remote {} Here"
-msgstr "Apri nel {} remoto qui"
+msgstr "Apri {} remoto qui"
 
 #: nautilus_open_any_terminal.py:298
 msgid "Open Remote {} in This Directory"
@@ -44,7 +43,7 @@ msgstr "Apri {} remoto in questa cartella"
 
 #: nautilus_open_any_terminal.py:299
 msgid "Open Local {} Here"
-msgstr "Apri nel {} locale"
+msgstr "Apri {} locale qui"
 
 #: nautilus_open_any_terminal.py:300
 msgid "Open Local {} in This Directory"
@@ -52,7 +51,7 @@ msgstr "Apri {} locale in questa cartella"
 
 #: nautilus_open_any_terminal.py:311
 msgid "Open in {}"
-msgstr "Apri nel {}"
+msgstr "Apri in {}"
 
 #: nautilus_open_any_terminal.py:312
 msgid "Open {} in {}"
@@ -60,7 +59,7 @@ msgstr "Apri {} in {}"
 
 #: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"
-msgstr "Apri nel {} qui"
+msgstr "Apri {} qui"
 
 #: nautilus_open_any_terminal.py:315
 msgid "Open {} in This Directory"
@@ -72,20 +71,20 @@ msgstr "Esegui in {} remoto"
 
 #: nautilus_open_any_terminal.py:343
 msgid "Execute {} in {} via SSH"
-msgstr "Esegui {} nel {} tramite SSH"
+msgstr "Esegui {} in {} tramite SSH"
 
 #: nautilus_open_any_terminal.py:344
 msgid "Execute in Local {}"
-msgstr "Esegui nel {} locale"
+msgstr "Esegui in {} locale"
 
 #: nautilus_open_any_terminal.py:345
 msgid "Execute {} in Local {}"
-msgstr "Esegui {} nel {} locale"
+msgstr "Esegui {} in {} locale"
 
 #: nautilus_open_any_terminal.py:356
 msgid "Execute in {}"
-msgstr "Esegui nel {}"
+msgstr "Esegui in {}"
 
 #: nautilus_open_any_terminal.py:357
 msgid "Execute {} in {}"
-msgstr "Esegui {} nel {}"
+msgstr "Esegui {} in {}"
