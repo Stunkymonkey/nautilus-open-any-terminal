@@ -11,7 +11,7 @@ from gettext import gettext, translation
 from os.path import expanduser
 from subprocess import Popen
 from typing import Optional
-from urllib.parse import unquote, urlparse
+from urllib.parse import quote, unquote, urlparse
 
 from gi import get_required_version, require_version
 
@@ -554,7 +554,11 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
         if remote:
             open_remote_terminal_in_uri(file_.get_uri())
         else:
-            open_local_terminal_in_uri(file_.get_uri())
+            if file_.get_uri_scheme() == "smb":
+                file_uri = "file://" + quote(file_.get_location().get_path())
+            else:
+                file_uri = file_.get_uri()
+            open_local_terminal_in_uri(file_uri)
 
     def _menu_exe_activate_cb(self, menu, file_, remote: bool):
         if remote:
