@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nautilus_open_any_terminal\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-10 02:09+0100\n"
-"PO-Revision-Date: 2024-03-30 13:20+0100\n"
+"POT-Creation-Date: 2024-07-01 12:09+0200\n"
+"PO-Revision-Date: 2024-12-19 13:20+0100\n"
 "Last-Translator: Frédéric Petit <contact@fredericpetit.fr>\n"
 "Language-Team: Frédéric Petit <contact@fredericpetit.fr>\n"
 "Language: fr\n"
@@ -16,53 +16,85 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Updated\n"
 "X-Poedit-SearchPath-0: nautilus_open_any_terminal.py\n"
 
-#: nautilus_open_any_terminal.py:291
+#: nautilus_open_any_terminal.py:71 nautilus_open_any_terminal.py:461
+msgid "Terminal"
+msgstr "Terminal"
+
+#: nautilus_open_any_terminal.py:273
 msgid "Open in Remote {}"
 msgstr "Ouvrir à distance {}"
 
-#: nautilus_open_any_terminal.py:292
+#: nautilus_open_any_terminal.py:274
 msgid "Open Remote {} in {}"
 msgstr "Ouvrir à distance {} dans {}"
 
-#: nautilus_open_any_terminal.py:293
+#: nautilus_open_any_terminal.py:275
 msgid "Open in Local {}"
 msgstr "Ouvrir localement {}"
 
-#: nautilus_open_any_terminal.py:294
+#: nautilus_open_any_terminal.py:276
 msgid "Open Local {} in {}"
 msgstr "Ouvrir localement {} dans {}"
 
-#: nautilus_open_any_terminal.py:297
+#: nautilus_open_any_terminal.py:279
 msgid "Open Remote {} Here"
 msgstr "Ouvrir à distance {} ici"
 
-#: nautilus_open_any_terminal.py:298
+#: nautilus_open_any_terminal.py:280
 msgid "Open Remote {} in This Directory"
 msgstr "Ouvrir à distance {} dans ce dossier"
 
-#: nautilus_open_any_terminal.py:299
+#: nautilus_open_any_terminal.py:281
 msgid "Open Local {} Here"
 msgstr "Ouvrir localement {} ici"
 
-#: nautilus_open_any_terminal.py:300
+#: nautilus_open_any_terminal.py:282
 msgid "Open Local {} in This Directory"
 msgstr "Ouvrir localement {} dans ce dossier"
 
-#: nautilus_open_any_terminal.py:311
+#: nautilus_open_any_terminal.py:291
+msgid "Open Remote {}"
+msgstr "Ouvrir à distance {}"
+
+#: nautilus_open_any_terminal.py:293
 msgid "Open in {}"
 msgstr "Ouvrir dans {}"
 
-#: nautilus_open_any_terminal.py:312
+#: nautilus_open_any_terminal.py:294
 msgid "Open {} in {}"
 msgstr "Ouvrir {} dans {}"
 
-#: nautilus_open_any_terminal.py:314
+#: nautilus_open_any_terminal.py:296
 msgid "Open {} Here"
 msgstr "Ouvrir {} ici"
 
-#: nautilus_open_any_terminal.py:315
+#: nautilus_open_any_terminal.py:297
 msgid "Open {} in This Directory"
 msgstr "Ouvrir {} dans ce dossier"
+
+#: nautilus_open_any_terminal.py:324
+msgid "Execute in Remote {}"
+msgstr "Exécuter à distance {}"
+
+#: nautilus_open_any_terminal.py:325
+msgid "Execute {} in {} via SSH"
+msgstr "Exécuter {} dans {} via SSH"
+
+#: nautilus_open_any_terminal.py:326
+msgid "Execute in Local {}"
+msgstr "Exécuter localement {}"
+
+#: nautilus_open_any_terminal.py:327
+msgid "Execute {} in Local {}"
+msgstr "Exécuter {} localement dans {}"
+
+#: nautilus_open_any_terminal.py:338
+msgid "Execute in {}"
+msgstr "Exécuter dans {}"
+
+#: nautilus_open_any_terminal.py:339
+msgid "Execute {} in {}"
+msgstr "Exécuter {} dans {}"
