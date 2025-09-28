@@ -1,25 +1,54 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nautilus-open-any-terminal\n"
-"POT-Creation-Date: 2022-05-20 10:44+0300\n"
-"PO-Revision-Date: 2022-05-20 11:24+0300\n"
-"Last-Translator: Osman Karagöz <osmank3@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-19 12:09+0200\n"
+"PO-Revision-Date: 2025-09-28 17:26+0300\n"
+"Last-Translator: Osman KARAGÖZ <osmank3@gmail.com>\n"
 "Language-Team: \n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.6\n"
 "X-Poedit-SearchPath-0: nautilus_open_any_terminal.py\n"
 
+#: nautilus_open_any_terminal.py:75 nautilus_open_any_terminal.py:479
+msgid "Terminal"
+msgstr "Terminal"
+
 #: nautilus_open_any_terminal.py:291
-msgid "Open Remote {}"
-msgstr "Uzağı {} ile Aç"
+msgid "Open in Remote {}"
+msgstr "Uzak {} ile Aç"
 
 #: nautilus_open_any_terminal.py:292
 msgid "Open Remote {} in {}"
-msgstr "Uzaktaki {} {} ile Aç"
+msgstr "Uzaktaki {1}'i {0} ile Aç"
+
+#: nautilus_open_any_terminal.py:293
+msgid "Open in Local {}"
+msgstr "Yerel {} İle Aç"
+
+#: nautilus_open_any_terminal.py:294
+msgid "Open Local {} in {}"
+msgstr "Yereldeki {1}'i {0} İçinde Aç"
+
+#: nautilus_open_any_terminal.py:297
+msgid "Open Remote {} Here"
+msgstr "Burada Uzak {} Aç"
+
+#: nautilus_open_any_terminal.py:298
+msgid "Open Remote {} in This Directory"
+msgstr "Bu Dizini Uzak {} ile Aç"
+
+#: nautilus_open_any_terminal.py:299
+msgid "Open Local {} Here"
+msgstr "Burada Yerel {} Aç"
+
+#: nautilus_open_any_terminal.py:300
+msgid "Open Local {} in This Directory"
+msgstr "Bu Dizini Yerel {} ile Aç"
 
 #: nautilus_open_any_terminal.py:311
 msgid "Open in {}"
@@ -27,20 +56,36 @@ msgstr "{} İçinde Aç"
 
 #: nautilus_open_any_terminal.py:312
 msgid "Open {} in {}"
-msgstr "{} {} İçinde Aç"
-
-#: nautilus_open_any_terminal.py:297
-msgid "Open Remote {} Here"
-msgstr "Uzaktaki Burayı {} ile Aç"
-
-#: nautilus_open_any_terminal.py:298
-msgid "Open Remote {} in This Directory"
-msgstr "Uzaktaki Bu Dizini {} ile Aç"
+msgstr "{1} {0} İçinde Aç"
 
 #: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"
-msgstr "{} ile Aç"
+msgstr "Burada {} Aç"
 
 #: nautilus_open_any_terminal.py:315
 msgid "Open {} in This Directory"
-msgstr "Bu Dizini {} ile Aç"
+msgstr "Bu Dizide {} Aç"
+
+#: nautilus_open_any_terminal.py:342
+msgid "Execute in Remote {}"
+msgstr "Uzak {} İle Çalıştır"
+
+#: nautilus_open_any_terminal.py:343
+msgid "Execute {} in {} via SSH"
+msgstr "SSH üzerinden {1} konumunda {0} ile çalıştır"
+
+#: nautilus_open_any_terminal.py:344
+msgid "Execute in Local {}"
+msgstr "Yerel {} İle Çalıştır"
+
+#: nautilus_open_any_terminal.py:345
+msgid "Execute {} in Local {}"
+msgstr "{} Dosyasını Yerel {} İle Çalıştır"
+
+#: nautilus_open_any_terminal.py:356
+msgid "Execute in {}"
+msgstr "{} İçinde Çalıştır"
+
+#: nautilus_open_any_terminal.py:357
+msgid "Execute {} in {}"
+msgstr "{} Dosyasını {} İle Çalıştır"
