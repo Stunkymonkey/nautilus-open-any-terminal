@@ -425,7 +425,7 @@ def set_terminal_args(*_args):
     print(f'open-any-terminal: terminal is set to "{terminal}" {new_tab_text} {flatpak_text}')
 
 
-if API_VERSION == "4.0":
+if API_VERSION in ("4.0", "4.1"):
 
     class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.MenuProvider):
         """Provide keyboard shortcuts for opening terminals in Nautilus."""
