@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nautilus-open-any-terminal\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-16 09:53+0800\n"
+"POT-Creation-Date: 2024-12-19 12:09+0200\n"
 "PO-Revision-Date: 2023-01-16 09:53+0800\n"
 "Last-Translator: Ben Song <bensongsyz@gmail.com>\n"
 "Language-Team: \n"
@@ -12,13 +12,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-SearchPath-0: nautilus_open_any_terminal.py\n"
 
-#: nautilus_open_any_terminal.py:291
-msgid "Open Remote {}"
-msgstr "打开远程 {}"
-
 #: nautilus_open_any_terminal.py:292
 msgid "Open Remote {} in {}"
 msgstr "在 {1} 打开远程 {0}"
+
+#: nautilus_open_any_terminal.py:297
+msgid "Open Remote {} Here"
+msgstr "在此打开远程 {} "
+
+#: nautilus_open_any_terminal.py:298
+msgid "Open Remote {} in This Directory"
+msgstr "在此目录打开远程 {}"
 
 #: nautilus_open_any_terminal.py:311
 msgid "Open in {}"
@@ -27,14 +31,6 @@ msgstr "在 {} 打开"
 #: nautilus_open_any_terminal.py:312
 msgid "Open {} in {}"
 msgstr "在 {1} 打开 {0}"
-
-#: nautilus_open_any_terminal.py:314
-msgid "Open Remote {} Here"
-msgstr "在此打开远程 {} "
-
-#: nautilus_open_any_terminal.py:315
-msgid "Open Remote {} in This Directory"
-msgstr "在此目录打开远程 {}"
 
 #: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"

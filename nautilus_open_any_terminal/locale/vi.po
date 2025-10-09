@@ -29,15 +29,15 @@ msgstr "Mở từ mạng {} "
 msgid "Open Remote {} in {}"
 msgstr "Mở từ mạng {} trong {}"
 
-#: nautilus_open_any_terminal.py:311
+#: nautilus_open_any_terminal.py:293
 msgid "Open in Local {}"
 msgstr "Mở trong cục bộ {}"
 
-#: nautilus_open_any_terminal.py:312
+#: nautilus_open_any_terminal.py:294
 msgid "Open Local {} in {}"
 msgstr "Mở cục bộ {} trong {}"
 
-#: nautilus_open_any_terminal.py:315
+#: nautilus_open_any_terminal.py:297
 msgid "Open Remote {} Here"
 msgstr "Mở từ mạng {} tại đây"
 

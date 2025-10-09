@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nautilus_open_any_terminal\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 12:09+0200\n"
+"POT-Creation-Date: 2024-12-19 12:09+0200\n"
 "PO-Revision-Date: 2024-12-19 12:00+0200\n"
 "Last-Translator: AI Assistant\n"
 "Language-Team: Greek\n"
@@ -29,15 +29,15 @@ msgstr "Άνοιγμα σε απομακρυσμένο {}"
 msgid "Open Remote {} in {}"
 msgstr "Άνοιγμα απομακρυσμένου {} σε {}"
 
-#: nautilus_open_any_terminal.py:311
+#: nautilus_open_any_terminal.py:293
 msgid "Open in Local {}"
 msgstr "Άνοιγμα σε τοπικό {}"
 
-#: nautilus_open_any_terminal.py:312
+#: nautilus_open_any_terminal.py:294
 msgid "Open Local {} in {}"
 msgstr "Άνοιγμα τοπικού {} σε {}"
 
-#: nautilus_open_any_terminal.py:315
+#: nautilus_open_any_terminal.py:297
 msgid "Open Remote {} Here"
 msgstr "Άνοιγμα απομακρυσμένου {} εδώ"
 

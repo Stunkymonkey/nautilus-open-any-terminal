@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nautilus_open_any_terminal v0.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 12:09+0200\n"
+"POT-Creation-Date: 2024-12-19 12:09+0200\n"
 "PO-Revision-Date: 2025-08-29 15:49+0200\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: Jozef Gaal <preklady@mayday.sk>\n"
@@ -28,15 +28,15 @@ msgstr "Otvoriť vzdialenou aplikáciou {}"
 msgid "Open Remote {} in {}"
 msgstr "Otvoriť vzdialenou aplikáciou {} v {}"
 
-#: nautilus_open_any_terminal.py:311
+#: nautilus_open_any_terminal.py:293
 msgid "Open in Local {}"
 msgstr "Otvoriť lokálou nou aplikáci{}"
 
-#: nautilus_open_any_terminal.py:312
+#: nautilus_open_any_terminal.py:294
 msgid "Open Local {} in {}"
 msgstr "Otvoriť lokálnou aplikáciou {} v {}"
 
-#: nautilus_open_any_terminal.py:315
+#: nautilus_open_any_terminal.py:297
 msgid "Open Remote {} Here"
 msgstr "Otvoriť vzdialenou aplikáciou {} tu"
 
