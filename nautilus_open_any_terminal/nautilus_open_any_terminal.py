@@ -234,7 +234,7 @@ def ssh_command_from_uri(uri: str, *, is_directory: bool):
 
     target = shlex.quote(unquote(result.path))
     if is_directory:
-        cmd.extend(["cd", target, ";", "exec", "$SHELL", "-l"])
+        cmd.extend(["cd", target, ";", "exec", "${SHELL:-/bin/sh}", "-l"])
     else:
         cmd.extend(["exec", target])
 
