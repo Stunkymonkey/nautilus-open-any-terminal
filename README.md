@@ -16,6 +16,7 @@ is an extension for nautilus, which adds an context-entry for opening other term
 The following terminal emulators are fully supported. PRs for other terminals are welcome!
 
 - `alacritty`
+- `app2unit-term` 
 - `blackbox` ( use `blackbox-terminal` for Debian)
 - `bobcat`
 - `cool-retro-term`
@@ -45,6 +46,7 @@ The following terminal emulators are fully supported. PRs for other terminals ar
 - `tilix`
 - `urxvt`
 - `urxvtc`
+- `uwsm-terminal`
 - `warp`
 - `wezterm`
 - `xfce4-terminal`
