@@ -55,6 +55,7 @@ for localedir in [expanduser("~/.local/share/locale"), "/usr/share/locale"]:
 
 TERMINALS = {
     "alacritty": Terminal("Alacritty"),
+    "app2unit-term": Terminal("app2unit-term"),
     "blackbox": Terminal(
         "Black Box",
         workdir_arguments=["--working-directory"],
@@ -123,6 +124,7 @@ TERMINALS = {
     "tilix": Terminal("Tilix", flatpak_package="com.gexperts.Tilix"),
     "urxvt": Terminal("rxvt-unicode"),
     "urxvtc": Terminal("urxvtc"),
+    "uwsm-terminal": Terminal("uwsm-terminal"),
     "uxterm": Terminal("UXTerm"),
     "warp": Terminal(
         "Warp",
