@@ -2,10 +2,10 @@
 set -e
 
 if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
-    # Recompile GSettings schemas after removal
-    if [ -x /usr/bin/glib-compile-schemas ]; then
-        glib-compile-schemas /usr/share/glib-2.0/schemas || true
-    fi
+	# Recompile GSettings schemas after removal
+	if [ -x /usr/bin/glib-compile-schemas ]; then
+		glib-compile-schemas /usr/share/glib-2.0/schemas || true
+	fi
 fi
 
 #DEBHELPER#

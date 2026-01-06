@@ -21,6 +21,7 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -52,8 +53,8 @@ jobs:
             VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "0.6.3")
           fi
           # Remove 'v' prefix if present
-          VERSION=${VERSION#v}
-          echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
+          VERSION="${VERSION#v}"
+          echo "VERSION=${VERSION}" >> "$GITHUB_OUTPUT"
           echo "Building version: ${VERSION}"
 
       - name: Update changelog with version
@@ -88,8 +89,8 @@ jobs:
           OLD_DEB=$(ls ../*.deb)
           NEW_DEB="nautilus-open-any-terminal_${VERSION}_${ARCH}.deb"
           mv "$OLD_DEB" "../${NEW_DEB}"
-          echo "DEB_FILE=${NEW_DEB}" >> $GITHUB_OUTPUT
-          echo "DEB_PATH=../${NEW_DEB}" >> $GITHUB_OUTPUT
+          echo "DEB_FILE=${NEW_DEB}" >> "$GITHUB_OUTPUT"
+          echo "DEB_PATH=../${NEW_DEB}" >> "$GITHUB_OUTPUT"
 
       - name: Upload as artifact
         uses: actions/upload-artifact@v4
@@ -100,11 +101,9 @@ jobs:
 
       - name: Upload to GitHub Release
         if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@c062e08bd532815e2082a85e87e3ef29c3e6d191 # v2.0.8
         with:
           files: ${{ steps.rename.outputs.DEB_PATH }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Comment on issue
         if: github.event_name == 'release'

@@ -99,7 +99,7 @@ pip install nautilus-open-any-terminal
 
 ### For Debian/Ubuntu based Distros
 
-Download the '.deb' package from the [GitHub releases page](https://github.com/Stunkymonkey/nautilus-open-any-terminal/releases/latest). 
+Download the '.deb' package from the [GitHub releases page](https://github.com/Stunkymonkey/nautilus-open-any-terminal/releases/latest).
 Debian packages are automatically built and attached to each release via CI.
 
 After downloading, install it with the apt command:

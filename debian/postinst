@@ -1,11 +1,11 @@
 #!/bin/sh
 set -e
 
-if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
-    # Compile GSettings schemas
-    if [ -x /usr/bin/glib-compile-schemas ]; then
-        glib-compile-schemas /usr/share/glib-2.0/schemas || true
-    fi
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ]; then
+	# Compile GSettings schemas
+	if [ -x /usr/bin/glib-compile-schemas ]; then
+		glib-compile-schemas /usr/share/glib-2.0/schemas || true
+	fi
 fi
 
 #DEBHELPER#
