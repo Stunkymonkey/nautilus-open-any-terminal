@@ -100,10 +100,12 @@ jobs:
           mv "$NAUTILUS_DEB" "../${NAUTILUS_NEW}"
           mv "$CAJA_DEB" "../${CAJA_NEW}"
 
-          echo "NAUTILUS_DEB=${NAUTILUS_NEW}" >> "$GITHUB_OUTPUT"
-          echo "CAJA_DEB=${CAJA_NEW}" >> "$GITHUB_OUTPUT"
-          echo "NAUTILUS_PATH=../${NAUTILUS_NEW}" >> "$GITHUB_OUTPUT"
-          echo "CAJA_PATH=../${CAJA_NEW}" >> "$GITHUB_OUTPUT"
+          {
+            echo "NAUTILUS_DEB=${NAUTILUS_NEW}"
+            echo "CAJA_DEB=${CAJA_NEW}"
+            echo "NAUTILUS_PATH=../${NAUTILUS_NEW}"
+            echo "CAJA_PATH=../${CAJA_NEW}"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Upload as artifacts
         uses: actions/upload-artifact@v4
