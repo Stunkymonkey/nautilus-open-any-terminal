@@ -97,14 +97,18 @@ jobs:
           NAUTILUS_NEW="nautilus-extension-any-terminal_${VERSION}-1_all.deb"
           CAJA_NEW="caja-extension-any-terminal_${VERSION}-1_all.deb"
 
-          mv "$NAUTILUS_DEB" "../${NAUTILUS_NEW}"
-          mv "$CAJA_DEB" "../${CAJA_NEW}"
+          # Ensure a workspace-local dist directory for uploads
+          mkdir -p "$GITHUB_WORKSPACE/dist"
+
+          # Move the renamed packages into the workspace (no '..' in path)
+          mv "$NAUTILUS_DEB" "$GITHUB_WORKSPACE/dist/${NAUTILUS_NEW}"
+          mv "$CAJA_DEB" "$GITHUB_WORKSPACE/dist/${CAJA_NEW}"
 
           {
             echo "NAUTILUS_DEB=${NAUTILUS_NEW}"
             echo "CAJA_DEB=${CAJA_NEW}"
-            echo "NAUTILUS_PATH=../${NAUTILUS_NEW}"
-            echo "CAJA_PATH=../${CAJA_NEW}"
+            echo "NAUTILUS_PATH=dist/${NAUTILUS_NEW}"
+            echo "CAJA_PATH=dist/${CAJA_NEW}"
           } >> "$GITHUB_OUTPUT"
 
       - name: Upload as artifacts
@@ -123,29 +127,3 @@ jobs:
           files: |
             ${{ steps.rename.outputs.NAUTILUS_PATH }}
             ${{ steps.rename.outputs.CAJA_PATH }}
-
-      - name: Comment on issue
-        if: github.event_name == 'release'
-        uses: actions/github-script@v7
-        env:
-          VERSION: ${{ steps.version.outputs.VERSION }}
-          NAUTILUS_DEB: ${{ steps.rename.outputs.NAUTILUS_DEB }}
-          CAJA_DEB: ${{ steps.rename.outputs.CAJA_DEB }}
-        with:
-          script: |
-            const version = process.env.VERSION;
-            const nautilusDeb = process.env.NAUTILUS_DEB;
-            const cajaDeb = process.env.CAJA_DEB;
-
-            // Comment on issue #225
-            const issueNumber = 225;
-            try {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issueNumber,
-                body: `🎉 Debian packages have been automatically built and attached to release v${version}!\n\n**Packages:**\n- \`${nautilusDeb}\` - For Nautilus\n- \`${cajaDeb}\` - For Caja (MATE)\n\nDownload them from: https://github.com/${context.repo.owner}/${context.repo.repo}/releases/tag/v${version}`
-              });
-            } catch (error) {
-              console.log('Could not comment on issue:', error.message);
-            }
