@@ -59,7 +59,8 @@ cover/
 
 # Debian packaging
 debian/.debhelper/
-debian/nautilus-open-any-terminal/
+debian/nautilus-extension-any-terminal/
+debian/caja-extension-any-terminal/
 debian/files
 debian/*.substvars
 debian/*.debhelper
