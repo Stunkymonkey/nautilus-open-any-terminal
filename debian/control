@@ -1,0 +1,32 @@
+Source: nautilus-open-any-terminal
+Section: gnome
+Priority: optional
+Maintainer: Felix Buehler <account@buehler.rocks>
+Build-Depends: debhelper-compat (= 13),
+               dh-python,
+               python3-all,
+               python3-setuptools,
+               python3-setuptools-scm,
+               gettext
+Standards-Version: 4.6.0
+Homepage: https://github.com/Stunkymonkey/nautilus-open-any-terminal
+Vcs-Browser: https://github.com/Stunkymonkey/nautilus-open-any-terminal
+Vcs-Git: https://github.com/Stunkymonkey/nautilus-open-any-terminal.git
+
+Package: nautilus-open-any-terminal
+Architecture: all
+Depends: ${python3:Depends},
+         ${misc:Depends},
+         python3-nautilus,
+         nautilus
+Description: Nautilus extension to open any terminal emulator
+ This is an extension for Nautilus which adds a context menu entry
+ for opening various terminal emulators instead of being limited
+ to gnome-terminal.
+ .
+ Supported terminal emulators include: alacritty, blackbox, cool-retro-term,
+ contour, deepin-terminal, elementary-terminal, foot, footclient, ghostty,
+ gnome-terminal, guake, hyper, kermit, kgx (GNOME Console), kitty, konsole,
+ mate-terminal, mlterm, ptyxis, putty, qterminal, rio, roxterm, sakura,
+ st, tabby, terminator, terminology, terminus, termite, tilix, urxvt,
+ urxvtc, warp, wezterm, xfce4-terminal, xterm and many more.

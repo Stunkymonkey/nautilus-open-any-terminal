@@ -1,0 +1,128 @@
+---
+name: Build Debian Package
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-deb:
+    name: Build Debian Package
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            debhelper \
+            dh-python \
+            python3-all \
+            python3-setuptools \
+            python3-setuptools-scm \
+            python3-nautilus \
+            gettext \
+            devscripts \
+            build-essential \
+            fakeroot
+
+      - name: Get version from git tag
+        id: version
+        run: |
+          # Get the tag name from the release or use current tag
+          if [ "${{ github.event_name }}" = "release" ]; then
+            VERSION="${{ github.event.release.tag_name }}"
+          else
+            VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "0.6.3")
+          fi
+          # Remove 'v' prefix if present
+          VERSION=${VERSION#v}
+          echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
+          echo "Building version: ${VERSION}"
+
+      - name: Update changelog with version
+        run: |
+          VERSION="${{ steps.version.outputs.VERSION }}"
+          DATE=$(date -R)
+          cat > debian/changelog << EOF
+          nautilus-open-any-terminal (${VERSION}) unstable; urgency=medium
+
+            * Release version ${VERSION}
+            * See https://github.com/Stunkymonkey/nautilus-open-any-terminal/releases/tag/v${VERSION}
+
+           -- Felix Buehler <account@buehler.rocks>  ${DATE}
+          EOF
+
+      - name: Build Debian package
+        run: |
+          dpkg-buildpackage -us -uc -b
+
+      - name: List built packages
+        run: |
+          echo "Built packages:"
+          ls -lah ../*.deb || true
+          ls -lah ../*.changes || true
+          ls -lah ../*.buildinfo || true
+
+      - name: Rename package with version
+        id: rename
+        run: |
+          VERSION="${{ steps.version.outputs.VERSION }}"
+          ARCH=$(dpkg --print-architecture)
+          OLD_DEB=$(ls ../*.deb)
+          NEW_DEB="nautilus-open-any-terminal_${VERSION}_${ARCH}.deb"
+          mv "$OLD_DEB" "../${NEW_DEB}"
+          echo "DEB_FILE=${NEW_DEB}" >> $GITHUB_OUTPUT
+          echo "DEB_PATH=../${NEW_DEB}" >> $GITHUB_OUTPUT
+
+      - name: Upload as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: debian-package
+          path: ${{ steps.rename.outputs.DEB_PATH }}
+          if-no-files-found: error
+
+      - name: Upload to GitHub Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ steps.rename.outputs.DEB_PATH }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment on issue
+        if: github.event_name == 'release'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const version = '${{ steps.version.outputs.VERSION }}';
+            const debFile = '${{ steps.rename.outputs.DEB_FILE }}';
+            
+            // Comment on issue #225
+            const issueNumber = 225;
+            try {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: `🎉 Debian package \`${debFile}\` has been automatically built and attached to release v${version}!\n\nDownload it from: https://github.com/${context.repo.owner}/${context.repo.repo}/releases/tag/v${version}`
+              });
+            } catch (error) {
+              console.log('Could not comment on issue:', error.message);
+            }

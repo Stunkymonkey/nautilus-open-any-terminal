@@ -1,0 +1,6 @@
+nautilus-open-any-terminal (0.6.3) unstable; urgency=medium
+
+  * Automated debian package build
+  * See https://github.com/Stunkymonkey/nautilus-open-any-terminal/releases
+
+ -- Felix Buehler <account@buehler.rocks>  Mon, 06 Jan 2026 00:00:00 +0000
