@@ -23,13 +23,6 @@ Description: Nautilus extension to open any terminal emulator
  This is an extension for Nautilus which adds a context menu entry
  for opening various terminal emulators instead of being limited
  to gnome-terminal.
- .
- Supported terminal emulators include: alacritty, blackbox, cool-retro-term,
- contour, deepin-terminal, elementary-terminal, foot, footclient, ghostty,
- gnome-terminal, guake, hyper, kermit, kgx (GNOME Console), kitty, konsole,
- mate-terminal, mlterm, ptyxis, putty, qterminal, rio, roxterm, sakura,
- st, tabby, terminator, terminology, terminus, termite, tilix, urxvt,
- urxvtc, warp, wezterm, xfce4-terminal, xterm and many more.
 
 Package: caja-extension-any-terminal
 Architecture: all
@@ -41,10 +34,3 @@ Description: Caja extension to open any terminal emulator
  This is an extension for Caja (MATE file manager) which adds a context
  menu entry for opening various terminal emulators instead of being limited
  to mate-terminal.
- .
- Supported terminal emulators include: alacritty, blackbox, cool-retro-term,
- contour, deepin-terminal, elementary-terminal, foot, footclient, ghostty,
- gnome-terminal, guake, hyper, kermit, kgx (GNOME Console), kitty, konsole,
- mate-terminal, mlterm, ptyxis, putty, qterminal, rio, roxterm, sakura,
- st, tabby, terminator, terminology, terminus, termite, tilix, urxvt,
- urxvtc, warp, wezterm, xfce4-terminal, xterm and many more.
