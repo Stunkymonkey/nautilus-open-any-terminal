@@ -1,0 +1,129 @@
+---
+name: Build Debian Package
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-deb:
+    name: Build Debian Package
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            debhelper \
+            dh-python \
+            python3-all \
+            python3-setuptools \
+            python3-setuptools-scm \
+            python3-nautilus \
+            gettext \
+            devscripts \
+            build-essential \
+            fakeroot
+
+      - name: Get version from git tag
+        id: version
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          # Get the tag name from the release or use current tag
+          if [ "$EVENT_NAME" = "release" ]; then
+            VERSION="$TAG_NAME"
+          else
+            VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "0.6.3")
+          fi
+          # Remove 'v' prefix if present
+          VERSION="${VERSION#v}"
+          echo "VERSION=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "Building version: ${VERSION}"
+
+      - name: Update changelog with version
+        env:
+          VERSION: ${{ steps.version.outputs.VERSION }}
+        run: |
+          DATE=$(date -R)
+          cat > debian/changelog << EOF
+          nautilus-open-any-terminal (${VERSION}) unstable; urgency=medium
+
+            * Release version ${VERSION}
+            * See https://github.com/Stunkymonkey/nautilus-open-any-terminal/releases/tag/v${VERSION}
+
+           -- Felix Buehler <account@buehler.rocks>  ${DATE}
+          EOF
+
+      - name: Build Debian package
+        run: |
+          dpkg-buildpackage -us -uc -b
+
+      - name: List built packages
+        run: |
+          echo "Built packages:"
+          ls -lah ../*.deb || true
+          ls -lah ../*.changes || true
+          ls -lah ../*.buildinfo || true
+
+      - name: Rename packages with version
+        id: rename
+        env:
+          VERSION: ${{ steps.version.outputs.VERSION }}
+        run: |
+          # Find and rename both packages
+          NAUTILUS_DEB=$(ls ../nautilus-extension-any-terminal_*.deb)
+          CAJA_DEB=$(ls ../caja-extension-any-terminal_*.deb)
+
+          NAUTILUS_NEW="nautilus-extension-any-terminal_${VERSION}-1_all.deb"
+          CAJA_NEW="caja-extension-any-terminal_${VERSION}-1_all.deb"
+
+          # Ensure a workspace-local dist directory for uploads
+          mkdir -p "$GITHUB_WORKSPACE/dist"
+
+          # Move the renamed packages into the workspace (no '..' in path)
+          mv "$NAUTILUS_DEB" "$GITHUB_WORKSPACE/dist/${NAUTILUS_NEW}"
+          mv "$CAJA_DEB" "$GITHUB_WORKSPACE/dist/${CAJA_NEW}"
+
+          {
+            echo "NAUTILUS_DEB=${NAUTILUS_NEW}"
+            echo "CAJA_DEB=${CAJA_NEW}"
+            echo "NAUTILUS_PATH=dist/${NAUTILUS_NEW}"
+            echo "CAJA_PATH=dist/${CAJA_NEW}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Upload as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: debian-packages
+          path: |
+            ${{ steps.rename.outputs.NAUTILUS_PATH }}
+            ${{ steps.rename.outputs.CAJA_PATH }}
+          if-no-files-found: error
+
+      - name: Upload to GitHub Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@c062e08bd532815e2082a85e87e3ef29c3e6d191 # v2.0.8
+        with:
+          files: |
+            ${{ steps.rename.outputs.NAUTILUS_PATH }}
+            ${{ steps.rename.outputs.CAJA_PATH }}

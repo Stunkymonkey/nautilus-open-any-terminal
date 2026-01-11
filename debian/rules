@@ -1,0 +1,30 @@
+#!/usr/bin/make -f
+
+export PYBUILD_NAME=nautilus-open-any-terminal
+
+%:
+	dh $@ --with python3 --buildsystem=pybuild
+
+override_dh_auto_install:
+	dh_auto_install
+
+override_dh_install:
+	# Install for nautilus
+	install -D -m 644 nautilus_open_any_terminal/nautilus_open_any_terminal.py \
+		debian/nautilus-extension-any-terminal/usr/share/nautilus-python/extensions/nautilus_open_any_terminal.py
+	# Install for caja
+	install -D -m 644 nautilus_open_any_terminal/nautilus_open_any_terminal.py \
+		debian/caja-extension-any-terminal/usr/share/caja-python/extensions/nautilus_open_any_terminal.py
+	# Install schemas for both packages
+	install -D -m 644 nautilus_open_any_terminal/schemas/com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml \
+		debian/nautilus-extension-any-terminal/usr/share/glib-2.0/schemas/com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml
+	install -D -m 644 nautilus_open_any_terminal/schemas/com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml \
+		debian/caja-extension-any-terminal/usr/share/glib-2.0/schemas/com.github.stunkymonkey.nautilus-open-any-terminal.gschema.xml
+	# Install locale files for both packages
+	for mo in nautilus_open_any_terminal/locale/*.mo; do \
+		locale=$$(basename $$mo .mo); \
+		install -D -m 644 $$mo \
+			debian/nautilus-extension-any-terminal/usr/share/locale/$$locale/LC_MESSAGES/nautilus-open-any-terminal.mo; \
+		install -D -m 644 $$mo \
+			debian/caja-extension-any-terminal/usr/share/locale/$$locale/LC_MESSAGES/nautilus-open-any-terminal.mo; \
+	done

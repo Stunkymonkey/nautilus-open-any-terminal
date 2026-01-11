@@ -1,0 +1,36 @@
+Source: nautilus-open-any-terminal
+Section: gnome
+Priority: optional
+Maintainer: Felix Buehler <account@buehler.rocks>
+Build-Depends: debhelper-compat (= 13),
+               dh-python,
+               python3-all,
+               python3-setuptools,
+               python3-setuptools-scm,
+               gettext
+Standards-Version: 4.6.0
+Homepage: https://github.com/Stunkymonkey/nautilus-open-any-terminal
+Vcs-Browser: https://github.com/Stunkymonkey/nautilus-open-any-terminal
+Vcs-Git: https://github.com/Stunkymonkey/nautilus-open-any-terminal.git
+
+Package: nautilus-extension-any-terminal
+Architecture: all
+Depends: ${python3:Depends},
+         ${misc:Depends},
+         python3-nautilus,
+         nautilus
+Description: Nautilus extension to open any terminal emulator
+ This is an extension for Nautilus which adds a context menu entry
+ for opening various terminal emulators instead of being limited
+ to gnome-terminal.
+
+Package: caja-extension-any-terminal
+Architecture: all
+Depends: ${python3:Depends},
+         ${misc:Depends},
+         python3-caja,
+         caja
+Description: Caja extension to open any terminal emulator
+ This is an extension for Caja (MATE file manager) which adds a context
+ menu entry for opening various terminal emulators instead of being limited
+ to mate-terminal.

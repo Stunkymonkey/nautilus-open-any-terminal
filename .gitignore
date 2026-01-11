@@ -57,6 +57,16 @@ cover/
 # Translations
 *.mo
 
+# Debian packaging
+debian/.debhelper/
+debian/nautilus-extension-any-terminal/
+debian/caja-extension-any-terminal/
+debian/files
+debian/*.substvars
+debian/*.debhelper
+debian/*.log
+debian/debhelper-build-stamp
+
 # Django stuff:
 *.log
 local_settings.py
