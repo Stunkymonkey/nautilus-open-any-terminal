@@ -50,7 +50,7 @@ try:
                 API_VERSION = "3.0"
             except ImportError:
                 print("nautilus-open-any-terminal: ERROR - Could not import file manager. Extension disabled.")
-except Exception as e:
+except (ImportError, ValueError, AttributeError) as e:
     print(f"nautilus-open-any-terminal: ERROR during initialization: {e}")
 
 from gi.repository import Gio, GLib, GObject, Gtk  # noqa: E402 pylint: disable=wrong-import-position
@@ -580,7 +580,7 @@ if FileManager is not None:
                 gsettings_source = Gio.SettingsSchemaSource.get_default()
                 if gsettings_source and gsettings_source.lookup(GSETTINGS_PATH, True):
                     self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
-            except Exception as e:
+            except GLib.Error as e:
                 print(
                     f"nautilus-open-any-terminal: Warning - Could not load GSettings: {e}"
                 )
@@ -657,7 +657,7 @@ try:
     else:
         print("nautilus-open-any-terminal: Warning - GSettings schema not found. Using default terminal.")
         terminal_cmd = ["gnome-terminal"]
-except Exception as e:
+except (GLib.Error, AttributeError) as e:
     print(f"nautilus-open-any-terminal: ERROR - Failed to initialize GSettings: {e}")
     print("nautilus-open-any-terminal: Using default terminal: gnome-terminal")
     terminal_cmd = ["gnome-terminal"]
