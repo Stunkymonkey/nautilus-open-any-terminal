@@ -286,7 +286,10 @@ def open_local_terminal_in_uri(uri: str):
     if terminal == "warp":
         # Force new_tab to be considered even without traditional tab arguments
         Popen(  # pylint: disable=consider-using-with
-            ["xdg-open", f"warp://action/new_{'tab' if new_tab else 'window'}?path={result.path}"]
+            [
+                "xdg-open",
+                f"warp://action/new_{'tab' if new_tab else 'window'}?path={result.path}",
+            ]
         )
         return
 
@@ -314,7 +317,11 @@ def executable_menu_item_id(*, remote: bool):
 
 
 def get_directory_menu_items(
-    file: FileManager.FileInfo, callback, *, foreground: bool, terminal_name: str | None = None  # type: ignore[name-defined]
+    file: FileManager.FileInfo,
+    callback,
+    *,
+    foreground: bool,
+    terminal_name: str | None = None,  # type: ignore[name-defined]
 ):
     items = []
     remote = file.get_uri_scheme() in REMOTE_URI_SCHEME
@@ -369,7 +376,9 @@ def get_directory_menu_items(
     return items
 
 
-def get_executable_menu_items(file: FileManager.FileInfo, callback, *, terminal_name: str | None = None):  # type: ignore[name-defined]
+def get_executable_menu_items(
+    file: FileManager.FileInfo, callback, *, terminal_name: str | None = None
+):  # type: ignore[name-defined]
     items = []
     remote = file.get_uri_scheme() in REMOTE_URI_SCHEME
     terminal_name = terminal_name or terminal_data.name
@@ -534,7 +543,9 @@ if FileManager is not None and API_VERSION in ("4.0", "4.1"):
 
 elif FileManager is not None and API_VERSION in ("3.0", "2.0"):
 
-    class OpenAnyTerminalShortcutProviderLegacy(GObject.GObject, FileManager.LocationWidgetProvider):  # type: ignore[name-defined]
+    class OpenAnyTerminalShortcutProviderLegacy(
+        GObject.GObject, FileManager.LocationWidgetProvider
+    ):  # type: ignore[name-defined]
         """Provide keyboard shortcuts for opening terminals in Nautilus/Caja."""
 
         def __init__(self):
@@ -632,12 +643,17 @@ if FileManager is not None:
 
             if file_.is_directory():
                 return get_directory_menu_items(
-                    file_, self._menu_dir_activate_cb, foreground=True, terminal_name=self._get_terminal_name()
+                    file_,
+                    self._menu_dir_activate_cb,
+                    foreground=True,
+                    terminal_name=self._get_terminal_name(),
                 )
 
             if is_executable(file_.get_location()):
                 return get_executable_menu_items(
-                    file_, self._menu_exe_activate_cb, terminal_name=self._get_terminal_name()
+                    file_,
+                    self._menu_exe_activate_cb,
+                    terminal_name=self._get_terminal_name(),
                 )
 
             return []
@@ -649,7 +665,10 @@ if FileManager is not None:
 
             file_ = args[-1]
             return get_directory_menu_items(
-                file_, self._menu_dir_activate_cb, foreground=False, terminal_name=self._get_terminal_name()
+                file_,
+                self._menu_dir_activate_cb,
+                foreground=False,
+                terminal_name=self._get_terminal_name(),
             )
 
 
