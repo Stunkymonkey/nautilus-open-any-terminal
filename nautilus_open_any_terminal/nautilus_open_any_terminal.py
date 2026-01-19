@@ -3,6 +3,7 @@
 # based on: https://github.com/gnunn1/tilix/blob/master/data/nautilus/open-tilix.py
 
 import ast
+import os
 import re
 import shlex
 from dataclasses import dataclass, field
@@ -15,18 +16,44 @@ from urllib.parse import quote, unquote, urlparse
 
 from gi import get_required_version, require_version
 
-API_VERSION: str
-if (API_VERSION := get_required_version("Nautilus")) is not None:
-    try:
-        require_version("Gtk", "4.0")
-    except ValueError:
+API_VERSION: Optional[str] = None
+FileManager = None
+
+try:
+    if (API_VERSION := get_required_version("Nautilus")) is not None:
+        try:
+            require_version("Gtk", "4.0")
+        except ValueError:
+            require_version("Gtk", "3.0")
+        from gi.repository import Nautilus as FileManager
+    elif (API_VERSION := get_required_version("Caja")) is not None:
         require_version("Gtk", "3.0")
-    from gi.repository import Nautilus as FileManager
-elif (API_VERSION := get_required_version("Caja")) is not None:
-    require_version("Gtk", "3.0")
-    from gi.repository import Caja as FileManager
-else:
-    raise RuntimeError("This module can only be executed as a Nautilus/Caja extension")
+        from gi.repository import Caja as FileManager
+    else:
+        print(
+            "nautilus-open-any-terminal: Warning - Could not detect file manager, trying fallback"
+        )
+        try:
+            require_version("Gtk", "4.0")
+        except ValueError:
+            require_version("Gtk", "3.0")
+        try:
+            from gi.repository import Nautilus as FileManager
+
+            API_VERSION = "4.1"
+        except ImportError:
+            try:
+                from gi.repository import Caja as FileManager
+
+                API_VERSION = "3.0"
+            except ImportError:
+                print(
+                    "nautilus-open-any-terminal: ERROR - Could not import file manager. Extension disabled."
+                )
+                FileManager = None
+except Exception as e:
+    print(f"nautilus-open-any-terminal: ERROR during initialization: {e}")
+    FileManager = None
 
 from gi.repository import Gio, GLib, GObject, Gtk  # noqa: E402 pylint: disable=wrong-import-position
 
@@ -270,7 +297,12 @@ def open_local_terminal_in_uri(uri: str):
         cmd.extend(terminal_data.workdir_arguments)
         cmd.append(filename)
 
-    Popen(cmd, cwd=filename)  # pylint: disable=consider-using-with
+    # Clean environment to avoid Flatpak library conflicts
+    clean_env = os.environ.copy()
+    for key in ["LD_LIBRARY_PATH", "LD_PRELOAD"]:
+        clean_env.pop(key, None)
+
+    Popen(cmd, cwd=filename, env=clean_env)  # pylint: disable=consider-using-with
 
 
 def directory_menu_item_id(*, foreground: bool, remote: bool):
@@ -427,7 +459,7 @@ def set_terminal_args(*_args):
     print(f'open-any-terminal: terminal is set to "{terminal}" {new_tab_text} {flatpak_text}')
 
 
-if API_VERSION == "4.0":
+if API_VERSION in ("4.0", "4.1"):
 
     class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.MenuProvider):
         """Provide keyboard shortcuts for opening terminals in Nautilus."""
@@ -543,12 +575,18 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
 
     def __init__(self):
         super().__init__()
-        gsettings_source = Gio.SettingsSchemaSource.get_default()
-        if gsettings_source.lookup(GSETTINGS_PATH, True):
-            self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
+        self._gsettings = None
+        try:
+            gsettings_source = Gio.SettingsSchemaSource.get_default()
+            if gsettings_source and gsettings_source.lookup(GSETTINGS_PATH, True):
+                self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
+        except Exception as e:
+            print(
+                f"nautilus-open-any-terminal: Warning - Could not load GSettings: {e}"
+            )
 
     def _get_terminal_name(self):
-        if self._gsettings.get_boolean(GSETTINGS_USE_GENERIC_TERMINAL_NAME):
+        if self._gsettings and self._gsettings.get_boolean(GSETTINGS_USE_GENERIC_TERMINAL_NAME):
             return _("Terminal")
         return None
 
@@ -609,8 +647,19 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
         )
 
 
-source = Gio.SettingsSchemaSource.get_default()
-if source is not None and source.lookup(GSETTINGS_PATH, True):
-    _gsettings = Gio.Settings.new(GSETTINGS_PATH)
-    _gsettings.connect("changed", set_terminal_args)
-    set_terminal_args()
+_gsettings = None
+try:
+    source = Gio.SettingsSchemaSource.get_default()
+    if source is not None and source.lookup(GSETTINGS_PATH, True):
+        _gsettings = Gio.Settings.new(GSETTINGS_PATH)
+        _gsettings.connect("changed", set_terminal_args)
+        set_terminal_args()
+    else:
+        print(
+            f"nautilus-open-any-terminal: Warning - GSettings schema not found. Using default terminal."
+        )
+        terminal_cmd = ["gnome-terminal"]
+except Exception as e:
+    print(f"nautilus-open-any-terminal: ERROR - Failed to initialize GSettings: {e}")
+    print(f"nautilus-open-any-terminal: Using default terminal: gnome-terminal")
+    terminal_cmd = ["gnome-terminal"]
