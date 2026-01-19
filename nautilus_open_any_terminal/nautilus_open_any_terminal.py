@@ -47,9 +47,7 @@ try:
 
                 API_VERSION = "3.0"
             except ImportError:
-                print(
-                    "nautilus-open-any-terminal: ERROR - Could not import file manager. Extension disabled."
-                )
+                print("nautilus-open-any-terminal: ERROR - Could not import file manager. Extension disabled.")
                 FileManager = None
 except Exception as e:
     print(f"nautilus-open-any-terminal: ERROR during initialization: {e}")
