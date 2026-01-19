@@ -26,26 +26,28 @@ try:
         except ValueError:
             require_version("Gtk", "3.0")
         from gi.repository import Nautilus
+
         FileManager = Nautilus
     elif (API_VERSION := get_required_version("Caja")) is not None:
         require_version("Gtk", "3.0")
         from gi.repository import Caja
+
         FileManager = Caja
     else:
-        print(
-            "nautilus-open-any-terminal: Warning - Could not detect file manager, trying fallback"
-        )
+        print("nautilus-open-any-terminal: Warning - Could not detect file manager, trying fallback")
         try:
             require_version("Gtk", "4.0")
         except ValueError:
             require_version("Gtk", "3.0")
         try:
             from gi.repository import Nautilus
+
             FileManager = Nautilus
             API_VERSION = "4.1"
         except ImportError:
             try:
                 from gi.repository import Caja
+
                 FileManager = Caja
                 API_VERSION = "3.0"
             except ImportError:
@@ -332,13 +334,14 @@ def get_directory_menu_items(
             LOCAL_TIP = _("Open Local {} in This Directory")
             tip = REMOTE_TIP.format(terminal_name)
 
-        item = FileManager.MenuItem(
-            name=directory_menu_item_id(foreground=foreground, remote=True),
-            label=REMOTE_LABEL.format(terminal_name),
-            tip=tip,
-        )
-        item.connect("activate", callback, file, True)
-        items.append(item)
+        if FileManager is not None:
+            item = FileManager.MenuItem(
+                name=directory_menu_item_id(foreground=foreground, remote=True),
+                label=REMOTE_LABEL.format(terminal_name),
+                tip=tip,
+            )
+            item.connect("activate", callback, file, True)
+            items.append(item)
     elif foreground:
         LOCAL_LABEL = _("Open in {}")
         LOCAL_TIP = _("Open {} in {}")
@@ -355,13 +358,14 @@ def get_directory_menu_items(
     else:
         tip = LOCAL_TIP.format(terminal_name)
 
-    item = FileManager.MenuItem(
-        name=directory_menu_item_id(foreground=foreground, remote=False),
-        label=LOCAL_LABEL.format(terminal_name),
-        tip=tip,
-    )
-    item.connect("activate", callback, file, False)
-    items.append(item)
+    if FileManager is not None:
+        item = FileManager.MenuItem(
+            name=directory_menu_item_id(foreground=foreground, remote=False),
+            label=LOCAL_LABEL.format(terminal_name),
+            tip=tip,
+        )
+        item.connect("activate", callback, file, False)
+        items.append(item)
     return items
 
 
@@ -377,25 +381,27 @@ def get_executable_menu_items(file: FileManager.FileInfo, callback, *, terminal_
         LOCAL_TIP = _("Execute {} in Local {}")
 
         tip = REMOTE_TIP.format(file.get_name(), terminal_name)
-        item = FileManager.MenuItem(
-            name=executable_menu_item_id(remote=True),
-            label=REMOTE_LABEL.format(terminal_name),
-            tip=tip,
-        )
-        item.connect("activate", callback, file, True)
-        items.append(item)
+        if FileManager is not None:
+            item = FileManager.MenuItem(
+                name=executable_menu_item_id(remote=True),
+                label=REMOTE_LABEL.format(terminal_name),
+                tip=tip,
+            )
+            item.connect("activate", callback, file, True)
+            items.append(item)
     else:
         LOCAL_LABEL = _("Execute in {}")
         LOCAL_TIP = _("Execute {} in {}")
 
     tip = LOCAL_TIP.format(file.get_name(), terminal_name)
-    item = FileManager.MenuItem(
-        name=executable_menu_item_id(remote=False),
-        label=LOCAL_LABEL.format(terminal_name),
-        tip=tip,
-    )
-    item.connect("activate", callback, file, False)
-    items.append(item)
+    if FileManager is not None:
+        item = FileManager.MenuItem(
+            name=executable_menu_item_id(remote=False),
+            label=LOCAL_LABEL.format(terminal_name),
+            tip=tip,
+        )
+        item.connect("activate", callback, file, False)
+        items.append(item)
     return items
 
 
@@ -581,9 +587,7 @@ if FileManager is not None:
                 if gsettings_source and gsettings_source.lookup(GSETTINGS_PATH, True):
                     self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
             except GLib.Error as e:
-                print(
-                    f"nautilus-open-any-terminal: Warning - Could not load GSettings: {e}"
-                )
+                print(f"nautilus-open-any-terminal: Warning - Could not load GSettings: {e}")
 
         def _get_terminal_name(self):
             if self._gsettings and self._gsettings.get_boolean(GSETTINGS_USE_GENERIC_TERMINAL_NAME):
@@ -632,7 +636,9 @@ if FileManager is not None:
                 )
 
             if is_executable(file_.get_location()):
-                return get_executable_menu_items(file_, self._menu_exe_activate_cb, terminal_name=self._get_terminal_name())
+                return get_executable_menu_items(
+                    file_, self._menu_exe_activate_cb, terminal_name=self._get_terminal_name()
+                )
 
             return []
 
