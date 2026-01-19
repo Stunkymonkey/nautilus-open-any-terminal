@@ -25,10 +25,12 @@ try:
             require_version("Gtk", "4.0")
         except ValueError:
             require_version("Gtk", "3.0")
-        from gi.repository import Nautilus as FileManager
+        from gi.repository import Nautilus
+        FileManager = Nautilus
     elif (API_VERSION := get_required_version("Caja")) is not None:
         require_version("Gtk", "3.0")
-        from gi.repository import Caja as FileManager
+        from gi.repository import Caja
+        FileManager = Caja
     else:
         print(
             "nautilus-open-any-terminal: Warning - Could not detect file manager, trying fallback"
@@ -38,20 +40,18 @@ try:
         except ValueError:
             require_version("Gtk", "3.0")
         try:
-            from gi.repository import Nautilus as FileManager
-
+            from gi.repository import Nautilus
+            FileManager = Nautilus
             API_VERSION = "4.1"
         except ImportError:
             try:
-                from gi.repository import Caja as FileManager
-
+                from gi.repository import Caja
+                FileManager = Caja
                 API_VERSION = "3.0"
             except ImportError:
                 print("nautilus-open-any-terminal: ERROR - Could not import file manager. Extension disabled.")
-                FileManager = None
 except Exception as e:
     print(f"nautilus-open-any-terminal: ERROR during initialization: {e}")
-    FileManager = None
 
 from gi.repository import Gio, GLib, GObject, Gtk  # noqa: E402 pylint: disable=wrong-import-position
 
@@ -457,7 +457,7 @@ def set_terminal_args(*_args):
     print(f'open-any-terminal: terminal is set to "{terminal}" {new_tab_text} {flatpak_text}')
 
 
-if API_VERSION in ("4.0", "4.1"):
+if FileManager is not None and API_VERSION in ("4.0", "4.1"):
 
     class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.MenuProvider):
         """Provide keyboard shortcuts for opening terminals in Nautilus."""
@@ -526,7 +526,7 @@ if API_VERSION in ("4.0", "4.1"):
             normalized = Gtk.accelerator_name(key, mods)
             self.app.set_accels_for_action("app.open_any_terminal", [normalized])
 
-elif API_VERSION in ("3.0", "2.0"):
+elif FileManager is not None and API_VERSION in ("3.0", "2.0"):
 
     class OpenAnyTerminalShortcutProviderLegacy(GObject.GObject, FileManager.LocationWidgetProvider):
         """Provide keyboard shortcuts for opening terminals in Nautilus/Caja."""
@@ -568,81 +568,83 @@ elif API_VERSION in ("3.0", "2.0"):
             self._window = window
 
 
-class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
-    """Provide context menu items for opening terminals in Nautilus."""
+if FileManager is not None:
 
-    def __init__(self):
-        super().__init__()
-        self._gsettings = None
-        try:
-            gsettings_source = Gio.SettingsSchemaSource.get_default()
-            if gsettings_source and gsettings_source.lookup(GSETTINGS_PATH, True):
-                self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
-        except Exception as e:
-            print(
-                f"nautilus-open-any-terminal: Warning - Could not load GSettings: {e}"
-            )
+    class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
+        """Provide context menu items for opening terminals in Nautilus."""
 
-    def _get_terminal_name(self):
-        if self._gsettings and self._gsettings.get_boolean(GSETTINGS_USE_GENERIC_TERMINAL_NAME):
-            return _("Terminal")
-        return None
+        def __init__(self):
+            super().__init__()
+            self._gsettings = None
+            try:
+                gsettings_source = Gio.SettingsSchemaSource.get_default()
+                if gsettings_source and gsettings_source.lookup(GSETTINGS_PATH, True):
+                    self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
+            except Exception as e:
+                print(
+                    f"nautilus-open-any-terminal: Warning - Could not load GSettings: {e}"
+                )
 
-    def _menu_dir_activate_cb(self, menu, file_, remote: bool):
-        if remote:
-            open_remote_terminal_in_uri(file_.get_uri())
-        else:
-            if file_.get_uri_scheme() == "smb":
-                file_uri = "file://" + quote(file_.get_location().get_path())
+        def _get_terminal_name(self):
+            if self._gsettings and self._gsettings.get_boolean(GSETTINGS_USE_GENERIC_TERMINAL_NAME):
+                return _("Terminal")
+            return None
+
+        def _menu_dir_activate_cb(self, menu, file_, remote: bool):
+            if remote:
+                open_remote_terminal_in_uri(file_.get_uri())
             else:
-                file_uri = file_.get_uri()
-            open_local_terminal_in_uri(file_uri)
+                if file_.get_uri_scheme() == "smb":
+                    file_uri = "file://" + quote(file_.get_location().get_path())
+                else:
+                    file_uri = file_.get_uri()
+                open_local_terminal_in_uri(file_uri)
 
-    def _menu_exe_activate_cb(self, menu, file_, remote: bool):
-        if remote:
-            cmd = ssh_command_from_uri(file_.get_uri(), is_directory=False)
-        else:
-            result = urlparse(file_.get_uri())
-            file = unquote(result.path)
-
-            if result.scheme == "admin":
-                cmd = ["sudo", file]
-            elif terminal in ["xterm", "uxterm"]:
-                cmd = [f"exec {shlex.quote(file)}"]
+        def _menu_exe_activate_cb(self, menu, file_, remote: bool):
+            if remote:
+                cmd = ssh_command_from_uri(file_.get_uri(), is_directory=False)
             else:
-                cmd = [file]
-        run_command_in_terminal(cmd)
+                result = urlparse(file_.get_uri())
+                file = unquote(result.path)
 
-    def get_file_items(self, *args):
-        """Generates a list of menu items for a file or folder in the Nautilus file manager."""
-        # `args` will be `[files: List[Nautilus.FileInfo]]` in Nautilus 4.0 API,
-        # and `[window: Gtk.Widget, files: List[Nautilus.FileInfo]]` in Nautilus 3.0 API.
+                if result.scheme == "admin":
+                    cmd = ["sudo", file]
+                elif terminal in ["xterm", "uxterm"]:
+                    cmd = [f"exec {shlex.quote(file)}"]
+                else:
+                    cmd = [file]
+            run_command_in_terminal(cmd)
 
-        files = args[-1]
+        def get_file_items(self, *args):
+            """Generates a list of menu items for a file or folder in the Nautilus file manager."""
+            # `args` will be `[files: List[Nautilus.FileInfo]]` in Nautilus 4.0 API,
+            # and `[window: Gtk.Widget, files: List[Nautilus.FileInfo]]` in Nautilus 3.0 API.
 
-        if len(files) != 1:
+            files = args[-1]
+
+            if len(files) != 1:
+                return []
+            file_ = files[0]
+
+            if file_.is_directory():
+                return get_directory_menu_items(
+                    file_, self._menu_dir_activate_cb, foreground=True, terminal_name=self._get_terminal_name()
+                )
+
+            if is_executable(file_.get_location()):
+                return get_executable_menu_items(file_, self._menu_exe_activate_cb, terminal_name=self._get_terminal_name())
+
             return []
-        file_ = files[0]
 
-        if file_.is_directory():
+        def get_background_items(self, *args):
+            """Generates a list of background menu items for a file or folder in the Nautilus file manager."""
+            # `args` will be `[folder: Nautilus.FileInfo]` in Nautilus 4.0 API,
+            # and `[window: Gtk.Widget, file: Nautilus.FileInfo]` in Nautilus 3.0 API.
+
+            file_ = args[-1]
             return get_directory_menu_items(
-                file_, self._menu_dir_activate_cb, foreground=True, terminal_name=self._get_terminal_name()
+                file_, self._menu_dir_activate_cb, foreground=False, terminal_name=self._get_terminal_name()
             )
-
-        if is_executable(file_.get_location()):
-            return get_executable_menu_items(file_, self._menu_exe_activate_cb, terminal_name=self._get_terminal_name())
-
-        return []
-
-    def get_background_items(self, *args):
-        """Generates a list of background menu items for a file or folder in the Nautilus file manager."""
-        # `args` will be `[folder: Nautilus.FileInfo]` in Nautilus 4.0 API,
-        # and `[window: Gtk.Widget, file: Nautilus.FileInfo]` in Nautilus 3.0 API.
-
-        file_ = args[-1]
-        return get_directory_menu_items(
-            file_, self._menu_dir_activate_cb, foreground=False, terminal_name=self._get_terminal_name()
-        )
 
 
 _gsettings = None
@@ -653,11 +655,9 @@ try:
         _gsettings.connect("changed", set_terminal_args)
         set_terminal_args()
     else:
-        print(
-            f"nautilus-open-any-terminal: Warning - GSettings schema not found. Using default terminal."
-        )
+        print("nautilus-open-any-terminal: Warning - GSettings schema not found. Using default terminal.")
         terminal_cmd = ["gnome-terminal"]
 except Exception as e:
     print(f"nautilus-open-any-terminal: ERROR - Failed to initialize GSettings: {e}")
-    print(f"nautilus-open-any-terminal: Using default terminal: gnome-terminal")
+    print("nautilus-open-any-terminal: Using default terminal: gnome-terminal")
     terminal_cmd = ["gnome-terminal"]
