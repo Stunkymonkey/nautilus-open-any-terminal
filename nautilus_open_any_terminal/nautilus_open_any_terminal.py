@@ -312,7 +312,7 @@ def executable_menu_item_id(*, remote: bool):
 
 
 def get_directory_menu_items(
-    file: FileManager.FileInfo, callback, *, foreground: bool, terminal_name: str | None = None
+    file: FileManager.FileInfo, callback, *, foreground: bool, terminal_name: str | None = None  # type: ignore[name-defined]
 ):
     items = []
     remote = file.get_uri_scheme() in REMOTE_URI_SCHEME
@@ -365,7 +365,7 @@ def get_directory_menu_items(
     return items
 
 
-def get_executable_menu_items(file: FileManager.FileInfo, callback, *, terminal_name: str | None = None):
+def get_executable_menu_items(file: FileManager.FileInfo, callback, *, terminal_name: str | None = None):  # type: ignore[name-defined]
     items = []
     remote = file.get_uri_scheme() in REMOTE_URI_SCHEME
     terminal_name = terminal_name or terminal_data.name
@@ -459,7 +459,7 @@ def set_terminal_args(*_args):
 
 if FileManager is not None and API_VERSION in ("4.0", "4.1"):
 
-    class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.MenuProvider):
+    class OpenAnyTerminalShortcutProvider(GObject.GObject, FileManager.MenuProvider):  # type: ignore[name-defined]
         """Provide keyboard shortcuts for opening terminals in Nautilus."""
 
         def __init__(self):
@@ -471,7 +471,7 @@ if FileManager is not None and API_VERSION in ("4.0", "4.1"):
                 self._gsettings = Gio.Settings.new(GSETTINGS_PATH)
                 self._setup_keybindings()
 
-        def get_background_items(self, current_folder: FileManager.FileInfo):
+        def get_background_items(self, current_folder: FileManager.FileInfo):  # type: ignore[name-defined]
             """Update current URI when folder changes."""
             if current_folder:
                 if current_folder.get_uri_scheme() in REMOTE_URI_SCHEME:
@@ -528,7 +528,7 @@ if FileManager is not None and API_VERSION in ("4.0", "4.1"):
 
 elif FileManager is not None and API_VERSION in ("3.0", "2.0"):
 
-    class OpenAnyTerminalShortcutProviderLegacy(GObject.GObject, FileManager.LocationWidgetProvider):
+    class OpenAnyTerminalShortcutProviderLegacy(GObject.GObject, FileManager.LocationWidgetProvider):  # type: ignore[name-defined]
         """Provide keyboard shortcuts for opening terminals in Nautilus/Caja."""
 
         def __init__(self):
@@ -570,7 +570,7 @@ elif FileManager is not None and API_VERSION in ("3.0", "2.0"):
 
 if FileManager is not None:
 
-    class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
+    class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):  # type: ignore[name-defined]
         """Provide context menu items for opening terminals in Nautilus."""
 
         def __init__(self):
