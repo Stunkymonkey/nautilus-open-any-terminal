@@ -79,6 +79,7 @@ TERMINALS = {
         workdir_arguments=["--working-directory"],
         flatpak_package="org.contourterminal.Contour",
     ),
+    "cosmic-term": Terminal("COSMIC Terminal"),
     "deepin-terminal": Terminal("Deepin Terminal"),
     "ddterm": Terminal(
         "Drop down Terminal extension",
