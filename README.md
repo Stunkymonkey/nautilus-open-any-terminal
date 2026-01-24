@@ -21,6 +21,7 @@ The following terminal emulators are fully supported. PRs for other terminals ar
 - `bobcat`
 - `cool-retro-term`
 - `contour`
+- `cosmic-term`
 - `deepin-terminal`
 - `ddterm`
 - `foot`/`footclient`
