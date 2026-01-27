@@ -213,6 +213,9 @@ def run_command_in_terminal(command: list[str], *, cwd: str | None = None):
         cmd = parse_custom_command(custom_remote_command, command)
     else:
         cmd = terminal_cmd.copy()
+        # Remove '--new-window' argument for Ptyxis remote sessions (fixes window size reset)
+        if terminal == "ptyxis" and (command and command[0] == "ssh"):
+            del cmd[1]
         if cwd and terminal_data.workdir_arguments:
             cmd.extend(terminal_data.workdir_arguments)
             cmd.append(cwd)
@@ -252,7 +255,17 @@ def open_remote_terminal_in_uri(uri: str):
 def open_local_terminal_in_uri(uri: str):
     """open the new terminal with correct path"""
     result = urlparse(uri)
-    filename = unquote(result.path)
+
+    # For remote URIs (sftp/ftp), get the GVFS mount path instead of parsing the URI
+    if result.scheme in REMOTE_URI_SCHEME:
+        gfile = Gio.File.new_for_uri(uri)
+        filename = gfile.get_path()
+        if not filename:
+            print(f"open-any-terminal: Could not get local path for {uri}")
+            return
+    else:
+        filename = unquote(result.path)
+
     if result.scheme == "admin":
         run_command_in_terminal(["sudo", "-s"], cwd=filename)
         return
