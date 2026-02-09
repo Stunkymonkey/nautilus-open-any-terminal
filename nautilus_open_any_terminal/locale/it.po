@@ -19,19 +19,19 @@ msgstr "Terminale"
 
 #: nautilus_open_any_terminal.py:291
 msgid "Open in Remote {}"
-msgstr "Apri nel {} remoto"
+msgstr "Apri in {} remoto"
 
 #: nautilus_open_any_terminal.py:292
 msgid "Open Remote {} in {}"
-msgstr "Apri {} remoto nel {}"
+msgstr "Apri {} remoto in {}"
 
 #: nautilus_open_any_terminal.py:293
 msgid "Open in Local {}"
-msgstr "Apri nel {} locale"
+msgstr "Apri in {} locale"
 
 #: nautilus_open_any_terminal.py:294
 msgid "Open Local {} in {}"
-msgstr "Apri {} locale nel {}"
+msgstr "Apri {} locale in {}"
 
 #: nautilus_open_any_terminal.py:297
 msgid "Open Remote {} Here"
@@ -51,11 +51,11 @@ msgstr "Apri {} locale in questa cartella"
 
 #: nautilus_open_any_terminal.py:311
 msgid "Open in {}"
-msgstr "Apri nel {}"
+msgstr "Apri in {}"
 
 #: nautilus_open_any_terminal.py:312
 msgid "Open {} in {}"
-msgstr "Apri {} nel {}"
+msgstr "Apri {} in {}"
 
 #: nautilus_open_any_terminal.py:314
 msgid "Open {} Here"
@@ -67,24 +67,25 @@ msgstr "Apri {} in questa cartella"
 
 #: nautilus_open_any_terminal.py:342
 msgid "Execute in Remote {}"
-msgstr "Esegui nel {} remoto"
+msgstr "Esegui in {} remoto"
 
 #: nautilus_open_any_terminal.py:343
 msgid "Execute {} in {} via SSH"
-msgstr "Esegui {} nel {} tramite SSH"
+msgstr "Esegui {} in {} via SSH"
 
 #: nautilus_open_any_terminal.py:344
 msgid "Execute in Local {}"
-msgstr "Esegui nel {} locale"
+msgstr "Esegui in {} locale"
 
 #: nautilus_open_any_terminal.py:345
 msgid "Execute {} in Local {}"
-msgstr "Esegui {} nel {} locale"
+msgstr "Esegui {} in {} locale"
 
 #: nautilus_open_any_terminal.py:356
 msgid "Execute in {}"
-msgstr "Esegui nel {}"
+msgstr "Esegui in {}"
 
 #: nautilus_open_any_terminal.py:357
 msgid "Execute {} in {}"
-msgstr "Esegui {} nel {}"
+msgstr "Esegui {} in {}"
+
