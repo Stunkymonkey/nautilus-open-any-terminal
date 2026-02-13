@@ -34,3 +34,4 @@ jobs:
           PYTHON_ISORT_CONFIG_FILE: pyproject.toml
           PYTHON_MYPY_CONFIG_FILE: pyproject.toml
           PYTHON_PYLINT_CONFIG_FILE: pyproject.toml
+          SPELL_CODESPELL_CONFIG_FILE: .github/linters/codespellrc
