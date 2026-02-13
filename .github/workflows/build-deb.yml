@@ -122,7 +122,7 @@ jobs:
 
       - name: Upload to GitHub Release
         if: github.event_name == 'release'
-        uses: softprops/action-gh-release@c062e08bd532815e2082a85e87e3ef29c3e6d191 # v2.0.8
+        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
         with:
           files: |
             ${{ steps.rename.outputs.NAUTILUS_PATH }}
