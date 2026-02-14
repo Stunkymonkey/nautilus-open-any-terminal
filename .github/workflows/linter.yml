@@ -35,3 +35,4 @@ jobs:
           PYTHON_MYPY_CONFIG_FILE: pyproject.toml
           PYTHON_PYLINT_CONFIG_FILE: pyproject.toml
           SPELL_CODESPELL_CONFIG_FILE: .github/linters/codespellrc
+          VALIDATE_JSON_PRETTIER: false
