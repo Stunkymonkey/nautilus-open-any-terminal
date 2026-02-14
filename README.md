@@ -160,6 +160,8 @@ or for (user-wide) installation:
 glib-compile-schemas ~/.local/share/glib-2.0/schemas/
 ```
 
+**Note for Flatpak dconf-editor users:** If you're using the Flatpak version of dconf-editor, you need to install the schema system-wide (to `/usr/share/glib-2.0/schemas/`) for it to be visible in the GUI. Flatpak applications cannot access schemas in `~/.local/`. Use `sudo make install schema` for system-wide installation.
+
 ### via dconf-editor
 
 ![dconf-editor](dconf.png)
