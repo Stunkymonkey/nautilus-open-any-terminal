@@ -25,7 +25,7 @@
       <default>""</default>
       <summary>Command that opens a local terminal if terminal is set to "custom"</summary>
       <description>
-        Every occurence of "%s" in the command will be replaced with the path where the terminal should be opened.
+        Every occurrence of "%s" in the command will be replaced with the path where the terminal should be opened.
         Any number of "%s" in the command are valid, including 0.
       </description>
     </key>
@@ -33,7 +33,7 @@
       <default>""</default>
       <summary>Command that opens a remote terminal if terminal is set to "custom"</summary>
       <description>
-        Every occurence of "%s" in the command will be replaced with an ssh command that connects to the remote server.
+        Every occurrence of "%s" in the command will be replaced with an ssh command that connects to the remote server.
         There should be at least 1 "%s" in the command.
       </description>
     </key>
