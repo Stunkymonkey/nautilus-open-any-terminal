@@ -209,6 +209,14 @@ def parse_custom_command(command: str, data: str | list[str]) -> list[str]:
     return shlex.split(command.replace("%s", shlex.join(data)))
 
 
+def _append_workdir_args(cmd: list[str], path: str, data: Terminal) -> None:
+    if data.workdir_value_inline:
+        cmd.extend(f"{arg}={path}" for arg in data.workdir_arguments)
+    else:
+        cmd.extend(data.workdir_arguments)
+        cmd.append(path)
+
+
 def run_command_in_terminal(command: list[str], *, cwd: str | None = None):
     if terminal == "custom":
         cmd = parse_custom_command(custom_remote_command, command)
@@ -218,11 +226,7 @@ def run_command_in_terminal(command: list[str], *, cwd: str | None = None):
         if terminal == "ptyxis" and (command and command[0] == "ssh"):
             del cmd[1]
         if cwd and terminal_data.workdir_arguments:
-            if terminal_data.workdir_value_inline:
-                cmd.extend(f"{arg}={cwd}" for arg in terminal_data.workdir_arguments)
-            else:
-                cmd.extend(terminal_data.workdir_arguments)
-                cmd.append(cwd)
+            _append_workdir_args(cmd, cwd, terminal_data)
         cmd.extend(terminal_data.command_arguments)
         cmd.extend(command)
 
@@ -285,11 +289,7 @@ def open_local_terminal_in_uri(uri: str):
     if terminal == "custom":
         cmd = parse_custom_command(custom_local_command, filename)
     elif filename and terminal_data.workdir_arguments:
-        if terminal_data.workdir_value_inline:
-            cmd.extend(f"{arg}={filename}" for arg in terminal_data.workdir_arguments)
-        else:
-            cmd.extend(terminal_data.workdir_arguments)
-            cmd.append(filename)
+        _append_workdir_args(cmd, filename, terminal_data)
 
     Popen(cmd, cwd=filename)  # pylint: disable=consider-using-with
 
