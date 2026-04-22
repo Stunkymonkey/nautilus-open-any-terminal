@@ -122,8 +122,13 @@ jobs:
 
       - name: Upload to GitHub Release
         if: github.event_name == 'release'
-        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3.0.0
-        with:
-          files: |
-            ${{ steps.rename.outputs.NAUTILUS_PATH }}
-            ${{ steps.rename.outputs.CAJA_PATH }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: ${{ github.event.release.tag_name }}
+          NAUTILUS_PATH: ${{ steps.rename.outputs.NAUTILUS_PATH }}
+          CAJA_PATH: ${{ steps.rename.outputs.CAJA_PATH }}
+        run: |
+          gh release create "$TAG_NAME" \
+            "$NAUTILUS_PATH" \
+            "$CAJA_PATH" \
+            --clobber
