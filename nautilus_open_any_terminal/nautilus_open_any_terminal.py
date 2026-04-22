@@ -210,6 +210,8 @@ def parse_custom_command(command: str, data: str | list[str]) -> list[str]:
 
 
 def _append_workdir_args(cmd: list[str], path: str, data: Terminal) -> None:
+    if not data.workdir_arguments:
+        return
     if data.workdir_value_inline:
         cmd.extend(f"{arg}={path}" for arg in data.workdir_arguments)
     else:
