@@ -37,6 +37,7 @@ class Terminal:
 
     name: str
     workdir_arguments: Optional[list[str]] = None
+    workdir_value_inline: bool = False
     new_tab_arguments: Optional[list[str]] = None
     new_window_arguments: Optional[list[str]] = None
     command_arguments: list[str] = field(default_factory=lambda: ["-e"])
@@ -88,7 +89,7 @@ TERMINALS = {
     ),
     "foot": Terminal("Foot"),
     "footclient": Terminal("FootClient"),
-    "ghostty": Terminal("Ghostty"),
+    "ghostty": Terminal("Ghostty", workdir_arguments=["--working-directory"], workdir_value_inline=True),
     "gnome-terminal": Terminal("Terminal", new_tab_arguments=["--tab"], command_arguments=["--"]),
     "guake": Terminal("Guake", workdir_arguments=["--show", "--new-tab"]),
     "kermit": Terminal("Kermit"),
@@ -208,6 +209,16 @@ def parse_custom_command(command: str, data: str | list[str]) -> list[str]:
     return shlex.split(command.replace("%s", shlex.join(data)))
 
 
+def _append_workdir_args(cmd: list[str], path: str, data: Terminal) -> None:
+    if not data.workdir_arguments:
+        return
+    if data.workdir_value_inline:
+        cmd.extend(f"{arg}={path}" for arg in data.workdir_arguments)
+    else:
+        cmd.extend(data.workdir_arguments)
+        cmd.append(path)
+
+
 def run_command_in_terminal(command: list[str], *, cwd: str | None = None):
     if terminal == "custom":
         cmd = parse_custom_command(custom_remote_command, command)
@@ -217,8 +228,7 @@ def run_command_in_terminal(command: list[str], *, cwd: str | None = None):
         if terminal == "ptyxis" and (command and command[0] == "ssh"):
             del cmd[1]
         if cwd and terminal_data.workdir_arguments:
-            cmd.extend(terminal_data.workdir_arguments)
-            cmd.append(cwd)
+            _append_workdir_args(cmd, cwd, terminal_data)
         cmd.extend(terminal_data.command_arguments)
         cmd.extend(command)
 
@@ -281,8 +291,7 @@ def open_local_terminal_in_uri(uri: str):
     if terminal == "custom":
         cmd = parse_custom_command(custom_local_command, filename)
     elif filename and terminal_data.workdir_arguments:
-        cmd.extend(terminal_data.workdir_arguments)
-        cmd.append(filename)
+        _append_workdir_args(cmd, filename, terminal_data)
 
     Popen(cmd, cwd=filename)  # pylint: disable=consider-using-with
 

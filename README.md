@@ -25,7 +25,7 @@ The following terminal emulators are fully supported. PRs for other terminals ar
 - `deepin-terminal`
 - `ddterm`
 - `foot`/`footclient`
-- `ghostty`
+- `ghostty` (requires `gtk-single-instance = false` in the Ghostty config, otherwise the working directory flag is ignored by a running instance)
 - `gnome-terminal`
 - `guake`
 - `kermit`
