@@ -579,7 +579,7 @@ class OpenAnyTerminalExtension(GObject.GObject, FileManager.MenuProvider):
         if remote:
             open_remote_terminal_in_uri(file_.get_uri())
         else:
-            if file_.get_uri_scheme() == "smb":
+            if file_.get_uri_scheme() not in {"file","localtest"}:
                 file_uri = "file://" + quote(file_.get_location().get_path())
             else:
                 file_uri = file_.get_uri()
