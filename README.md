@@ -166,11 +166,13 @@ glib-compile-schemas ~/.local/share/glib-2.0/schemas/
 
 ### via command-line
 
+Each setting can be changed independently. Adjust the values to your liking:
+
 ```bash
-gsettings set com.github.stunkymonkey.nautilus-open-any-terminal terminal alacritty
-gsettings set com.github.stunkymonkey.nautilus-open-any-terminal keybindings '<Ctrl><Alt>t'
-gsettings set com.github.stunkymonkey.nautilus-open-any-terminal new-tab true
-gsettings set com.github.stunkymonkey.nautilus-open-any-terminal flatpak system
+gsettings set com.github.stunkymonkey.nautilus-open-any-terminal terminal alacritty         # your terminal app, e.g. terminator, gnome-terminal, kitty
+gsettings set com.github.stunkymonkey.nautilus-open-any-terminal keybindings '<Ctrl><Alt>t' # GTK accelerator syntax; keep the angle brackets literal
+gsettings set com.github.stunkymonkey.nautilus-open-any-terminal new-tab true               # true or false
+gsettings set com.github.stunkymonkey.nautilus-open-any-terminal flatpak system             # system, none, or the flatpak app id
 ```
 
 ## Uninstall
