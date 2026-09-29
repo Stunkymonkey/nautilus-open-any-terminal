@@ -17,7 +17,7 @@
       <description></description>
     </key>
     <key name="terminal" type="s">
-      <default>'gnome-terminal'</default>
+      <default>'ptyxis'</default>
       <summary>Terminal used in Nautilus for Open Here extension</summary>
       <description></description>
     </key>

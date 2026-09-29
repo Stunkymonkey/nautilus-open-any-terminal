@@ -150,9 +150,9 @@ TERMINALS = {
 
 FLATPAK_PARMS = ["off", "system", "user"]
 
-terminal = "gnome-terminal"
+terminal = "ptyxis"
 terminal_cmd: list[str] = None  # type: ignore
-terminal_data: Terminal = TERMINALS["gnome-terminal"]
+terminal_data: Terminal = TERMINALS["ptyxis"]
 new_tab = False
 flatpak = FLATPAK_PARMS[0]
 custom_local_command: str
