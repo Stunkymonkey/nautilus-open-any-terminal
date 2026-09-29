@@ -9,7 +9,6 @@ from dataclasses import dataclass, field
 from functools import cache
 from gettext import gettext, translation
 from os.path import expanduser
-from shutil import which
 from subprocess import Popen
 from typing import Optional
 from urllib.parse import quote, unquote, urlparse
@@ -151,9 +150,6 @@ TERMINALS = {
 
 FLATPAK_PARMS = ["off", "system", "user"]
 
-# terminals tried in order when the terminal setting is left at its default and that terminal is not installed
-DEFAULT_TERMINAL_FALLBACKS = ["ptyxis", "gnome-terminal", "kgx"]
-
 terminal = "ptyxis"
 terminal_cmd: list[str] = None  # type: ignore
 terminal_data: Terminal = TERMINALS["ptyxis"]
@@ -208,17 +204,6 @@ def distro_id() -> set[str]:
     if id_like := os_release.get("ID_LIKE"):
         ids.extend(id_like.split(" "))
     return set(ids)
-
-
-def detect_default_terminal(default: str) -> str:
-    """return the default terminal if installed, otherwise the first installed fallback"""
-    if which(default):
-        return default
-    for candidate in DEFAULT_TERMINAL_FALLBACKS:
-        if which(candidate):
-            print(f'open-any-terminal: default terminal "{default}" not found, falling back to "{candidate}"')
-            return candidate
-    return default
 
 
 def parse_custom_command(command: str, data: str | list[str]) -> list[str]:
@@ -432,8 +417,6 @@ def set_terminal_args(*_args):
     value = _gsettings.get_string(GSETTINGS_TERMINAL)
     newer_tab = _gsettings.get_boolean(GSETTINGS_NEW_TAB)
     flatpak = FLATPAK_PARMS[_gsettings.get_enum(GSETTINGS_FLATPAK)]
-    if _gsettings.get_user_value(GSETTINGS_TERMINAL) is None and flatpak == FLATPAK_PARMS[0]:
-        value = detect_default_terminal(value)
     new_terminal_data = TERMINALS.get(value)
     if not new_terminal_data:
         print(f'open-any-terminal: unknown terminal "{value}"')
