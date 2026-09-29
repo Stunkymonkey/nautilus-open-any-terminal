@@ -17,9 +17,11 @@
       <description></description>
     </key>
     <key name="terminal" type="s">
-      <default>'gnome-terminal'</default>
+      <default>'ptyxis'</default>
       <summary>Terminal used in Nautilus for Open Here extension</summary>
-      <description></description>
+      <description>
+        If left at its default and ptyxis is not installed, the first installed of ptyxis, gnome-terminal or kgx is used.
+      </description>
     </key>
     <key name="custom-local-command" type="s">
       <default>""</default>
