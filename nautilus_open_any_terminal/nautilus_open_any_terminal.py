@@ -255,7 +255,9 @@ def ssh_command_from_uri(uri: str, *, is_directory: bool):
 
     target = shlex.quote(unquote(result.path))
     if is_directory:
-        cmd.extend(["cd", target, ";", "exec", "${SHELL:-/bin/sh}", "-l"])
+        # wrap in `sh -c` so non-POSIX login shells (fish, nushell, ...) only parse a quoted string
+        inner = f'cd {target}; exec "${{SHELL:-/bin/sh}}" -l'
+        cmd.extend(["sh", "-c", shlex.quote(inner)])
     else:
         cmd.extend(["exec", target])
 
