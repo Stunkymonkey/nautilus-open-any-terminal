@@ -6,7 +6,7 @@ authors = [
     {name = "Felix Buehler", email = "account@buehler.rocks"},
 ]
 dependencies = []
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 readme = "README.md"
 license = {file = "LICENSE"}
 keywords = [ "nautilus", "extension", "terminal", "gnome"]
